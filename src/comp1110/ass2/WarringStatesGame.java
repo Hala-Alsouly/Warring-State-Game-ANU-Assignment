@@ -1,5 +1,7 @@
 package comp1110.ass2;
 
+import java.util.ArrayList;
+
 /**
  * This class provides the text interface for the Warring States game
  */
@@ -17,6 +19,23 @@ public class WarringStatesGame {
      */
     static boolean isCardPlacementWellFormed(String cardPlacement) {
         // FIXME Task 2: determine whether a card placement is well-formed
+        if (cardPlacement.length() != 3){
+            return false;
+        }
+        char[] source = cardPlacement.toCharArray();
+        char char0 = source[0];
+        int code0 = (int) char0;
+        char char1 = source[1];
+        int code1 = (int) char1;
+        char char2 = source[2];
+        int code2 = (int) char2;
+        if ((code0 >= 97 && code0 <= 103) || code0 == 122) {
+            if ((code1 >= 48 && code1 <= 55) || code1 == 57) {
+                if ((code2 >= 65 && code2 <= 90) || (code2 >= 48 && code2 <= 57)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -32,7 +51,34 @@ public class WarringStatesGame {
      */
     static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
-        return false;
+        ArrayList<String> arrayListID = new ArrayList<>();
+        ArrayList<Character> arrayListPos = new ArrayList<>();
+        if(placement == null || placement.isEmpty()){
+            return false;
+        }
+        else if (placement.length() % 3 != 0) {
+            return false;
+        }
+        else if (placement.length() % 3 == 0) {
+            for (int i = 0; i < placement.length(); i += 3) {
+                String card = placement.substring(i, i + 3);
+                if (!isCardPlacementWellFormed(card)) {
+                    return false;
+                }
+                String id = card.substring(0, 2);
+                if (arrayListID.contains(id)) {
+                    return false;
+                }
+                arrayListID.add(id);
+                char pos = card.charAt(2);
+                if(arrayListPos.contains(pos)){
+                    return false;
+                }
+                arrayListPos.add(pos);
+            }
+
+        }
+        return true;
     }
 
     /**
@@ -41,8 +87,9 @@ public class WarringStatesGame {
      * - there is a card at the chosen location;
      * - the location is in the same row or column of the grid as Zhang Yi's current position; and
      * - drawing a line from Zhang Yi's current location through the card at the chosen location,
-     *   there are no other cards along the line from the same kingdom as the chosen card
-     *   that are further away from Zhang Yi.
+     * there are no other cards along the line from the same kingdom as the chosen card
+     * that are further away from Zhang Yi.
+     *
      * @param placement    the current placement string
      * @param locationChar a location for Zhang Yi to move to
      * @return true if Zhang Yi may move to that location
@@ -118,6 +165,7 @@ public class WarringStatesGame {
      * there are no other cards along the line from the same kingdom as the chosen card
      * that are further away from Zhang Yi.
      * If there is no legal move available, return the null character '\0'.
+     *
      * @param placement the current placement string
      * @return a location character representing Zhang Yi's destination for the move
      */
@@ -125,4 +173,5 @@ public class WarringStatesGame {
         // FIXME Task 10: generate a legal move
         return '\0';
     }
+
 }
