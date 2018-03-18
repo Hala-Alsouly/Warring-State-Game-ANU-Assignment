@@ -1,0 +1,41 @@
+//I am Hala, That is my suggistion of some clases and methods. May need to add or edit later
+public class Cards{
+//create 36 card placement
+    private String []cards= new String[36];
+    private int x;
+    for (int i=0;i<8;i++){
+        cards[i]="a"+i;
+    }
+    x=8;
+    for ( i=0;i<7;i++){
+        cards[x]="b"+i;
+        x++;
+    }
+    for ( i=0;i<6;i++){
+        cards[x]="c"+i;
+        x++;
+    }
+    for ( i=0;i<5;i++){
+        cards[x]="d"+i;
+        x++;
+    }
+    for ( i=0;i<4;i++){
+        cards[x]="e"+i;
+        x++;
+    }
+    for ( i=0;i<3;i++){
+        cards[x]="f"+i;
+        x++;
+    }
+    for ( i=0;i<2;i++){
+        cards[x]="g"+i;
+        x++;
+    }
+    cards[x]="z9";
+    public Cards shuffleCards (Cards c){
+        //to shuffle the cards in the beginning of the game
+        private Cards shuffeldCards;
+        // shufle
+        return shuffeldCards;
+    }
+}
