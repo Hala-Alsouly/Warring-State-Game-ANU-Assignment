@@ -1,6 +1,7 @@
 package comp1110.ass2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class provides the text interface for the Warring States game
@@ -19,7 +20,7 @@ public class WarringStatesGame {
      */
     static boolean isCardPlacementWellFormed(String cardPlacement) {
         // FIXME Task 2: determine whether a card placement is well-formed
-        if (cardPlacement.length() != 3){
+        if (cardPlacement.length() != 3) {
             return false;
         }
         char[] source = cardPlacement.toCharArray();
@@ -53,25 +54,25 @@ public class WarringStatesGame {
         // FIXME Task 3: determine whether a placement is well-formed
         ArrayList<String> arrayListID = new ArrayList<>();
         ArrayList<Character> arrayListPos = new ArrayList<>();
-        if(placement == null || placement.isEmpty()){
+        if (placement == null || placement.isEmpty()) {
             return false;
-        }
-        else if (placement.length() % 3 != 0) {
+        } else if (placement.length() % 3 != 0) {
             return false;
-        }
-        else if (placement.length() % 3 == 0) {
+        } else if (placement.length() % 3 == 0) {
             for (int i = 0; i < placement.length(); i += 3) {
                 String card = placement.substring(i, i + 3);
                 if (!isCardPlacementWellFormed(card)) {
                     return false;
                 }
+
                 String id = card.substring(0, 2);
                 if (arrayListID.contains(id)) {
                     return false;
                 }
                 arrayListID.add(id);
+
                 char pos = card.charAt(2);
-                if(arrayListPos.contains(pos)){
+                if (arrayListPos.contains(pos)) {
                     return false;
                 }
                 arrayListPos.add(pos);
@@ -96,6 +97,21 @@ public class WarringStatesGame {
      */
     public static boolean isMoveLegal(String placement, char locationChar) {
         // FIXME Task 5: determine whether a given move is legal
+        int code = (int) locationChar;
+        if (!((code >= 65 && code <= 90) || (code >= 48 && code <= 57))) {
+            return false;
+        }
+
+        for (int i = 0; i < placement.length(); i += 3) {
+            String card = placement.substring(i, i + 3);
+            char pos = card.charAt(2);
+
+            if (pos == locationChar) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         return false;
     }
 
