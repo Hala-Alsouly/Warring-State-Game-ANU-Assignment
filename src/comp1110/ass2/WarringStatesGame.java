@@ -156,6 +156,7 @@ public class WarringStatesGame {
      */
     public static boolean isMoveLegal(String placement, char locationChar) {
         // FIXME Task 5: determine whether a given move is legal
+        //chosen location char
         int code = (int) locationChar;
         if (!((code >= 65 && code <= 90) || (code >= 48 && code <= 57))) {
             return false;
@@ -164,7 +165,7 @@ public class WarringStatesGame {
         for (int i = 0; i < placement.length(); i += 3) {
             String card = placement.substring(i, i + 3);
             char pos = card.charAt(2);
-            //there is a card at the chosen location
+            //if there is a card at the chosen location
             if (pos != locationChar) {
                 return false;
             } else {
