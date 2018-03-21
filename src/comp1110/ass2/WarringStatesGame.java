@@ -82,26 +82,6 @@ public class WarringStatesGame {
         return true;
     }
 
-    /*
-    method-- quickIndex
-    create 6*6 array to save positions in board
-    -- can help us search the index of row or column quickly
-    */
-    public static String quickIndex(char position) {
-     char[][] sixSix = new char[6][6];
-     char location = 'A';
-     // A-X
-     for(int j=0;j<4;j++){
-           for(int i=0;i<6;i++){
-               sixSix[i][j]=location;
-               location=+1;
-           }
-       }
-     // Y,Z,0-9
-
-    }
-
-
     //method -- find Zhang Yi's current position
     //if find Zhang Yi, return his current position(char), else return'F'
     public static char zyCurrentPos(String placement) {
@@ -117,6 +97,49 @@ public class WarringStatesGame {
         return 'F';
     }
     // method must have return statement
+    /*
+    method-- quickIndex
+    create 6*6 array to save positions in board
+    -- can help us search the index of row or column quickly
+    */
+    public static int quickIndex(char zyPosition) {
+     char[][] sixSix = new char[6][6];
+     char location = 'A';
+     //put board's locations into a 6*6 array
+     // A-X
+     for(int j=0;j<4;j++){
+           for(int i=0;i<6;i++){
+               sixSix[i][j]=location;
+               location=+1;
+           }
+       }
+       //Y,Z, 0-9
+       location = '0';
+        for(int j=4;j<6;j++){
+         for(int i=0;i<6;i++){
+             if(i==1&&j==4){
+                 sixSix[i][j]='Y';
+             }
+             if(i==2&&j==4){
+                 sixSix[i][j]='Z';
+             }else {
+                 sixSix[i][j]=location;
+                 location=+1;
+             }
+         }
+     }
+     //if Zhang Yi's current position in the board, return its row + column
+     for(int i=0;i<6;i++){
+            for(int j=0;j<6;j++){
+                if (sixSix[i][j]==zyPosition){
+                    int index = i+j;
+                    return index;
+                }
+            }
+     }
+     //if the Zhang Yi's current position not in the board, return 0 - means false
+     return 0;
+    }
 
     /**
      * Determine whether a given move is legal given a provided valid placement:
