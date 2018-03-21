@@ -35,7 +35,23 @@ public class Cards{
     public Cards shuffleCards (Cards c){
         //to shuffle the cards in the beginning of the game
         private Cards shuffeldCards;
-        // shufle
+        // shuffle
         return shuffeldCards;
     }
 }
+
+
+
+1. class: Player
+
+number of players (2-4);
+set up names & icon ;
+turn;
+records (roll to next round);
+
+
+2. method: System configuration
+
+restart/shuffle
+
+3. JavaFx
