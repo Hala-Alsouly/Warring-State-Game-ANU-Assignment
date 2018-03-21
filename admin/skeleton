@@ -39,3 +39,7 @@ public class Cards{
         return shuffeldCards;
     }
 }
+//Cassie
+3.new method quickIndex: create 6*6 array to save positions in board
+                -- can help us search the index of row or column quickly
+4.new method zyCurrentPos: find Zhang Yi's current position

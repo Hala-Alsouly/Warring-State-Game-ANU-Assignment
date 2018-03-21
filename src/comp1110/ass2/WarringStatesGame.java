@@ -82,6 +82,42 @@ public class WarringStatesGame {
         return true;
     }
 
+    /*
+    method-- quickIndex
+    create 6*6 array to save positions in board
+    -- can help us search the index of row or column quickly
+    */
+    public static String quickIndex(char position) {
+     char[][] sixSix = new char[6][6];
+     char location = 'A';
+     // A-X
+     for(int j=0;j<4;j++){
+           for(int i=0;i<6;i++){
+               sixSix[i][j]=location;
+               location=+1;
+           }
+       }
+     // Y,Z,0-9
+
+    }
+
+
+    //method -- find Zhang Yi's current position
+    //if find Zhang Yi, return his current position(char), else return'F'
+    public static char zyCurrentPos(String placement) {
+        char[] placementChar = placement.toCharArray();
+        for (int i = 0; i < placement.length(); i += 3) {
+            String card = placement.substring(i, i + 3);
+            char firstChar = card.charAt(1);
+            char thirdChar = card.charAt(3);
+            if (firstChar == 'z') {
+                return thirdChar;
+            }
+        }
+        return 'F';
+    }
+    // method must have return statement
+
     /**
      * Determine whether a given move is legal given a provided valid placement:
      * - the location char is in the range A .. Z or 0..9
@@ -105,11 +141,11 @@ public class WarringStatesGame {
         for (int i = 0; i < placement.length(); i += 3) {
             String card = placement.substring(i, i + 3);
             char pos = card.charAt(2);
-
-            if (pos == locationChar) {
-                return true;
-            } else {
+            //there is a card at the chosen location
+            if (pos != locationChar) {
                 return false;
+            } else {
+
             }
         }
         return false;
