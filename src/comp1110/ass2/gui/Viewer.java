@@ -43,13 +43,14 @@ public class Viewer extends Application {
     void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
         board.getChildren().clear();
-        int cardXpos = 510;
-        int cardYpos = 10;
+        int cardXpos;
+        int cardYpos;
+         /* //Draw all shuffled cards
         Placement p= new Placement();
         String sc= "";
         p.setPlacement();
         sc=p.ShuffleCards();
-        placement= sc;
+        placement= sc;*/
 
 
         for (int i = 0; i < placement.length(); i=i+3) {
@@ -355,7 +356,7 @@ public class Viewer extends Application {
 
     //drow the cards on it is right position on the board
     private void drowCard(char king, char c,int cardXpos, int cardYpos){
-        String k="";
+        String k;
         switch (king){
             case 'a':
                 k="秦";
