@@ -129,7 +129,7 @@ public class WarringStatesGame {
                 }
             }
         }
-        //if the Zhang Yi's current position or location not in coordinate, return 0 - means false
+        //if the Zhang Yi's current position or location not in coordinate, return -1
         return -1;
     }
 
@@ -142,14 +142,15 @@ public class WarringStatesGame {
         int zyRC = quickIndex(zyPos);
         int zyRow = zyRC / 10;
         int zyColumn = zyRC % 10;
-
+        //zy and card not in same line, return false
         if (cardRow != zyRow && cardColumn != zyColumn){
             return false;
         }
+        //zy still stay at the origin, return false
         if (cardRow == zyRow && cardColumn == zyColumn)
             return false;
 
-        // exist another card , has same kingdom with card in location
+        // exist another card , has same kingdom with card in location, collect them
         //char furPos = ' ';
         char[] cards = new char[8];
         for (int i = 0,k=0; i < placement.length(); i += 3) {
@@ -163,11 +164,13 @@ public class WarringStatesGame {
             }*/
             //int furCardRow = furCardRC / 10;
             //int furCardColumn = furCardRC % 10;
+
+            // if card & another card in same kingdom
             if ((furKingdom == cardKingdom))
             //&& ((furCardRow == cardRow && cardRow == zyRow) || (furCardColumn == cardColumn) && (cardColumn == zyColumn)))
             {
-                // card & another card in same kingdom, and in same row or in same column
-                if (furSecond != cardSecond) { // card & another card are not same card
+                //if  card & another card are not same card
+                if (furSecond != cardSecond) {
                     cards[k] = card.charAt(2); // collect another card's position
                     k++;
                     //furPos = card.charAt(2);
@@ -203,7 +206,7 @@ public class WarringStatesGame {
             }
         }*/
 
-        //same kingdom another card whether is further
+        //another card in same kingdom whether is further
         for (int k =0;k<cards.length;k++) {
             if (cards[k] != 0) {
                 int furCardRC = quickIndex(cards[k]);
@@ -212,17 +215,20 @@ public class WarringStatesGame {
                 }*/
                 int furCardRow = furCardRC / 10;
                 int furCardColumn = furCardRC % 10;
+
+                //if three cards in the same row
                 if ((cardRow == zyRow) && (furCardRow == cardRow)) {
                     if (((furCardColumn - zyColumn) * (cardColumn - zyColumn) > 0)) {
                         if (Math.abs(furCardColumn - zyColumn) > Math.abs(cardColumn - zyColumn)) {
                             return false;
-                        }// find further card in same row
+                        }// find further card in same row, return false
                     }
                 }
+                //if three cards in same column
                 if ((cardColumn == zyColumn) && (furCardColumn == cardColumn)) {
                     if (((furCardRow - zyRow) * (cardRow - zyRow) > 0)) {
                         if (Math.abs(furCardRow - zyRow) > Math.abs(cardRow - zyRow)) {
-                            return false; // find further card in same column
+                            return false; // find further card in same column, return false
                         }
                     }
                     // if (cardRow != zyRow && cardColumn != zyColumn) {
