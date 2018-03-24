@@ -82,64 +82,160 @@ public class WarringStatesGame {
         return true;
     }
 
-    //method -- find Zhang Yi's current position
-    //if find Zhang Yi, return his current position(char), else return'F'
+    //if find Zhang Yi in the placement (cards), return his current position(char), else return'F'
     public static char zyCurrentPos(String placement) {
-        char[] placementChar = placement.toCharArray();
         for (int i = 0; i < placement.length(); i += 3) {
             String card = placement.substring(i, i + 3);
-            char firstChar = card.charAt(1);
-            char thirdChar = card.charAt(3);
-            if (firstChar == 'z') {
-                return thirdChar;
+            char firstChar = card.charAt(0);
+            char posChar = card.charAt(2);
+              if (firstChar == 'z') {
+                return posChar;
+              }
+        }
+        return 'F'; // method must have return statement
+    }
+
+    // find the index of row or column (Zhang Yi's position  or location or.......)
+    public static int quickIndex(char position) {
+        char[][] sixSix = new char[6][6];
+        char location = 'A';
+        //put board's locations into a 6*6 coordinate
+        // A-X
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 6; i++) {
+                sixSix[i][j] = location;
+                location++;
             }
         }
-        return 'F';
-    }
-    // method must have return statement
-    /*
-    method-- quickIndex
-    create 6*6 array to save positions in board
-    -- can help us search the index of row or column quickly
-    */
-    public static int quickIndex(char zyPosition) {
-     char[][] sixSix = new char[6][6];
-     char location = 'A';
-     //put board's locations into a 6*6 array
-     // A-X
-     for(int j=0;j<4;j++){
-           for(int i=0;i<6;i++){
-               sixSix[i][j]=location;
-               location=+1;
-           }
-       }
-       //Y,Z, 0-9
-       location = '0';
-        for(int j=4;j<6;j++){
-         for(int i=0;i<6;i++){
-             if(i==1&&j==4){
-                 sixSix[i][j]='Y';
-             }
-             if(i==2&&j==4){
-                 sixSix[i][j]='Z';
-             }else {
-                 sixSix[i][j]=location;
-                 location=+1;
-             }
-         }
-     }
-     //if Zhang Yi's current position in the board, return its row + column
-     for(int i=0;i<6;i++){
-            for(int j=0;j<6;j++){
-                if (sixSix[i][j]==zyPosition){
-                    int index = i+j;
-                    return index;
+        //Y,Z, 0-9
+        location = '0';
+        for (int j = 4; j < 6; j++) {
+            for (int i = 0; i < 6; i++) {
+                if (i == 0 && j == 4) {
+                    sixSix[i][j] = 'Y';
+                } else if (i == 1 && j == 4) {
+                    sixSix[i][j] = 'Z';
+                } else {
+                    sixSix[i][j] = location;
+                    location++;
                 }
             }
-     }
-     //if the Zhang Yi's current position not in the board, return 0 - means false
-     return 0;
+        }
+        //if Zhang Yi's current position or location in coordinate, return its row + column
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                if (sixSix[i][j] == position) {
+                    return i * 10 + j;
+                }
+            }
+        }
+        //if the Zhang Yi's current position or location not in coordinate, return 0 - means false
+        return -1;
     }
+
+    //  card & another card in same kingdom, and the card is further
+    public static boolean furtherCard(String placement, char cardKingdom, char cardSecond, char cardPos, char zyPos) {
+        int cardRC = quickIndex(cardPos);
+        int cardRow = cardRC / 10;
+        int cardColumn = cardRC % 10;
+
+        int zyRC = quickIndex(zyPos);
+        int zyRow = zyRC / 10;
+        int zyColumn = zyRC % 10;
+
+        if (cardRow != zyRow && cardColumn != zyColumn){
+            return false;
+        }
+        if (cardRow == zyRow && cardColumn == zyColumn)
+            return false;
+
+        // exist another card , has same kingdom with card in location
+        //char furPos = ' ';
+        char[] cards = new char[8];
+        for (int i = 0,k=0; i < placement.length(); i += 3) {
+            String card = placement.substring(i, i + 3);
+            char furKingdom = card.charAt(0);
+            char furSecond = card.charAt(1);
+            /*char furPos = card.charAt(2);
+            int furCardRC = quickIndex(furPos);
+            if (furCardRC == 0) {
+                return false;
+            }*/
+            //int furCardRow = furCardRC / 10;
+            //int furCardColumn = furCardRC % 10;
+            if ((furKingdom == cardKingdom))
+            //&& ((furCardRow == cardRow && cardRow == zyRow) || (furCardColumn == cardColumn) && (cardColumn == zyColumn)))
+            {
+                // card & another card in same kingdom, and in same row or in same column
+                if (furSecond != cardSecond) { // card & another card are not same card
+                    cards[k] = card.charAt(2); // collect another card's position
+                    k++;
+                    //furPos = card.charAt(2);
+                    //break;
+                }
+            }
+        }
+       /* if (cardRow == zyRow) {
+            for (int i = 0; i < cards.length; i++) {
+                int iCard = quickIndex(cards[i]);
+                int furCard = quickIndex(furPos);
+                int row1 = iCard / 10;
+                int row2 = furCard / 10;
+                if ((row1 - zyRow) * (row2 - zyRow) > 0) {
+                    if (Math.abs((row1 - zyRow)) > Math.abs((row2 - zyRow))) {
+                        furPos = cards[i];
+                    }
+                }
+
+            }
+        }
+        if (cardColumn == zyColumn) {
+            for (int i = 0; i < cards.length; i++) {
+                int iCard = quickIndex(cards[i]);
+                int furCard = quickIndex(furPos);
+                int column1 = iCard / 10;
+                int column2 = furCard / 10;
+                if ((column1 - zyRow) * (column2 - zyRow) > 0) {
+                    if (Math.abs((column1 - zyRow)) > Math.abs((column2 - zyRow))) {
+                        furPos = cards[i];
+                    }
+                }
+            }
+        }*/
+
+        //same kingdom another card whether is further
+        for (int k =0;k<cards.length;k++) {
+            if (cards[k] != 0) {
+                int furCardRC = quickIndex(cards[k]);
+                /*if (furCardRC == 0) {
+                    return false;
+                }*/
+                int furCardRow = furCardRC / 10;
+                int furCardColumn = furCardRC % 10;
+                if ((cardRow == zyRow) && (furCardRow == cardRow)) {
+                    if (((furCardColumn - zyColumn) * (cardColumn - zyColumn) > 0)) {
+                        if (Math.abs(furCardColumn - zyColumn) > Math.abs(cardColumn - zyColumn)) {
+                            return false;
+                        }// find further card in same row
+                    }
+                }
+                if ((cardColumn == zyColumn) && (furCardColumn == cardColumn)) {
+                    if (((furCardRow - zyRow) * (cardRow - zyRow) > 0)) {
+                        if (Math.abs(furCardRow - zyRow) > Math.abs(cardRow - zyRow)) {
+                            return false; // find further card in same column
+                        }
+                    }
+                    // if (cardRow != zyRow && cardColumn != zyColumn) {
+                    //return false;
+                    //}
+                }
+
+            }
+        }
+
+        return true;
+    }
+
 
     /**
      * Determine whether a given move is legal given a provided valid placement:
@@ -156,24 +252,54 @@ public class WarringStatesGame {
      */
     public static boolean isMoveLegal(String placement, char locationChar) {
         // FIXME Task 5: determine whether a given move is legal
-        //chosen location char
-        int code = (int) locationChar;
+        int code = (int) locationChar; //chosen location's char
+        //if locationChar is not well-formed, not belongs to A-Z or 0-9
         if (!((code >= 65 && code <= 90) || (code >= 48 && code <= 57))) {
             return false;
         }
 
-        for (int i = 0; i < placement.length(); i += 3) {
+        char cardKingdom = ' ';
+        char cardSecond = ' ';
+        int i;
+        for (i = 0; i < placement.length(); i += 3) {
             String card = placement.substring(i, i + 3);
-            char pos = card.charAt(2);
-            //if there is a card at the chosen location
-            if (pos != locationChar) {
-                return false;
-            } else {
-
-            }
+            char cardPos = card.charAt(2);
+              if (cardPos == locationChar) {
+                if (!(card.charAt(0) == 'a' || card.charAt(0) == 'b' || card.charAt(0) == 'c'
+                        || card.charAt(0) == 'd' || card.charAt(0) == 'e' || card.charAt(0) == 'f' || card.charAt(0) == 'g')) {
+                    return false;
+                } else {
+                    cardKingdom = card.charAt(0);
+                    cardSecond = card.charAt(1);
+                    break;
+                }
+              }
         }
-        return false;
+        if (i == placement.length()) {
+            return false;
+        }
+        char zyPos = zyCurrentPos(placement); //zy's current position
+        int zyPosRC = quickIndex(zyPos);     //zy's row & column
+        int chosenLocRC = quickIndex(locationChar);  //location's row & column
+        //Zhang Yi's position not in placement, false
+        if (zyPos == 'F') {
+            return false;
+        }
+        // Zhang Yi not in coordinate, false
+        if (zyPosRC == -1) {
+            return false;
+        }
+        // chosen location not in coordinate, false
+        if (chosenLocRC == -1) {
+            return false;
+        }
+        boolean furCard = furtherCard(placement, cardKingdom, cardSecond, locationChar, zyPos);
+        if (!furCard) {
+            return false;
+        }
+        return true;
     }
+
 
     /**
      * Determine whether a move sequence is valid.
@@ -251,3 +377,4 @@ public class WarringStatesGame {
     }
 
 }
+
