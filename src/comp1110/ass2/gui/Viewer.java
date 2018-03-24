@@ -45,8 +45,6 @@ public class Viewer extends Application {
         board.getChildren().clear();
         int cardXpos = 510;
         int cardYpos = 10;
-        int counter=0;
-        String k="";
         Placement p= new Placement();
         String sc= "";
         p.setPlacement();
@@ -55,50 +53,189 @@ public class Viewer extends Application {
 
 
         for (int i = 0; i < placement.length(); i=i+3) {
-            switch (placement.charAt(i)){
-                case 'a':
-                    k="秦";
-                    drawRectangle(cardXpos, cardYpos, Color.LIGHTYELLOW,k,getCharectarName(placement.charAt(i),placement.charAt(i+1)));
-
+            switch (placement.charAt(i+2)){
+                case 'A':
+                    cardXpos = 510;
+                    cardYpos = 10;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
                     break;
-                case 'b':
-                    k="齊";
-                    drawRectangle(cardXpos, cardYpos, Color.LIGHTBLUE,k,getCharectarName(placement.charAt(i),placement.charAt(i+1)));
+                case'B':
+                    cardXpos = 510;
+                    cardYpos = 110;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
                     break;
-                case 'c':
-                    k="楚";
-                    drawRectangle(cardXpos, cardYpos, Color.PINK,k,getCharectarName(placement.charAt(i),placement.charAt(i+1)));
+                case 'C':
+                    cardXpos = 510;
+                    cardYpos = 210;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
                     break;
-                case 'd':
-                    k="趙";
-                    drawRectangle(cardXpos, cardYpos, Color.LIGHTGREEN,k,getCharectarName(placement.charAt(i),placement.charAt(i+1)));
+                case'D':
+                    cardXpos = 510;
+                    cardYpos = 310;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
                     break;
-                case 'e':
-                    k="韓";
-                    drawRectangle(cardXpos, cardYpos, Color.LIGHTSALMON,k,getCharectarName(placement.charAt(i),placement.charAt(i+1)));
+                case 'E':
+                    cardXpos = 510;
+                    cardYpos = 410;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
                     break;
-                case 'f':
-                    k="魏";
-                    drawRectangle(cardXpos, cardYpos, Color.LAVENDERBLUSH,k,getCharectarName(placement.charAt(i),placement.charAt(i+1)));
+                case 'F':
+                    cardXpos = 510;
+                    cardYpos = 510;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
                     break;
-                case 'g':
-                    k="燕";
-                    drawRectangle(cardXpos, cardYpos, Color.LIGHTCORAL,k,getCharectarName(placement.charAt(i),placement.charAt(i+1)));
+                case 'G':
+                    cardXpos = 410;
+                    cardYpos = 10;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
                     break;
-                case 'z':
-                    k="";
-                    drawRectangle(cardXpos, cardYpos, Color.LIGHTGRAY,k,getCharectarName(placement.charAt(i),placement.charAt(i+1)));
+                case'H':
+                    cardXpos = 410;
+                    cardYpos = 110;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
                     break;
-
+                case 'I':
+                    cardXpos = 410;
+                    cardYpos = 210;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'J':
+                    cardXpos = 410;
+                    cardYpos = 310;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case 'K':
+                    cardXpos = 410;
+                    cardYpos = 410;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'L':
+                    cardXpos = 410;
+                    cardYpos = 510;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case 'M':
+                    cardXpos = 310;
+                    cardYpos = 10;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'N':
+                    cardXpos = 310;
+                    cardYpos = 110;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case 'O':
+                    cardXpos = 310;
+                    cardYpos = 210;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'P':
+                    cardXpos = 310;
+                    cardYpos = 310;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case 'Q':
+                    cardXpos = 310;
+                    cardYpos = 410;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'R':
+                    cardXpos = 310;
+                    cardYpos = 510;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case 'S':
+                    cardXpos = 210;
+                    cardYpos = 10;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'T':
+                    cardXpos = 210;
+                    cardYpos = 110;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case 'U':
+                    cardXpos = 210;
+                    cardYpos = 210;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'V':
+                    cardXpos = 210;
+                    cardYpos = 310;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case 'W':
+                    cardXpos = 210;
+                    cardYpos = 410;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'X':
+                    cardXpos = 210;
+                    cardYpos = 510;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case 'Y':
+                    cardXpos = 110;
+                    cardYpos = 10;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'Z':
+                    cardXpos = 110;
+                    cardYpos = 110;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case '0':
+                    cardXpos = 110;
+                    cardYpos = 210;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'1':
+                    cardXpos = 110;
+                    cardYpos = 310;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case '2':
+                    cardXpos = 110;
+                    cardYpos = 410;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'3':
+                    cardXpos = 110;
+                    cardYpos = 510;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case '4':
+                    cardXpos = 10;
+                    cardYpos = 10;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'5':
+                    cardXpos = 10;
+                    cardYpos = 110;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case '6':
+                    cardXpos = 10;
+                    cardYpos = 210;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'7':
+                    cardXpos = 10;
+                    cardYpos = 310;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case '8':
+                    cardXpos = 10;
+                    cardYpos = 410;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
+                case'9':
+                    cardXpos = 10;
+                    cardYpos = 510;
+                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
+                    break;
             }
-            counter++;
-            // drawRectangle(cardXpos, cardYpos, Color.RED);
-            if ((counter) % 6 == 0) {
-                cardXpos = cardXpos - 100;
-                cardYpos = 10;
-            } else {
-                cardYpos = cardYpos + 100;
-            }
+
         }
     }
 
@@ -214,6 +351,47 @@ public class Viewer extends Application {
             }
         }
         return "Zhang Yi";
+    }
+
+    //drow the cards on it is right position on the board
+    private void drowCard(char king, char c,int cardXpos, int cardYpos){
+        String k="";
+        switch (king){
+            case 'a':
+                k="秦";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTYELLOW,k,getCharectarName(king,c));
+
+                break;
+            case 'b':
+                k="齊";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTBLUE,k,getCharectarName(king,c));
+                break;
+            case 'c':
+                k="楚";
+                drawRectangle(cardXpos, cardYpos, Color.PINK,k,getCharectarName(king,c));
+                break;
+            case 'd':
+                k="趙";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTGREEN,k,getCharectarName(king,c));
+                break;
+            case 'e':
+                k="韓";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTSALMON,k,getCharectarName(king,c));
+                break;
+            case 'f':
+                k="魏";
+                drawRectangle(cardXpos, cardYpos, Color.LAVENDERBLUSH,k,getCharectarName(king,c));
+                break;
+            case 'g':
+                k="燕";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTCORAL,k,getCharectarName(king,c));
+                break;
+            case 'z':
+                k="";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTGRAY,k,getCharectarName(king,c));
+                break;
+
+        }
     }
     /**
      * Create a basic text field for input and a refresh button.
