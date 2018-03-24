@@ -50,7 +50,7 @@ public class WarringStatesGame {
      * @param placement A string describing a placement of one or more cards
      * @return true if the placement is well-formed
      */
-    static boolean isPlacementWellFormed(String placement) {
+    public static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
         ArrayList<String> arrayListID = new ArrayList<>();
         ArrayList<Character> arrayListPos = new ArrayList<>();

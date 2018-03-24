@@ -1,5 +1,6 @@
 package comp1110.ass2.gui;
 
+import comp1110.ass2.WarringStatesGame;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 
 /**
  * A very simple viewer for card layouts in the Warring States game.
@@ -52,191 +54,192 @@ public class Viewer extends Application {
         sc=p.ShuffleCards();
         placement= sc;*/
 
+        if (WarringStatesGame.isPlacementWellFormed(placement)) {
+            for (int i = 0; i < placement.length(); i = i + 3) {
+                switch (placement.charAt(i + 2)) {
+                    case 'A':
+                        cardXpos = 510;
+                        cardYpos = 10;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'B':
+                        cardXpos = 510;
+                        cardYpos = 110;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'C':
+                        cardXpos = 510;
+                        cardYpos = 210;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'D':
+                        cardXpos = 510;
+                        cardYpos = 310;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'E':
+                        cardXpos = 510;
+                        cardYpos = 410;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'F':
+                        cardXpos = 510;
+                        cardYpos = 510;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'G':
+                        cardXpos = 410;
+                        cardYpos = 10;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'H':
+                        cardXpos = 410;
+                        cardYpos = 110;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'I':
+                        cardXpos = 410;
+                        cardYpos = 210;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'J':
+                        cardXpos = 410;
+                        cardYpos = 310;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'K':
+                        cardXpos = 410;
+                        cardYpos = 410;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'L':
+                        cardXpos = 410;
+                        cardYpos = 510;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'M':
+                        cardXpos = 310;
+                        cardYpos = 10;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'N':
+                        cardXpos = 310;
+                        cardYpos = 110;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'O':
+                        cardXpos = 310;
+                        cardYpos = 210;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'P':
+                        cardXpos = 310;
+                        cardYpos = 310;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'Q':
+                        cardXpos = 310;
+                        cardYpos = 410;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'R':
+                        cardXpos = 310;
+                        cardYpos = 510;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'S':
+                        cardXpos = 210;
+                        cardYpos = 10;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'T':
+                        cardXpos = 210;
+                        cardYpos = 110;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'U':
+                        cardXpos = 210;
+                        cardYpos = 210;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'V':
+                        cardXpos = 210;
+                        cardYpos = 310;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'W':
+                        cardXpos = 210;
+                        cardYpos = 410;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'X':
+                        cardXpos = 210;
+                        cardYpos = 510;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'Y':
+                        cardXpos = 110;
+                        cardYpos = 10;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case 'Z':
+                        cardXpos = 110;
+                        cardYpos = 110;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '0':
+                        cardXpos = 110;
+                        cardYpos = 210;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '1':
+                        cardXpos = 110;
+                        cardYpos = 310;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '2':
+                        cardXpos = 110;
+                        cardYpos = 410;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '3':
+                        cardXpos = 110;
+                        cardYpos = 510;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '4':
+                        cardXpos = 10;
+                        cardYpos = 10;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '5':
+                        cardXpos = 10;
+                        cardYpos = 110;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '6':
+                        cardXpos = 10;
+                        cardYpos = 210;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '7':
+                        cardXpos = 10;
+                        cardYpos = 310;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '8':
+                        cardXpos = 10;
+                        cardYpos = 410;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                    case '9':
+                        cardXpos = 10;
+                        cardYpos = 510;
+                        drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
+                        break;
+                }
 
-        for (int i = 0; i < placement.length(); i=i+3) {
-            switch (placement.charAt(i+2)){
-                case 'A':
-                    cardXpos = 510;
-                    cardYpos = 10;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'B':
-                    cardXpos = 510;
-                    cardYpos = 110;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'C':
-                    cardXpos = 510;
-                    cardYpos = 210;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'D':
-                    cardXpos = 510;
-                    cardYpos = 310;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'E':
-                    cardXpos = 510;
-                    cardYpos = 410;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'F':
-                    cardXpos = 510;
-                    cardYpos = 510;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'G':
-                    cardXpos = 410;
-                    cardYpos = 10;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'H':
-                    cardXpos = 410;
-                    cardYpos = 110;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'I':
-                    cardXpos = 410;
-                    cardYpos = 210;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'J':
-                    cardXpos = 410;
-                    cardYpos = 310;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'K':
-                    cardXpos = 410;
-                    cardYpos = 410;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'L':
-                    cardXpos = 410;
-                    cardYpos = 510;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'M':
-                    cardXpos = 310;
-                    cardYpos = 10;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'N':
-                    cardXpos = 310;
-                    cardYpos = 110;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'O':
-                    cardXpos = 310;
-                    cardYpos = 210;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'P':
-                    cardXpos = 310;
-                    cardYpos = 310;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'Q':
-                    cardXpos = 310;
-                    cardYpos = 410;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'R':
-                    cardXpos = 310;
-                    cardYpos = 510;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'S':
-                    cardXpos = 210;
-                    cardYpos = 10;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'T':
-                    cardXpos = 210;
-                    cardYpos = 110;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'U':
-                    cardXpos = 210;
-                    cardYpos = 210;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'V':
-                    cardXpos = 210;
-                    cardYpos = 310;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'W':
-                    cardXpos = 210;
-                    cardYpos = 410;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'X':
-                    cardXpos = 210;
-                    cardYpos = 510;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case 'Y':
-                    cardXpos = 110;
-                    cardYpos = 10;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'Z':
-                    cardXpos = 110;
-                    cardYpos = 110;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case '0':
-                    cardXpos = 110;
-                    cardYpos = 210;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'1':
-                    cardXpos = 110;
-                    cardYpos = 310;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case '2':
-                    cardXpos = 110;
-                    cardYpos = 410;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'3':
-                    cardXpos = 110;
-                    cardYpos = 510;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case '4':
-                    cardXpos = 10;
-                    cardYpos = 10;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'5':
-                    cardXpos = 10;
-                    cardYpos = 110;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case '6':
-                    cardXpos = 10;
-                    cardYpos = 210;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'7':
-                    cardXpos = 10;
-                    cardYpos = 310;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case '8':
-                    cardXpos = 10;
-                    cardYpos = 410;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
-                case'9':
-                    cardXpos = 10;
-                    cardYpos = 510;
-                    drowCard(placement.charAt(i),placement.charAt(i+1),cardXpos,cardYpos);
-                    break;
             }
-
         }
     }
 
