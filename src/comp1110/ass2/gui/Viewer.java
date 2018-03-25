@@ -54,8 +54,11 @@ public class Viewer extends Application {
         sc=p.ShuffleCards();
         placement= sc;*/
 
+        //check if the written placement is right
         if (WarringStatesGame.isPlacementWellFormed(placement)) {
+            //take 3 char from the placement in sequence to set every card by it is position, kingdom and character
             for (int i = 0; i < placement.length(); i = i + 3) {
+                //set the card position
                 switch (placement.charAt(i + 2)) {
                     case 'A':
                         cardXpos = 510;
@@ -246,15 +249,18 @@ public class Viewer extends Application {
     //draw rectangle and set kingdom name and character
     private void drawRectangle(int cardXpos,int cardYpos, Color c,String k, String character1){
         Rectangle card= new Rectangle(90,90);
+        //the stackpane used to group all card information in one place which make it easier to write texts on a specific position
         StackPane s = new StackPane();
         Text kingdom=new Text(k);
         Text charectar= new Text(character1);
         s.setPrefSize(90,90);
         s.relocate(cardXpos,cardYpos);
-
+        //set card color
         card.setFill(c);
         card.setStroke(Color.BLACK);
+        //change the font size
         kingdom.setFont(Font.font(25));
+        //aligning the position of character to be on the bottom left
         StackPane.setAlignment(charectar, Pos.BOTTOM_LEFT);
         s.getChildren().addAll(card,kingdom,charectar);
         board.getChildren().addAll(s);
