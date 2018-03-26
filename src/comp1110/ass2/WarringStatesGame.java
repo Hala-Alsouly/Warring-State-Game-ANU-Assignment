@@ -94,7 +94,7 @@ public class WarringStatesGame {
                 return posChar;
             }
         }
-        return 'F'; // method must have return statement
+        return '!'; // method must have return statement
     }
 
     // find the index of row or column (Zhang Yi's position  or location or.......)
@@ -273,11 +273,16 @@ public class WarringStatesGame {
         for (i = 0; i < placement.length(); i += 3) {
             String card = placement.substring(i, i + 3);
             char cardPos = card.charAt(2);
+            // task2
             if (cardPos == locationChar) {
-                if (!(card.charAt(0) == 'a' || card.charAt(0) == 'b' || card.charAt(0) == 'c'
-                        || card.charAt(0) == 'd' || card.charAt(0) == 'e' || card.charAt(0) == 'f' || card.charAt(0) == 'g')) {
+                if (!isCardPlacementWellFormed(card)) {
                     return false;
-                } else {
+                }
+//                if (!(card.charAt(0) == 'a' || card.charAt(0) == 'b' || card.charAt(0) == 'c'
+//                        || card.charAt(0) == 'd' || card.charAt(0) == 'e' || card.charAt(0) == 'f' || card.charAt(0) == 'g')) {
+//                    return false;
+//                }
+                else {
                     cardKingdom = card.charAt(0);
                     cardSecond = card.charAt(1);
                     break;
@@ -291,7 +296,7 @@ public class WarringStatesGame {
         int zyPosRC = quickIndex(zyPos);     //zy's row & column
         int chosenLocRC = quickIndex(locationChar);  //location's row & column
         //Zhang Yi's position not in placement, false
-        if (zyPos == 'F') {
+        if (zyPos == '!') {
             return false;
         }
         // Zhang Yi not in coordinate, false
@@ -405,7 +410,7 @@ public class WarringStatesGame {
     public static void main(String[] args) {
         System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
     }       //debug
-    
+
     static int[] setupCR(char locationChar) {
         int pos;
         int[] cardCR = new int[2];
