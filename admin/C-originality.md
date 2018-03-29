@@ -5,5 +5,7 @@ We declare that the work we have submitted for Stage C of this assignment and al
 * The code in class <...> is based on a solution we found when researching the problem (URL provided in source code comments)
 
 *  ....
+* The Idea of using stack pan from https://docs.oracle.com also we learn many thing from there.
+* Learn the idea of Javafx from https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
 
-Signed: Mary Jones (u2345678), Bob Smith (u3456789), and Sue Black (u0123456)
+Signed: Qianru Zhu (u6416655),  Hala Abdulaziz M Alsouly (u5995105), Xiao Tian (u6277077)
