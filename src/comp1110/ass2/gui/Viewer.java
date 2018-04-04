@@ -261,7 +261,7 @@ public class Viewer extends Application {
         //change the font size
         kingdom.setFont(Font.font(25));
         //aligning the position of character to be on the bottom left
-        StackPane.setAlignment(charectar, Pos.BOTTOM_LEFT);
+        StackPane.setAlignment(charectar, Pos.BOTTOM_CENTER);
         s.getChildren().addAll(card,kingdom,charectar);
         board.getChildren().addAll(s);
     }
