@@ -48,10 +48,10 @@ public class Viewer extends Application {
         int cardXpos;
         int cardYpos;
          /* //Draw all shuffled cards
-        Placement p= new Placement();
-        String sc= "";
+        Placement p = new Placement();
+        String sc = "";
         p.setPlacement();
-        sc=p.ShuffleCards();
+        sc = p.ShuffleCards();
         placement= sc;*/
 
         //check if the written placement is right
@@ -247,14 +247,14 @@ public class Viewer extends Application {
     }
 
     //draw rectangle and set kingdom name and character
-    private void drawRectangle(int cardXpos,int cardYpos, Color c,String k, String character1){
-        Rectangle card= new Rectangle(90,90);
+    private void drawRectangle(int cardXpos, int cardYpos, Color c, String k, String character1) {
+        Rectangle card = new Rectangle(90, 90);
         //the stackpane used to group all card information in one place which make it easier to write texts on a specific position
         StackPane s = new StackPane();
-        Text kingdom=new Text(k);
-        Text charectar= new Text(character1);
-        s.setPrefSize(90,90);
-        s.relocate(cardXpos,cardYpos);
+        Text kingdom = new Text(k);
+        Text charectar = new Text(character1);
+        s.setPrefSize(90, 90);
+        s.relocate(cardXpos, cardYpos);
         //set card color
         card.setFill(c);
         card.setStroke(Color.BLACK);
@@ -262,12 +262,12 @@ public class Viewer extends Application {
         kingdom.setFont(Font.font(25));
         //aligning the position of character to be on the bottom left
         StackPane.setAlignment(charectar, Pos.BOTTOM_LEFT);
-        s.getChildren().addAll(card,kingdom,charectar);
+        s.getChildren().addAll(card, kingdom, charectar);
         board.getChildren().addAll(s);
     }
 
     //return the charectar name to set it on the card
-    private String getCharectarName(char kingdom,char c) {
+    private String getCharectarName(char kingdom, char c) {
         if (kingdom == 'a') {
             switch (c) {
                 case '0':
@@ -364,45 +364,46 @@ public class Viewer extends Application {
     }
 
     //drow the cards on it is right position on the board
-    private void drowCard(char king, char c,int cardXpos, int cardYpos){
+    private void drowCard(char king, char c, int cardXpos, int cardYpos) {
         String k;
-        switch (king){
+        switch (king) {
             case 'a':
-                k="秦";
-                drawRectangle(cardXpos, cardYpos, Color.LIGHTYELLOW,k,getCharectarName(king,c));
+                k = "秦";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTYELLOW, k, getCharectarName(king, c));
 
                 break;
             case 'b':
-                k="齊";
-                drawRectangle(cardXpos, cardYpos, Color.LIGHTBLUE,k,getCharectarName(king,c));
+                k = "齊";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTBLUE, k, getCharectarName(king, c));
                 break;
             case 'c':
-                k="楚";
-                drawRectangle(cardXpos, cardYpos, Color.PINK,k,getCharectarName(king,c));
+                k = "楚";
+                drawRectangle(cardXpos, cardYpos, Color.PINK, k, getCharectarName(king, c));
                 break;
             case 'd':
-                k="趙";
-                drawRectangle(cardXpos, cardYpos, Color.LIGHTGREEN,k,getCharectarName(king,c));
+                k = "趙";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTGREEN, k, getCharectarName(king, c));
                 break;
             case 'e':
-                k="韓";
-                drawRectangle(cardXpos, cardYpos, Color.LIGHTSALMON,k,getCharectarName(king,c));
+                k = "韓";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTSALMON, k, getCharectarName(king, c));
                 break;
             case 'f':
-                k="魏";
-                drawRectangle(cardXpos, cardYpos, Color.LAVENDERBLUSH,k,getCharectarName(king,c));
+                k = "魏";
+                drawRectangle(cardXpos, cardYpos, Color.LAVENDERBLUSH, k, getCharectarName(king, c));
                 break;
             case 'g':
-                k="燕";
-                drawRectangle(cardXpos, cardYpos, Color.LIGHTCORAL,k,getCharectarName(king,c));
+                k = "燕";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTCORAL, k, getCharectarName(king, c));
                 break;
             case 'z':
-                k="";
-                drawRectangle(cardXpos, cardYpos, Color.LIGHTGRAY,k,getCharectarName(king,c));
+                k = "";
+                drawRectangle(cardXpos, cardYpos, Color.LIGHTGRAY, k, getCharectarName(king, c));
                 break;
 
         }
     }
+
     /**
      * Create a basic text field for input and a refresh button.
      */

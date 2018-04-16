@@ -4,6 +4,8 @@ import gittest.C;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * This class provides the text interface for the Warring States game
@@ -327,14 +329,13 @@ public class WarringStatesGame {
      * @return True if the placement sequence is valid
      */
     static boolean isMoveSequenceValid(String setup, String moveSequence) {
-        System.out.println(setup);
-        System.out.println(moveSequence);
+//        System.out.println(setup);
+//        System.out.println(moveSequence);
         // FIXME Task 6: determine whether a placement sequence is valid
         for (int i = 0; i < moveSequence.length(); i++) {
             char move = moveSequence.charAt(i);
             if (isMoveLegal(setup, move)) {
-                setup = removeCards(setup, move);
-                System.out.println(setup);
+                setup = removeCards(setup, move, new ArrayList<>());   //*********
                 if (setup == null) {
                     System.out.println("false 1");  //debug
                     return false;
@@ -352,13 +353,14 @@ public class WarringStatesGame {
         return true;
     }
 
-    static String removeCards(String placement, char move) {
+
+    static String removeCards(String placement, char move, ArrayList<String> collection) {   //*********
         char zyPos = zyCurrentPos(placement);
         int[] zyCR = setupCR(zyPos);
         int[] moveCR = setupCR(move);
         char cardKingdom = ' ';
         ArrayList<Character> check = new ArrayList<>();
-        ArrayList<String> collection = new ArrayList<>();
+        //*********
 
         //collect all cards that in the same row or column with Zhangyi
         if (zyCR[0] == moveCR[0] && zyCR[1] != moveCR[1]) {
@@ -367,7 +369,7 @@ public class WarringStatesGame {
             for (int i = min + 1; i < max; i++) {
                 char p = CRtoChar(zyCR[0], i);
                 check.add(p);
-                System.out.println(check.get(check.size() - 1));    //debug
+//                System.out.println(check.get(check.size() - 1));    //debug
             }
         } else if (zyCR[0] != moveCR[0] && zyCR[1] == moveCR[1]) {
             int min = Math.min(zyCR[0], moveCR[0]);
@@ -375,7 +377,7 @@ public class WarringStatesGame {
             for (int i = min + 1; i < max; i++) {
                 char p = CRtoChar(i, zyCR[1]);
                 check.add(p);
-                System.out.println(check.get(check.size() - 1));    //debug
+//                System.out.println(check.get(check.size() - 1));    //debug
             }
         } else {
             return null;
@@ -385,16 +387,20 @@ public class WarringStatesGame {
         for (int j = 0; j < placement.length(); j += 3) {
             if (placement.charAt(j + 2) == move) {
                 cardKingdom = placement.charAt(j);
+                collection.add(placement.substring(j, j + 2));
                 placement = placement.replace(placement.substring(j, j + 3), "");
+                j-=3;
             }
-
         }
         // collect cards that belong to same Kingdom, and delete them
+        System.out.println(placement);
         for (int i = 0; i < placement.length(); i += 3) {
             if (check.contains(placement.charAt(i + 2))) {
+
                 if (placement.charAt(i) == cardKingdom) {
-                    collection.add(placement.substring(i, i + 3));
+                    collection.add(placement.substring(i, i + 2));
                     placement = placement.replace(placement.substring(i, i + 3), "");
+                    i-=3;
                 }
             }
         }
@@ -404,11 +410,13 @@ public class WarringStatesGame {
                 placement = placement.replace(placement.substring(i, i + 3), "z9" + move);
             }
         }
+//        System.out.println(placement+" "+move);
         return placement;
     }
 
     public static void main(String[] args) {
-        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
+        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
+//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
     }       //debug
 
     static int[] setupCR(char locationChar) {
@@ -446,8 +454,28 @@ public class WarringStatesGame {
      * @return the list of supporters for the given player
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
+        System.out.println(setup);
+        System.out.println(moveSequence);
+        System.out.println(numPlayers);
+        System.out.println(playerId);
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
-        return null;
+
+        ArrayList<String> cardsCollected = new ArrayList<>();
+        for (int i = 0; i < moveSequence.length(); i++) {
+            char move = moveSequence.charAt(i);
+            if (i % numPlayers == playerId) {
+                setup = removeCards(setup, move, cardsCollected);
+            } else {
+                setup = removeCards(setup, move, new ArrayList<>());
+            }
+            System.out.println(setup);
+        }
+        String supporters = "";
+        Collections.sort(cardsCollected);
+        for (String s : cardsCollected) {
+            supporters += s;
+        }
+        return supporters;
     }
 
     /**
