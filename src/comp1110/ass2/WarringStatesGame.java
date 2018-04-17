@@ -450,13 +450,15 @@ public class WarringStatesGame {
         String supporters="";//save a list of a specific player supporters
         int movementIndex;//the index of player movement on setup
        // if (isMoveSequenceValid( setup,moveSequence)){
-        //System.out.println(setup);
-        //System.out.println(moveSequence);
+        System.out.println(setup);
+        System.out.println(moveSequence);
+        System.out.println(playerId+" of "+numPlayers);
             for (int i=playerId; i<moveSequence.length();i+=numPlayers){
                 movementIndex=setup.indexOf(moveSequence.charAt(i),0);//return the index of a player movement from setup string
                 while ((movementIndex+1)%3!=0){//check if the index is not a card location then complete searching  for  a card location
                     movementIndex=setup.indexOf(moveSequence.charAt(i),movementIndex+1);//return the index of a player movement from setup string
                 }
+                System.out.print(moveSequence.charAt(i));
                 supporters=supporters+ setup.charAt(movementIndex-2)+setup.charAt(movementIndex-1); //get the supporter Id and save it
 
             }
