@@ -447,7 +447,49 @@ public class WarringStatesGame {
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
-        return null;
+        String supporters="";//save a list of a specific player supporters
+        int movementIndex;//the index of player movement on setup
+       // if (isMoveSequenceValid( setup,moveSequence)){
+        //System.out.println(setup);
+        //System.out.println(moveSequence);
+            for (int i=playerId; i<moveSequence.length();i+=numPlayers){
+                movementIndex=setup.indexOf(moveSequence.charAt(i),0);//return the index of a player movement from setup string
+                while ((movementIndex+1)%3!=0){//check if the index is not a card location then complete searching  for  a card location
+                    movementIndex=setup.indexOf(moveSequence.charAt(i),movementIndex+1);//return the index of a player movement from setup string
+                }
+                supporters=supporters+ setup.charAt(movementIndex-2)+setup.charAt(movementIndex-1); //get the supporter Id and save it
+
+            }
+        System.out.println(supporters);
+            //rearrange the supporters in alphabetic order
+        char[] charArray = supporters.toCharArray();
+        for(int i=0;i<charArray.length;i+=2){
+            for(int j=i+2;j<charArray.length;j+=2){
+                if (charArray[j] < charArray[i]) {
+                    char temp = charArray[i];
+                    charArray[i]=charArray[j];
+                    charArray[j]=temp;
+                    temp = charArray[i+1];
+                    charArray[i+1]=charArray[j+1];
+                    charArray[j+1]=temp;
+                }else if (charArray[j] == charArray[i]) {
+                    if (charArray[j+1] < charArray[i+1]) {
+                        char temp = charArray[i];
+                        charArray[i] = charArray[j];
+                        charArray[j] = temp;
+                        temp = charArray[i+1];
+                        charArray[i+1]=charArray[j+1];
+                        charArray[j+1]=temp;
+                    }
+                }
+            }
+        }
+        supporters= String.valueOf(charArray);
+        System.out.println(supporters);
+            return supporters;
+       // }
+
+        //return null;
     }
 
     /**
