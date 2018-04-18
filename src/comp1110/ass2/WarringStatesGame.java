@@ -1,10 +1,11 @@
 package comp1110.ass2;
 
 import gittest.C;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Random;
 /**
  * This class provides the text interface for the Warring States game
  */
@@ -97,7 +98,7 @@ public class WarringStatesGame {
         return '!'; // method must have return statement
     }
 
-    // find the index of row or column (Zhang Yi's position  or location or.......)
+    // find the index of row or column (Zhang Yi's position  or other cards' location)
     public static int quickIndex(char position) {
         char[][] sixSix = new char[6][6];
         char location = 'A';
@@ -154,30 +155,21 @@ public class WarringStatesGame {
             return false;
 
         // exist another card , has same kingdom with card in location, collect them
-        //char furPos = ' ';
+
         char[] cards = new char[8];
         for (int i = 0, k = 0; i < placement.length(); i += 3) {
             String card = placement.substring(i, i + 3);
             char furKingdom = card.charAt(0);
             char furSecond = card.charAt(1);
-            /*char furPos = card.charAt(2);
-            int furCardRC = quickIndex(furPos);
-            if (furCardRC == 0) {
-                return false;
-            }*/
-            //int furCardRow = furCardRC / 10;
-            //int furCardColumn = furCardRC % 10;
 
             // if card & another card in same kingdom
             if ((furKingdom == cardKingdom))
-            //&& ((furCardRow == cardRow && cardRow == zyRow) || (furCardColumn == cardColumn) && (cardColumn == zyColumn)))
             {
                 //if  card & another card are not same card
                 if (furSecond != cardSecond) {
                     cards[k] = card.charAt(2); // collect another card's position
                     k++;
-                    //furPos = card.charAt(2);
-                    //break;
+
                 }
             }
         }
@@ -234,9 +226,7 @@ public class WarringStatesGame {
                             return false; // find further card in same column, return false
                         }
                     }
-                    // if (cardRow != zyRow && cardColumn != zyColumn) {
-                    //return false;
-                    //}
+
                 }
 
             }
@@ -278,10 +268,6 @@ public class WarringStatesGame {
                 if (!isCardPlacementWellFormed(card)) {
                     return false;
                 }
-//                if (!(card.charAt(0) == 'a' || card.charAt(0) == 'b' || card.charAt(0) == 'c'
-//                        || card.charAt(0) == 'd' || card.charAt(0) == 'e' || card.charAt(0) == 'f' || card.charAt(0) == 'g')) {
-//                    return false;
-//                }
                 else {
                     cardKingdom = card.charAt(0);
                     cardSecond = card.charAt(1);
@@ -327,14 +313,13 @@ public class WarringStatesGame {
      * @return True if the placement sequence is valid
      */
     static boolean isMoveSequenceValid(String setup, String moveSequence) {
-        System.out.println(setup);
-        System.out.println(moveSequence);
+//        System.out.println(setup);
+//        System.out.println(moveSequence);
         // FIXME Task 6: determine whether a placement sequence is valid
         for (int i = 0; i < moveSequence.length(); i++) {
             char move = moveSequence.charAt(i);
             if (isMoveLegal(setup, move)) {
-                setup = removeCards(setup, move);
-                System.out.println(setup);
+                setup = removeCards(setup, move, new ArrayList<>());   //*********
                 if (setup == null) {
                     System.out.println("false 1");  //debug
                     return false;
@@ -352,13 +337,13 @@ public class WarringStatesGame {
         return true;
     }
 
-    static String removeCards(String placement, char move) {
+    static String removeCards(String placement, char move, ArrayList<String > collection) {
         char zyPos = zyCurrentPos(placement);
         int[] zyCR = setupCR(zyPos);
         int[] moveCR = setupCR(move);
         char cardKingdom = ' ';
         ArrayList<Character> check = new ArrayList<>();
-        ArrayList<String> collection = new ArrayList<>();
+        //*********
 
         //collect all cards that in the same row or column with Zhangyi
         if (zyCR[0] == moveCR[0] && zyCR[1] != moveCR[1]) {
@@ -367,7 +352,7 @@ public class WarringStatesGame {
             for (int i = min + 1; i < max; i++) {
                 char p = CRtoChar(zyCR[0], i);
                 check.add(p);
-                System.out.println(check.get(check.size() - 1));    //debug
+//                System.out.println(check.get(check.size() - 1));    //debug
             }
         } else if (zyCR[0] != moveCR[0] && zyCR[1] == moveCR[1]) {
             int min = Math.min(zyCR[0], moveCR[0]);
@@ -375,7 +360,7 @@ public class WarringStatesGame {
             for (int i = min + 1; i < max; i++) {
                 char p = CRtoChar(i, zyCR[1]);
                 check.add(p);
-                System.out.println(check.get(check.size() - 1));    //debug
+//                System.out.println(check.get(check.size() - 1));    //debug
             }
         } else {
             return null;
@@ -385,7 +370,9 @@ public class WarringStatesGame {
         for (int j = 0; j < placement.length(); j += 3) {
             if (placement.charAt(j + 2) == move) {
                 cardKingdom = placement.charAt(j);
-                placement = placement.replace(placement.substring(j, j + 3), "");
+                collection.add(placement.substring(j, j + 2));          //*******
+                placement = placement.replace(placement.substring(j, j + 3), ""); // delete the furthest card
+                j -= 3;
             }
 
         }
@@ -393,8 +380,9 @@ public class WarringStatesGame {
         for (int i = 0; i < placement.length(); i += 3) {
             if (check.contains(placement.charAt(i + 2))) {
                 if (placement.charAt(i) == cardKingdom) {
-                    collection.add(placement.substring(i, i + 3));
+                    collection.add(placement.substring(i, i + 2));
                     placement = placement.replace(placement.substring(i, i + 3), "");
+                    i -= 3;
                 }
             }
         }
@@ -404,12 +392,18 @@ public class WarringStatesGame {
                 placement = placement.replace(placement.substring(i, i + 3), "z9" + move);
             }
         }
+//        System.out.println(placement+" "+move);
         return placement;
     }
 
     public static void main(String[] args) {
-        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
+        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
+//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
     }       //debug
+//    public static void main(String[] args) {
+//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
+//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
+//    }       //debug
 
     static int[] setupCR(char locationChar) {
         int pos;
@@ -446,52 +440,29 @@ public class WarringStatesGame {
      * @return the list of supporters for the given player
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
+//        System.out.println(setup);
+//        System.out.println(moveSequence);
+//        System.out.println(numPlayers);
+//        System.out.println(playerId);
+
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
-        String supporters="";//save a list of a specific player supporters
-        int movementIndex;//the index of player movement on setup
-       // if (isMoveSequenceValid( setup,moveSequence)){
-        System.out.println(setup);
-        System.out.println(moveSequence);
-        System.out.println(playerId+" of "+numPlayers);
-            for (int i=playerId; i<moveSequence.length();i+=numPlayers){
-                movementIndex=setup.indexOf(moveSequence.charAt(i),0);//return the index of a player movement from setup string
-                while ((movementIndex+1)%3!=0){//check if the index is not a card location then complete searching  for  a card location
-                    movementIndex=setup.indexOf(moveSequence.charAt(i),movementIndex+1);//return the index of a player movement from setup string
-                }
-                System.out.print(moveSequence.charAt(i));
-                supporters=supporters+ setup.charAt(movementIndex-2)+setup.charAt(movementIndex-1); //get the supporter Id and save it
 
+        ArrayList<String> cardsCollected = new ArrayList<>();
+        for (int i = 0; i < moveSequence.length(); i++) {
+            char move = moveSequence.charAt(i);
+            if (i % numPlayers == playerId) {
+                setup = removeCards(setup, move, cardsCollected);
+            } else {
+                setup = removeCards(setup, move, new ArrayList<>());
             }
-        System.out.println(supporters);
-            //rearrange the supporters in alphabetic order
-        char[] charArray = supporters.toCharArray();
-        for(int i=0;i<charArray.length;i+=2){
-            for(int j=i+2;j<charArray.length;j+=2){
-                if (charArray[j] < charArray[i]) {
-                    char temp = charArray[i];
-                    charArray[i]=charArray[j];
-                    charArray[j]=temp;
-                    temp = charArray[i+1];
-                    charArray[i+1]=charArray[j+1];
-                    charArray[j+1]=temp;
-                }else if (charArray[j] == charArray[i]) {
-                    if (charArray[j+1] < charArray[i+1]) {
-                        char temp = charArray[i];
-                        charArray[i] = charArray[j];
-                        charArray[j] = temp;
-                        temp = charArray[i+1];
-                        charArray[i+1]=charArray[j+1];
-                        charArray[j+1]=temp;
-                    }
-                }
-            }
+            System.out.println(setup);
         }
-        supporters= String.valueOf(charArray);
-        System.out.println(supporters);
-            return supporters;
-       // }
-
-        //return null;
+        String supporters = "";
+        Collections.sort(cardsCollected);
+        for (String s : cardsCollected) {
+            supporters += s;
+        }
+        return supporters;
     }
 
     /**
@@ -516,6 +487,41 @@ public class WarringStatesGame {
         return null;
     }
 
+ // justify if there is a card in the same row or column with Zhang Yi, if not, return false, else return true
+ public static boolean zyRowColumnHasCard(String placement) {
+     char zyPos = zyCurrentPos(placement); //zy's current position
+     int zyRC = quickIndex(zyPos);     //zy's row & column
+     int zyRow = zyRC / 10;
+     int zyColumn = zyRC % 10;
+
+     int i;
+     for (i = 0; i < placement.length(); i += 3) {
+
+         String card = placement.substring(i, i + 3);
+
+         char pos = card.charAt(2);
+         int posRC = quickIndex(pos);
+         int posRow = posRC / 10;
+         int posColumn = posRC % 10;
+         //if zy and the card are same card, not consider, continue loop
+         if(posRow == zyRow && posColumn == zyColumn){
+             continue;
+         }
+         // if zy and the card at the same row or column
+         if (posRow == zyRow || posColumn == zyColumn) {
+             break;
+         }
+     }
+
+     if (i == placement.length()) {
+         return false;
+     }else
+         return true;
+
+ }
+
+
+
     /**
      * Generate a legal move, given the provided placement string.
      * A move is valid if:
@@ -531,9 +537,34 @@ public class WarringStatesGame {
      * @param placement the current placement string
      * @return a location character representing Zhang Yi's destination for the move
      */
+
     public static char generateMove(String placement) {
         // FIXME Task 10: generate a legal move
-        return '\0';
+
+        // justify if there is a card in the same row or column with Zhang Yi, if not, return \0, else return the locationChar
+        if  (zyRowColumnHasCard(placement))
+            return '\0';
+
+          //generate a move, util it is legal
+        else {
+            int[] numbers = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
+                    81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
+                    48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
+            for (int i = 0; i < numbers.length; i++) {
+                Random random = new Random();
+                int index = random.nextInt(numbers.length);
+                char locationChar = (char) (numbers[index]);
+
+                //justify whether the move is legal
+                if(isMoveLegal(placement,locationChar))  {
+//                    if (locationChar == '\u0000')
+//                        System.out.println("Ouch"); //debug
+                    return locationChar;
+                }
+                //System.out.println(locationChar);   //debug
+            }
+        }
+            return '\0';
     }
 
 }
