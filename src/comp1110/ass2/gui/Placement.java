@@ -1,7 +1,7 @@
 package comp1110.ass2.gui;
 
 import java.util.Random;
-
+//created by Hala
 public class Placement {
     private String []cards= new String[36];
 
