@@ -48,10 +48,10 @@ public class Viewer extends Application {
         int cardXpos;
         int cardYpos;
          /* //Draw all shuffled cards
-        Placement p= new Placement();
-        String sc= "";
+        Placement p = new Placement();
+        String sc = "";
         p.setPlacement();
-        sc=p.ShuffleCards();
+        sc = p.ShuffleCards();
         placement= sc;*/
 
         //check if the written placement is right
@@ -261,7 +261,7 @@ public class Viewer extends Application {
         //change the font size
         kingdom.setFont(Font.font(25));
         //aligning the position of character to be on the bottom left
-        StackPane.setAlignment(charectar, Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(charectar, Pos.BOTTOM_LEFT);
         s.getChildren().addAll(card,kingdom,charectar);
         board.getChildren().addAll(s);
     }
