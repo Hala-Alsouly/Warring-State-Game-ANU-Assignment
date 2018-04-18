@@ -1,7 +1,6 @@
 package comp1110.ass2;
 
 import gittest.C;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -337,15 +336,15 @@ public class WarringStatesGame {
             if (isMoveLegal(setup, move)) {
                 setup = removeCards(setup, move, new ArrayList<>());   //*********
                 if (setup == null) {
-                    System.out.println("false 1");  //debug
+//                    System.out.println("false 1");  //debug
                     return false;
                 }
                 if (setup.isEmpty()) {
-                    System.out.println("false 2");  //debug
+//                    System.out.println("false 2");  //debug
                     return false;
                 }
             } else {
-                System.out.println("false 3");  //debug
+//                System.out.println("false 3");  //debug
                 return false;
             }
         }
@@ -393,7 +392,7 @@ public class WarringStatesGame {
             }
         }
         // collect cards that belong to same Kingdom, and delete them
-        System.out.println(placement);
+//        System.out.println(placement);      //debug
         for (int i = 0; i < placement.length(); i += 3) {
             if (check.contains(placement.charAt(i + 2))) {
 
@@ -410,15 +409,16 @@ public class WarringStatesGame {
                 placement = placement.replace(placement.substring(i, i + 3), "z9" + move);
             }
         }
-//        System.out.println(placement+" "+move);
+//        System.out.println(placement+" "+move);       //debug
         return placement;
     }
 
     public static void main(String[] args) {
         System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
-//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
+        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
     }       //debug
 
+    //give each location a coordinate
     static int[] setupCR(char locationChar) {
         int pos;
         int[] cardCR = new int[2];
@@ -432,6 +432,7 @@ public class WarringStatesGame {
         return cardCR;
     }
 
+    //transfer int-coordinate to char
     static char CRtoChar(int R, int C) {
         int pos = R * 6 + C;
         if (pos >= 26) {
@@ -454,24 +455,25 @@ public class WarringStatesGame {
      * @return the list of supporters for the given player
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
-        System.out.println(setup);
-        System.out.println(moveSequence);
-        System.out.println(numPlayers);
-        System.out.println(playerId);
+//        System.out.println(setup);
+//        System.out.println(moveSequence);
+//        System.out.println(numPlayers);
+//        System.out.println(playerId);
+////        debug
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
 
         ArrayList<String> cardsCollected = new ArrayList<>();
         for (int i = 0; i < moveSequence.length(); i++) {
             char move = moveSequence.charAt(i);
-            if (i % numPlayers == playerId) {
+            if (i % numPlayers == playerId) {                       //if it's the chosen player
                 setup = removeCards(setup, move, cardsCollected);
             } else {
                 setup = removeCards(setup, move, new ArrayList<>());
             }
-            System.out.println(setup);
+//            System.out.println(setup);        //debug
         }
         String supporters = "";
-        Collections.sort(cardsCollected);
+        Collections.sort(cardsCollected);           //the list of supporters in test is sorted
         for (String s : cardsCollected) {
             supporters += s;
         }
