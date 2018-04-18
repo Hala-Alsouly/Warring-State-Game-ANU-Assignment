@@ -1,9 +1,10 @@
 package comp1110.ass2;
 
 import gittest.C;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * This class provides the text interface for the Warring States game
@@ -391,10 +392,10 @@ public class WarringStatesGame {
         }
         // collect cards that belong to same Kingdom, and delete them
         for (int i = 0; i < placement.length(); i += 3) {
-            if (check.contains(placement.charAt(i + 2))) { //same line
-                if (placement.charAt(i) == cardKingdom) { // same kingdom
-                    collection.add(placement.substring(i, i + 3)); //collect same direction & kingdom cards
-                    placement = placement.replace(placement.substring(i, i + 3), ""); //delete same direction & kingdom cards
+            if (check.contains(placement.charAt(i + 2))) {
+                if (placement.charAt(i) == cardKingdom) {
+                    collection.add(placement.substring(i, i + 3));
+                    placement = placement.replace(placement.substring(i, i + 3), "");
                 }
             }
         }
