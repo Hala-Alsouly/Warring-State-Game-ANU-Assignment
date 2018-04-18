@@ -1,6 +1,7 @@
 package comp1110.ass2;
 
 import gittest.C;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -334,7 +335,7 @@ public class WarringStatesGame {
         for (int i = 0; i < moveSequence.length(); i++) {
             char move = moveSequence.charAt(i);
             if (isMoveLegal(setup, move)) {
-                setup = removeCards(setup, move);
+                setup = removeCards(setup, move, new ArrayList<>());   //*********
                 System.out.println(setup);
                 if (setup == null) {
                     System.out.println("false 1");  //debug
@@ -353,13 +354,13 @@ public class WarringStatesGame {
         return true;
     }
 
-    static String removeCards(String placement, char move) {
+    static String removeCards(String placement, char move, ArrayList<String> collection) {   //*********
         char zyPos = zyCurrentPos(placement);
         int[] zyCR = setupCR(zyPos);
         int[] moveCR = setupCR(move);
         char cardKingdom = ' ';
         ArrayList<Character> check = new ArrayList<>();
-        ArrayList<String> collection = new ArrayList<>();
+        //*********
 
         //collect all cards that in the same row or column with Zhangyi
         if (zyCR[0] == moveCR[0] && zyCR[1] != moveCR[1]) {
@@ -386,7 +387,9 @@ public class WarringStatesGame {
         for (int j = 0; j < placement.length(); j += 3) {
             if (placement.charAt(j + 2) == move) {
                 cardKingdom = placement.charAt(j);
+                collection.add(placement.substring(j, j + 2));          //*******
                 placement = placement.replace(placement.substring(j, j + 3), ""); // delete the furthest card
+                j -= 3;
             }
 
         }
@@ -394,8 +397,9 @@ public class WarringStatesGame {
         for (int i = 0; i < placement.length(); i += 3) {
             if (check.contains(placement.charAt(i + 2))) {
                 if (placement.charAt(i) == cardKingdom) {
-                    collection.add(placement.substring(i, i + 3));
+                    collection.add(placement.substring(i, i + 2));
                     placement = placement.replace(placement.substring(i, i + 3), "");
+                    i -= 3;
                 }
             }
         }
@@ -408,9 +412,10 @@ public class WarringStatesGame {
         return placement;
     }
 
-    public static void main(String[] args) {
-        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
-    }       //debug
+//    public static void main(String[] args) {
+//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
+//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
+//    }       //debug
 
     static int[] setupCR(char locationChar) {
         int pos;
@@ -447,9 +452,31 @@ public class WarringStatesGame {
      * @return the list of supporters for the given player
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
+//        System.out.println(setup);
+//        System.out.println(moveSequence);
+//        System.out.println(numPlayers);
+//        System.out.println(playerId);
+
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
-        return null;
+
+        ArrayList<String> cardsCollected = new ArrayList<>();
+        for (int i = 0; i < moveSequence.length(); i++) {
+            char move = moveSequence.charAt(i);
+            if (i % numPlayers == playerId) {
+                setup = removeCards(setup, move, cardsCollected);
+            } else {
+                setup = removeCards(setup, move, new ArrayList<>());
+            }
+            System.out.println(setup);
+        }
+        String supporters = "";
+        Collections.sort(cardsCollected);
+        for (String s : cardsCollected) {
+            supporters += s;
+        }
+        return supporters;
     }
+
 
     /**
      * Given a setup and move sequence, determine which player controls the flag of each kingdom
