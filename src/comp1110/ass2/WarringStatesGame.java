@@ -337,7 +337,7 @@ public class WarringStatesGame {
         return true;
     }
 
-    static String removeCards(String placement, char move, ArrayList<String>collection) {
+    static String removeCards(String placement, char move) {
         char zyPos = zyCurrentPos(placement);
         int[] zyCR = setupCR(zyPos);
         int[] moveCR = setupCR(move);
@@ -370,7 +370,9 @@ public class WarringStatesGame {
         for (int j = 0; j < placement.length(); j += 3) {
             if (placement.charAt(j + 2) == move) {
                 cardKingdom = placement.charAt(j);
-                placement = placement.replace(placement.substring(j, j + 3), "");
+                collection.add(placement.substring(j, j + 2));          //*******
+                placement = placement.replace(placement.substring(j, j + 3), ""); // delete the furthest card
+                j -= 3;
             }
 
         }
@@ -378,8 +380,9 @@ public class WarringStatesGame {
         for (int i = 0; i < placement.length(); i += 3) {
             if (check.contains(placement.charAt(i + 2))) {
                 if (placement.charAt(i) == cardKingdom) {
-                    collection.add(placement.substring(i, i + 3));
+                    collection.add(placement.substring(i, i + 2));
                     placement = placement.replace(placement.substring(i, i + 3), "");
+                    i -= 3;
                 }
             }
         }
@@ -397,6 +400,10 @@ public class WarringStatesGame {
         System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
 //        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
     }       //debug
+//    public static void main(String[] args) {
+//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
+//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
+//    }       //debug
 
     static int[] setupCR(char locationChar) {
         int pos;
@@ -433,6 +440,11 @@ public class WarringStatesGame {
      * @return the list of supporters for the given player
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
+//        System.out.println(setup);
+//        System.out.println(moveSequence);
+//        System.out.println(numPlayers);
+//        System.out.println(playerId);
+
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
 
         ArrayList<String> cardsCollected = new ArrayList<>();
