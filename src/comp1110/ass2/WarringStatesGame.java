@@ -455,7 +455,7 @@ public class WarringStatesGame {
             } else {
                 setup = removeCards(setup, move, new ArrayList<>());
             }
-            System.out.println(setup);
+            //System.out.println(setup);
         }
         String supporters = "";
         Collections.sort(cardsCollected);
@@ -484,7 +484,76 @@ public class WarringStatesGame {
      */
     public static int[] getFlags(String setup, String moveSequence, int numPlayers) {
         // FIXME Task 8: determine which player controls the flag of each kingdom after a given sequence of moves
-        return null;
+        int []flags= new int[7];
+        for (int i=0;i<7;i++)
+            flags[i]=-1;
+        String supporter;
+        int [][]maxCards=new int[7][2];//to save the maximum number of collected card and where is the last move of this kingdom card
+        for (int j=0;j<7;j++)
+            maxCards[j][0]=0;//initialize
+        int [][]playerCollection=new int[7][2];//how many card collected for for each kingdom for a player
+        for (int i=0;i<numPlayers;i++){
+            supporter= getSupporters(setup, moveSequence,numPlayers,i);
+            for (int j=0;j<7;j++) {
+                playerCollection[j][0] = 0;//reset the counter to zero
+                playerCollection[j][1] = 0;//reset the counter to zero
+            }
+            for (int j=0; j<supporter.length();j+=2)
+            {
+              switch (supporter.charAt(j)) {
+                  case 'a':
+                      playerCollection[0][0]++;
+                      playerCollection[0][1]=j;
+                      break;
+                  case 'b':
+                      playerCollection[1][0]++;
+                      playerCollection[1][1]=j;
+                      break;
+                  case 'c':
+                      playerCollection[2][0]++;
+                      playerCollection[2][1]=j;
+                      break;
+                  case 'd':
+                      playerCollection[3][0]++;
+                      playerCollection[3][1]=j;
+                      break;
+                  case 'e':
+                      playerCollection[4][0]++;
+                      playerCollection[4][1]=j;
+                      break;
+                  case 'f':
+                      playerCollection[5][0]++;
+                      playerCollection[5][1]=j;
+                      break;
+                  case 'g':
+                      playerCollection[6][0]++;
+                      playerCollection[6][1]=j;
+                      break;
+
+              }
+            }
+            for (int j=0;j<7;j++){
+                System.out.println("player "+i+" collect "+playerCollection[j][0]+" of "+j+"last appear "+playerCollection[j][1]);
+                if (playerCollection[j][0]==maxCards[j][0]&& playerCollection[j][0]!=0){
+                    if (playerCollection[j][1]>=maxCards[j][1]){
+                        maxCards[j][0]=playerCollection[j][0];
+                        flags[j]=i;
+                        maxCards[j][1]=playerCollection[j][1];
+                    }
+
+                }else if (playerCollection[j][0]>maxCards[j][0])
+                {
+                    maxCards[j][0]=playerCollection[j][0];
+                    flags[j]=i;
+                    maxCards[j][1]=playerCollection[j][1];
+                }
+            }
+
+        }
+        System.out.println("");
+        for (int i=0;i<7;i++)
+        System.out.print(" "+flags[i]);
+        return flags;
     }
 
  // justify if there is a card in the same row or column with Zhang Yi, if not, return false, else return true
