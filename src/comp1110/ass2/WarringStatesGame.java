@@ -458,11 +458,18 @@ public class WarringStatesGame {
             //System.out.println(setup);
         }
         String supporters = "";
+        String sortedSupporters = "";
+
         Collections.sort(cardsCollected);
+        for (String s : cardsCollected) {
+            sortedSupporters += s;
+        }
+
         for (String s : cardsCollected) {
             supporters += s;
         }
-        return supporters;
+
+        return sortedSupporters;
     }
 
     /**
