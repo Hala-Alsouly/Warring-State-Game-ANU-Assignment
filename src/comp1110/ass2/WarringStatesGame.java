@@ -1,11 +1,13 @@
 package comp1110.ass2;
 
 import gittest.C;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
+
 /**
  * This class provides the text interface for the Warring States game
  */
@@ -163,8 +165,7 @@ public class WarringStatesGame {
             char furSecond = card.charAt(1);
 
             // if card & another card in same kingdom
-            if ((furKingdom == cardKingdom))
-            {
+            if ((furKingdom == cardKingdom)) {
                 //if  card & another card are not same card
                 if (furSecond != cardSecond) {
                     cards[k] = card.charAt(2); // collect another card's position
@@ -267,8 +268,7 @@ public class WarringStatesGame {
             if (cardPos == locationChar) {
                 if (!isCardPlacementWellFormed(card)) {
                     return false;
-                }
-                else {
+                } else {
                     cardKingdom = card.charAt(0);
                     cardSecond = card.charAt(1);
                     break;
@@ -337,7 +337,7 @@ public class WarringStatesGame {
         return true;
     }
 
-    static String removeCards(String placement, char move, ArrayList<String > collection) {
+    static String removeCards(String placement, char move, ArrayList<String> collection) {
         char zyPos = zyCurrentPos(placement);
         int[] zyCR = setupCR(zyPos);
         int[] moveCR = setupCR(move);
@@ -397,7 +397,7 @@ public class WarringStatesGame {
     }
 
     public static void main(String[] args) {
-        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
+        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36", '8', new ArrayList<>()));
 //        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
     }       //debug
 //    public static void main(String[] args) {
@@ -462,14 +462,10 @@ public class WarringStatesGame {
 
         Collections.sort(cardsCollected);
         for (String s : cardsCollected) {
-            sortedSupporters += s;
-        }
-
-        for (String s : cardsCollected) {
             supporters += s;
         }
 
-        return sortedSupporters;
+        return supporters;
     }
 
     /**
@@ -491,111 +487,108 @@ public class WarringStatesGame {
      */
     public static int[] getFlags(String setup, String moveSequence, int numPlayers) {
         // FIXME Task 8: determine which player controls the flag of each kingdom after a given sequence of moves
-        int []flags= new int[7];
-        for (int i=0;i<7;i++)
-            flags[i]=-1;
+        int[] flags = new int[7];
+        for (int i = 0; i < 7; i++)
+            flags[i] = -1;
         String supporter;
-        int [][]maxCards=new int[7][2];//to save the maximum number of collected card and where is the last move of this kingdom card
-        for (int j=0;j<7;j++)
-            maxCards[j][0]=0;//initialize
-        int [][]playerCollection=new int[7][2];//how many card collected for for each kingdom for a player
-        for (int i=0;i<numPlayers;i++){
-            supporter= getSupporters(setup, moveSequence,numPlayers,i);
-            for (int j=0;j<7;j++) {
+        int[][] maxCards = new int[7][2];//to save the maximum number of collected card and where is the last move of this kingdom card
+        for (int j = 0; j < 7; j++)
+            maxCards[j][0] = 0;//initialize
+        int[][] playerCollection = new int[7][2];//how many card collected for for each kingdom for a player
+        for (int i = 0; i < numPlayers; i++) {
+            supporter = getSupporters(setup, moveSequence, numPlayers, i);
+            for (int j = 0; j < 7; j++) {
                 playerCollection[j][0] = 0;//reset the counter to zero
                 playerCollection[j][1] = 0;//reset the counter to zero
             }
-            for (int j=0; j<supporter.length();j+=2)
-            {
-              switch (supporter.charAt(j)) {
-                  case 'a':
-                      playerCollection[0][0]++;
-                      playerCollection[0][1]=j;
-                      break;
-                  case 'b':
-                      playerCollection[1][0]++;
-                      playerCollection[1][1]=j;
-                      break;
-                  case 'c':
-                      playerCollection[2][0]++;
-                      playerCollection[2][1]=j;
-                      break;
-                  case 'd':
-                      playerCollection[3][0]++;
-                      playerCollection[3][1]=j;
-                      break;
-                  case 'e':
-                      playerCollection[4][0]++;
-                      playerCollection[4][1]=j;
-                      break;
-                  case 'f':
-                      playerCollection[5][0]++;
-                      playerCollection[5][1]=j;
-                      break;
-                  case 'g':
-                      playerCollection[6][0]++;
-                      playerCollection[6][1]=j;
-                      break;
+            for (int j = 0; j < supporter.length(); j += 2) {
+                switch (supporter.charAt(j)) {
+                    case 'a':
+                        playerCollection[0][0]++;
+                        playerCollection[0][1] = j;
+                        break;
+                    case 'b':
+                        playerCollection[1][0]++;
+                        playerCollection[1][1] = j;
+                        break;
+                    case 'c':
+                        playerCollection[2][0]++;
+                        playerCollection[2][1] = j;
+                        break;
+                    case 'd':
+                        playerCollection[3][0]++;
+                        playerCollection[3][1] = j;
+                        break;
+                    case 'e':
+                        playerCollection[4][0]++;
+                        playerCollection[4][1] = j;
+                        break;
+                    case 'f':
+                        playerCollection[5][0]++;
+                        playerCollection[5][1] = j;
+                        break;
+                    case 'g':
+                        playerCollection[6][0]++;
+                        playerCollection[6][1] = j;
+                        break;
 
-              }
+                }
             }
-            for (int j=0;j<7;j++){
-                System.out.println("player "+i+" collect "+playerCollection[j][0]+" of "+j+"last appear "+playerCollection[j][1]);
-                if (playerCollection[j][0]==maxCards[j][0]&& playerCollection[j][0]!=0){
-                    if (playerCollection[j][1]>=maxCards[j][1]){
-                        maxCards[j][0]=playerCollection[j][0];
-                        flags[j]=i;
-                        maxCards[j][1]=playerCollection[j][1];
+            for (int j = 0; j < 7; j++) {
+                System.out.println("player " + i + " collect " + playerCollection[j][0] + " of " + j + "last appear " + playerCollection[j][1]);
+                if (playerCollection[j][0] == maxCards[j][0] && playerCollection[j][0] != 0) {
+                    if (playerCollection[j][1] >= maxCards[j][1]) {
+                        maxCards[j][0] = playerCollection[j][0];
+                        flags[j] = i;
+                        maxCards[j][1] = playerCollection[j][1];
                     }
 
-                }else if (playerCollection[j][0]>maxCards[j][0])
-                {
-                    maxCards[j][0]=playerCollection[j][0];
-                    flags[j]=i;
-                    maxCards[j][1]=playerCollection[j][1];
+                } else if (playerCollection[j][0] > maxCards[j][0]) {
+                    maxCards[j][0] = playerCollection[j][0];
+                    flags[j] = i;
+                    maxCards[j][1] = playerCollection[j][1];
                 }
             }
 
         }
         System.out.println("");
-        for (int i=0;i<7;i++)
-        System.out.print(" "+flags[i]);
+        for (int i = 0; i < 7; i++)
+            System.out.print(" " + flags[i]);
         return flags;
     }
 
- // justify if there is a card in the same row or column with Zhang Yi, if not, return false, else return true
- public static boolean zyRowColumnHasCard(String placement) {
-     char zyPos = zyCurrentPos(placement); //zy's current position
-     int zyRC = quickIndex(zyPos);     //zy's row & column
-     int zyRow = zyRC / 10;
-     int zyColumn = zyRC % 10;
+    // justify if there is a card in the same row or column with Zhang Yi, if not, return false, else return true
+    public static boolean zyRowColumnHasCard(String placement) {
+        char zyPos = zyCurrentPos(placement); //zy's current position
+        int zyRC = quickIndex(zyPos);     //zy's row & column
+        int zyRow = zyRC / 10;
+        int zyColumn = zyRC % 10;
 
-     int i;
-     for (i = 0; i < placement.length(); i += 3) {
+        int i;
+        for (i = 0; i < placement.length(); i += 3) {
 
-         String card = placement.substring(i, i + 3);
+            String card = placement.substring(i, i + 3);
 
-         char pos = card.charAt(2);
-         int posRC = quickIndex(pos);
-         int posRow = posRC / 10;
-         int posColumn = posRC % 10;
-         //if zy and the card are same card, not consider, continue loop
-         if(posRow == zyRow && posColumn == zyColumn){
-             continue;
-         }
-         // if zy and the card at the same row or column
-         if (posRow == zyRow || posColumn == zyColumn) {
-             break;
-         }
-     }
+            char pos = card.charAt(2);
+            int posRC = quickIndex(pos);
+            int posRow = posRC / 10;
+            int posColumn = posRC % 10;
+            //if zy and the card are same card, not consider, continue loop
+            if (posRow == zyRow && posColumn == zyColumn) {
+                continue;
+            }
+            // if zy and the card at the same row or column
+            if (posRow == zyRow || posColumn == zyColumn) {
+                break;
+            }
+        }
 
-     if (i == placement.length()) {
-         return false;
-     }else
-         return true;
+        if (i == placement.length()) {
+            return false;
+        } else
+            return true;
 
- }
-
+    }
 
 
     /**
@@ -618,10 +611,10 @@ public class WarringStatesGame {
         // FIXME Task 10: generate a legal move
 
         // justify if there is a card in the same row or column with Zhang Yi, if not, return \0, else return the locationChar
-        if  (zyRowColumnHasCard(placement))
+        if (zyRowColumnHasCard(placement))
             return '\0';
 
-          //generate a move, util it is legal
+            //generate a move, util it is legal
         else {
             int[] numbers = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
                     81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
@@ -632,7 +625,7 @@ public class WarringStatesGame {
                 char locationChar = (char) (numbers[index]);
 
                 //justify whether the move is legal
-                if(isMoveLegal(placement,locationChar))  {
+                if (isMoveLegal(placement, locationChar)) {
 //                    if (locationChar == '\u0000')
 //                        System.out.println("Ouch"); //debug
                     return locationChar;
@@ -640,7 +633,7 @@ public class WarringStatesGame {
                 //System.out.println(locationChar);   //debug
             }
         }
-            return '\0';
+        return '\0';
     }
 
 }
