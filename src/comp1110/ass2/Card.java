@@ -1,4 +1,4 @@
-package comp1110.ass2.gui;
+package comp1110.ass2;
 
 import javafx.scene.paint.Color;
 
@@ -46,7 +46,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return""+kingdom+ch+cardPos;
+        return ""+kingdom+ch+cardPos;
     }
 
     //initialise card 'kingdom name, card color and the character name'
