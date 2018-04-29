@@ -2,11 +2,7 @@ package comp1110.ass2;
 
 import gittest.C;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 /**
  * This class provides the text interface for the Warring States game
@@ -460,7 +456,7 @@ public class WarringStatesGame {
         String supporters = "";
         String sortedSupporters = "";
 
-        Collections.sort(cardsCollected);
+        //Collections.sort(cardsCollected);
         for (String s : cardsCollected) {
             supporters += s;
         }
@@ -491,69 +487,93 @@ public class WarringStatesGame {
         for (int i = 0; i < 7; i++)
             flags[i] = -1;
         String supporter;
-        int[][] maxCards = new int[7][2];//to save the maximum number of collected card and where is the last move of this kingdom card
-        for (int j = 0; j < 7; j++)
-            maxCards[j][0] = 0;//initialize
-        int[][] playerCollection = new int[7][2];//how many card collected for for each kingdom for a player
-        for (int i = 0; i < numPlayers; i++) {
+        //store all players cards information by kingdom
+        HashMap<Integer,HashMap<Character,CollectedCardsInfo>> playersCards=new HashMap<>();
+
+        for (int i=0; i<numPlayers;i++){
+            //how many moves for each player
+            int playerMove=moveSequence.length()/numPlayers;
+            int moveLeft=moveSequence.length() % numPlayers;
+            if (i<moveLeft)
+                playerMove++;
             supporter = getSupporters(setup, moveSequence, numPlayers, i);
-            for (int j = 0; j < 7; j++) {
-                playerCollection[j][0] = 0;//reset the counter to zero
-                playerCollection[j][1] = 0;//reset the counter to zero
-            }
-            for (int j = 0; j < supporter.length(); j += 2) {
-                switch (supporter.charAt(j)) {
-                    case 'a':
-                        playerCollection[0][0]++;
-                        playerCollection[0][1] = j;
+            //player movement counter
+            int moveNum=1;
+            HashMap<Character,CollectedCardsInfo> kingdomHM=playersCards.get(i);
+            for (int j=0;j<supporter.length();j+=2){
+                //get card won
+                String cardName=supporter.charAt(j)+""+supporter.charAt(j+1);
+                //how many cards of the same kingdom collected
+                int kingdomCardsCount=1;
+                while (j+2<supporter.length()){
+                    String nextCard=supporter.charAt(j+2)+""+supporter.charAt(j+3);
+                    //get next card positon
+                    char nextCardPos=setup.charAt(setup.indexOf(nextCard)+2);
+                    if (nextCard.charAt(0)!=cardName.charAt(0))
                         break;
-                    case 'b':
-                        playerCollection[1][0]++;
-                        playerCollection[1][1] = j;
+                    //exit the loop if the position of the next card is a a player movement (Zhang Yi movement position)
+                    if (moveSequence.indexOf(nextCardPos)>=0)
                         break;
-                    case 'c':
-                        playerCollection[2][0]++;
-                        playerCollection[2][1] = j;
-                        break;
-                    case 'd':
-                        playerCollection[3][0]++;
-                        playerCollection[3][1] = j;
-                        break;
-                    case 'e':
-                        playerCollection[4][0]++;
-                        playerCollection[4][1] = j;
-                        break;
-                    case 'f':
-                        playerCollection[5][0]++;
-                        playerCollection[5][1] = j;
-                        break;
-                    case 'g':
-                        playerCollection[6][0]++;
-                        playerCollection[6][1] = j;
-                        break;
-
+                    //collect same kingdom card on the same movement
+                    kingdomCardsCount++;
+                    j+=2;
                 }
-            }
-            for (int j = 0; j < 7; j++) {
-                System.out.println("player " + i + " collect " + playerCollection[j][0] + " of " + j + "last appear " + playerCollection[j][1]);
-                if (playerCollection[j][0] == maxCards[j][0] && playerCollection[j][0] != 0) {
-                    if (playerCollection[j][1] >= maxCards[j][1]) {
-                        maxCards[j][0] = playerCollection[j][0];
-                        flags[j] = i;
-                        maxCards[j][1] = playerCollection[j][1];
+                if (kingdomHM==null){
+                    //create a new kingdom cards information
+                    CollectedCardsInfo kingdomInfo= new CollectedCardsInfo(cardName.charAt(0));
+                    kingdomInfo.count=kingdomCardsCount;
+                    kingdomInfo.lastMove=moveNum;
+                    kingdomInfo.playernum=i;
+                    kingdomHM=new HashMap<>();
+                    kingdomHM.put(cardName.charAt(0),kingdomInfo);
+                    playersCards.put(i,kingdomHM);
+                }else {
+                    CollectedCardsInfo kingdomInfo= kingdomHM.get(cardName.charAt(0));
+                    if (kingdomInfo==null)
+                    {
+                        kingdomInfo= new CollectedCardsInfo(cardName.charAt(0));
+                        kingdomInfo.count=kingdomCardsCount;
+                        kingdomInfo.lastMove=moveNum;
+                        kingdomInfo.playernum=i;
+                        kingdomHM.put(cardName.charAt(0),kingdomInfo);
+                        playersCards.put(i,kingdomHM);
+                    }else
+                    {
+                        kingdomInfo.count+=kingdomCardsCount;
+                        kingdomInfo.lastMove=moveNum;
                     }
-
-                } else if (playerCollection[j][0] > maxCards[j][0]) {
-                    maxCards[j][0] = playerCollection[j][0];
-                    flags[j] = i;
-                    maxCards[j][1] = playerCollection[j][1];
                 }
+               moveNum++;
+
             }
 
         }
-        System.out.println("");
-        for (int i = 0; i < 7; i++)
-            System.out.print(" " + flags[i]);
+        //array of collected cards info for the players who have the flag
+        CollectedCardsInfo []collectedCardsArr=new CollectedCardsInfo[7];
+        String kingdoms="abcdefg";
+        for (int i=0;i<numPlayers;i++){
+            HashMap<Character,CollectedCardsInfo> kingdomHM=playersCards.get(i);
+            for(char c='a';c<='g';c++){
+                CollectedCardsInfo compareInfo=kingdomHM.get(c);
+                //if the player doesn't have cards from this kingdom then skip
+                if (compareInfo==null)
+                    continue;
+                //if no one own the flag then set current kingdom info
+                if (collectedCardsArr[kingdoms.indexOf(c)]==null)
+                    collectedCardsArr[kingdoms.indexOf(c)]=compareInfo;
+                else{
+                    if (compareInfo.count>collectedCardsArr[kingdoms.indexOf(c)].count){
+                        collectedCardsArr[kingdoms.indexOf(c)]=compareInfo;
+                    }else if (compareInfo.count==collectedCardsArr[kingdoms.indexOf(c)].count){
+                        if (compareInfo.lastMove>=collectedCardsArr[kingdoms.indexOf(c)].lastMove)
+                            collectedCardsArr[kingdoms.indexOf(c)]=compareInfo;
+                    }
+                }
+            }
+        }
+        for (int i=0;i<7;i++)
+            if (collectedCardsArr[i]!=null)
+                flags[i]=collectedCardsArr[i].playernum;
         return flags;
     }
 

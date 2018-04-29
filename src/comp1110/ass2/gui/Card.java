@@ -6,7 +6,7 @@ public class Card {
     private String kingdomName, character;
     private Color cardColor;
     private char kingdom, ch, cardPos;
-    static String posChars="456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
+    public static String posChars="456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
 
 
     public Card(){}
@@ -46,7 +46,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return kingdom+ch+cardPos+"";
+        return""+kingdom+ch+cardPos;
     }
 
     //initialise card 'kingdom name, card color and the character name'
