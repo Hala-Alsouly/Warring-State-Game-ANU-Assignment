@@ -120,19 +120,19 @@ public class CardTest {
         char position=pos.charAt(r.nextInt(36));
         Card c= new Card(sub.charAt(0),sub.charAt(1),position);
         switch (sub.charAt(0)){
-            case 'a': assertTrue(" Should get 秦, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
+            case 'a': assertTrue(" Expected: 秦, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
                 break;
-            case 'b': assertTrue(" Should get 齊, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
+            case 'b': assertTrue(" Expected: 齊, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
                 break;
-            case 'c': assertTrue(" Should get 楚, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
+            case 'c': assertTrue(" Expected: 楚, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
                 break;
-            case 'd': assertTrue(" Should get 趙, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
+            case 'd': assertTrue(" Expected: 趙, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
                 break;
-            case 'e': assertTrue(" Should get 韓, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
+            case 'e': assertTrue(" Expected: 韓, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
                 break;
-            case 'f': assertTrue(" Should get 魏, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
+            case 'f': assertTrue(" Expected: 魏, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
                 break;
-            case 'g': assertTrue(" Should get 燕, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
+            case 'g': assertTrue(" Expected: 燕, but got "+c.getKingdomName(),getKingdom(c,sub.charAt(0)));
                 break;
         }
 
@@ -146,96 +146,96 @@ public class CardTest {
         switch (sub.charAt(0)){
             case 'a':
                 switch (sub.charAt(1)) {
-                    case '0': assertTrue(" Should get Duke Xiao, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '0': assertTrue(" Expected: Duke Xiao, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
-                    case '1': assertTrue(" Should get Shang Yang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '1': assertTrue(" Expected: Shang Yang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
-                    case '2': assertTrue(" Should get King Hui, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '2': assertTrue(" Expected: King Hui, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
-                    case '3': assertTrue(" Should get King Zhaoxiang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '3': assertTrue(" Expected: King Zhaoxiang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
-                    case '4': assertTrue(" Should get Lady Mi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '4': assertTrue(" Expected: Lady Mi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
-                    case '5': assertTrue(" Should get Bai Qi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '5': assertTrue(" Expected: Bai Qi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
-                    case '6': assertTrue(" Should get Lady Zhao, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '6': assertTrue(" Expected: Lady Zhao, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
-                    case '7': assertTrue(" Should get King Zheng, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '7': assertTrue(" Expected: King Zheng, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
                 }break;
             case 'b':
                 switch (sub.charAt(1)) {
-                    case '0': assertTrue(" Should get King Xuan, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '0': assertTrue(" Expected: King Xuan, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
-                    case '1': assertTrue(" Should get Zhong Wuyan, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '1': assertTrue(" Expected: Zhong Wuyan, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                     break;
-                    case '2': assertTrue(" Should get Lord Menchang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '2': assertTrue(" Expected: Lord Menchang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '3': assertTrue(" Should get King Xiang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '3': assertTrue(" Expected: King Xiang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '4': assertTrue(" Should get Queen Junwang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '4': assertTrue(" Expected: Queen Junwang, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '5': assertTrue(" Should get King Jian, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '5': assertTrue(" Expected: King Jian, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '6': assertTrue(" Should get Sun Binn, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '6': assertTrue(" Expected: Sun Binn, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
                 }break;
             case 'c':
                 switch (sub.charAt(1)) {
-                    case '0': assertTrue(" Should get Wu Qi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '0': assertTrue(" Expected: Wu Qi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '1': assertTrue(" Should get King Kaolien, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '1': assertTrue(" Expected: King Kaolien, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '2': assertTrue(" Should get King You, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '2': assertTrue(" Expected: King You, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '3': assertTrue(" Should get Qu Yuann, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '3': assertTrue(" Expected: Qu Yuann, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '4': assertTrue(" Should get King Fuchu, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '4': assertTrue(" Expected: King Fuchu, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '5': assertTrue(" Should get Lord Chunshen, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '5': assertTrue(" Expected: Lord Chunshen, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
                 }break;
             case 'd':
                 switch (sub.charAt(1)) {
-                    case '0': assertTrue(" Should get King Wuling, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '0': assertTrue(" Expected: King Wuling, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '1': assertTrue(" Should get Lord Pingyuan, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '1': assertTrue(" Expected: Lord Pingyuan, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '2': assertTrue(" Should get King Xiaocheng, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '2': assertTrue(" Expected: King Xiaocheng, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '3': assertTrue(" Should get Li Mu, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '3': assertTrue(" Expected: Li Mu, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '4': assertTrue(" Should get Lian Po, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '4': assertTrue(" Expected: Lian Po, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
                 }break;
             case 'e':
                 switch (sub.charAt(1)) {
-                    case '0': assertTrue(" Should get Marquess Ai, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '0': assertTrue(" Expected: Marquess Ai, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '1': assertTrue(" Should get King Huanhuin, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '1': assertTrue(" Expected: King Huanhuin, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '2': assertTrue(" Should get King An, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '2': assertTrue(" Expected: King An, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '3': assertTrue(" Should get Han Fei, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '3': assertTrue(" Expected: Han Fei, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
                 }break;
             case 'f':
                 switch (sub.charAt(1)) {
-                    case '0': assertTrue(" Should get Marquess Wen, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '0': assertTrue(" Expected: Marquess Wen, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '1': assertTrue(" Should get Lord Xinling, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '1': assertTrue(" Expected: Lord Xinling, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '2': assertTrue(" Should get King Anxi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '2': assertTrue(" Expected: King Anxi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
                 }break;
             case 'g':
                 switch (sub.charAt(1)) {
-                    case '0': assertTrue(" Should get King Xi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '0': assertTrue(" Expected: King Xi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
-                    case '1': assertTrue(" Should get Prince Dan, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+                    case '1': assertTrue(" Expected: Prince Dan, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                         break;
                 }break;
-            case 'z': assertTrue(" Should get Zhang Yi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
+            case 'z': assertTrue(" Expected: Zhang Yi, but got "+c.getCharacter(),getCharachter(c,sub.charAt(0),sub.charAt(1)));
                 break;
         }
 
@@ -247,7 +247,7 @@ public class CardTest {
         String sub=s[r.nextInt(35)];
         char position=pos.charAt(r.nextInt(36));
         Card c= new Card(sub.charAt(0),sub.charAt(1),position);
-        assertTrue("Wrong position, should return "+position+", but got "+c.getCardPos(),position==c.getCardPos());
+        assertTrue("Wrong position, expected: "+position+", but got "+c.getCardPos(),position==c.getCardPos());
     }
 
     @Test
@@ -257,7 +257,7 @@ public class CardTest {
         String posChars="456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
         Card c= new Card(sub.charAt(0),sub.charAt(1),position);
         int index= posChars.indexOf(position);
-        assertTrue("Wrong position, should return "+position+", but got "+c.getCardPos(),index==c.getPosInArray(position));
+        assertTrue("invalid index, expected "+position+", but got "+c.getCardPos(),index==c.getPosInArray(position));
     }
 
     @Test
