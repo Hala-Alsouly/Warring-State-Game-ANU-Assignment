@@ -31,9 +31,8 @@ public class CardTest {
     }
    private boolean getKingdom(Card c, char k){
        switch (k){
-           case 'a': return (c.getKingdomName()=="秦");
-
-           case 'b': return (c.getKingdomName()=="齊");
+           case 'a': return (c.getKingdomName().equals("秦"));
+           case 'b': return (c.getKingdomName().equals("齊"));
            case 'c': return (c.getKingdomName()=="楚");
            case 'd': return (c.getKingdomName()=="趙");
            case 'e': return  (c.getKingdomName()=="韓");
