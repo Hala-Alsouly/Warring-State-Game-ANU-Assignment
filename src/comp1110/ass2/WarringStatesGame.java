@@ -96,11 +96,12 @@ public class WarringStatesGame {
         return '!'; // method must have return statement
     }
 
+    public static char[][] sixSix = new char[6][6];
     // find the index of row or column (Zhang Yi's position  or other cards' location)
     public static int quickIndex(char position) {
-        char[][] sixSix = new char[6][6];
+        // char[][] sixSix = new char[6][6];
         char location = 'A';
-        //put board's locations into a 6*6 coordinate
+        //put board's locations into a 6*6 coordinate system
         // A-X
         for (int j = 0; j < 4; j++) {
             for (int i = 0; i < 6; i++) {
@@ -122,7 +123,8 @@ public class WarringStatesGame {
                 }
             }
         }
-        //if Zhang Yi's current position or location in coordinate, return its row + column
+        //System.out.println(sixSix[0]); //debug
+        //if Zhang Yi's current position or location in the coordinate system, return its row + column
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
                 if (sixSix[i][j] == position) {
@@ -130,7 +132,7 @@ public class WarringStatesGame {
                 }
             }
         }
-        //if the Zhang Yi's current position or location not in coordinate, return -1
+        //if the Zhang Yi's current position or location not in the coordinate system, return -1
         return -1;
     }
 
@@ -229,7 +231,7 @@ public class WarringStatesGame {
             }
         }
 
-        return true;
+        return true;//not find further card in the same row or column of Zhang Yi/the card
     }
 
 
@@ -260,8 +262,8 @@ public class WarringStatesGame {
         for (i = 0; i < placement.length(); i += 3) {
             String card = placement.substring(i, i + 3);
             char cardPos = card.charAt(2);
-            // task2
             if (cardPos == locationChar) {
+                //task2
                 if (!isCardPlacementWellFormed(card)) {
                     return false;
                 } else {
@@ -281,11 +283,11 @@ public class WarringStatesGame {
         if (zyPos == '!') {
             return false;
         }
-        // Zhang Yi not in coordinate, false
+        // Zhang Yi not in coordinate system, false
         if (zyPosRC == -1) {
             return false;
         }
-        // chosen location not in coordinate, false
+        // chosen location not in coordinate system, false
         if (chosenLocRC == -1) {
             return false;
         }
@@ -507,7 +509,7 @@ public class WarringStatesGame {
                 int kingdomCardsCount=1;
                 while (j+2<supporter.length()){
                     String nextCard=supporter.charAt(j+2)+""+supporter.charAt(j+3);
-                    //get next card positon
+                    //get next card position
                     char nextCardPos=setup.charAt(setup.indexOf(nextCard)+2);
                     if (nextCard.charAt(0)!=cardName.charAt(0))
                         break;

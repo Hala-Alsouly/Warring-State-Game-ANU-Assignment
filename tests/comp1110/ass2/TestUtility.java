@@ -362,19 +362,20 @@ class TestUtility {
         else
             return (char) ('0' + (l - 26));
     }
-
+    // shuffle cards, placement has many cards
     static String shufflePlacement(String placement) {
         Random r = new Random();
         int cards = placement.length() / 3;
         if (cards == 1) return placement;
 
         int order[] = new int[cards];
-        for (int i = 1; i < cards; i++) {
-            int slot = r.nextInt(cards - 1);
-            while (order[slot] != 0) slot = (slot + 1) % cards;
-            order[slot] = i;
+        for (int i = 1; i < cards; i++) {   // i:1----> cards-1
+            int slot = r.nextInt(cards - 1);//slot: 0------> cards-2 card num
+            while (order[slot] != 0) slot = (slot + 1) % cards; //1-----> cards-1 % 1----- cards-1 control slot in the range of 1----- cards-1
+            order[slot] = i; // order: 1 ------- cards-1
         }
 
+        // add randomly chosen cards into the string of shuffled
         String shuffled = "";
         for (int i = 0; i < cards; i++) {
             shuffled += placement.substring(3 * order[i], 3 * (order[i] + 1));
