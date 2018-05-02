@@ -392,10 +392,10 @@ public class WarringStatesGame {
         return placement;
     }
 
-    public static void main(String[] args) {
-        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36", '8', new ArrayList<>()));
+//    public static void main(String[] args) {
+//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36", '8', new ArrayList<>()));
 //        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
-    }       //debug
+//    }       //debug
 //    public static void main(String[] args) {
 //        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
 //        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
@@ -454,9 +454,6 @@ public class WarringStatesGame {
             //System.out.println(setup);
         }
         String supporters = "";
-        String sortedSupporters = "";
-
-        //Collections.sort(cardsCollected);
         for (String s : cardsCollected) {
             supporters += s;
         }
