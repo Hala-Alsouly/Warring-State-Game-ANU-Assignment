@@ -549,7 +549,7 @@ public class WarringStatesGame {
                 flags[i] = collectedCardsArr[i].playernum;
         return flags;
     }
-
+    //**************************************************************************************
     // justify if there is a card in the same row or column with Zhang Yi, if not, return false, else return true
     public static boolean zyRowColumnHasCard(String placement) {
         char zyPos = zyCurrentPos(placement); //zy's current position
@@ -603,13 +603,13 @@ public class WarringStatesGame {
     public static char generateMove(String placement) {
         // FIXME Task 10: generate a legal move
 
-        //add legal moves in an Arraylist, and randomly pick up location chars
-
+        //add legal moves in an Arraylist, and randomly pick up location chars from it
         int[] numbers = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
                 81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
                 48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
         ArrayList<Character> legalMove = new ArrayList<>();
         for (int num : numbers) {
+            //
             char locationChar = (char) num;
             if (isMoveLegal(placement, locationChar)) {
                 legalMove.add(locationChar);
