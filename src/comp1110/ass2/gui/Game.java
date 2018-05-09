@@ -60,7 +60,7 @@ public class Game extends Application {
 
     }
 
-    
+
     // FIXME Task 9: Implement a basic playable Warring States game in JavaFX
 
 
