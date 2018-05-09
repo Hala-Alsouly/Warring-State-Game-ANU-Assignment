@@ -84,8 +84,7 @@ public class WarringStatesGame {
     }
 
 
-    //*****************task 5******************
-    //if find Zhang Yi in the placement (cards), return his current position(char), else return'F'
+    //if find Zhang Yi in the placement (cards), return his current position(char), else return'!'
     public static char zyCurrentPos(String placement) {
         for (int i = 0; i < placement.length(); i += 3) {
             String card = placement.substring(i, i + 3);
@@ -126,7 +125,6 @@ public class WarringStatesGame {
                 }
             }
         }
-        //System.out.println(sixSix[0]); //debug
         //if Zhang Yi's current position or location in the coordinate system, return its row + column
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
