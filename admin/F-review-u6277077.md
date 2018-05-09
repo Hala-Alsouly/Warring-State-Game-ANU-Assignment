@@ -12,6 +12,7 @@ Hence when determine if a given move is legal or not, we can quickly check if it
 2. The code is well-documented as I understand the code with these comments.
 3. The structure of the method is not perform very well. The way it represent A-Z and 0-9 is not conciseness as 2 blocks are written.
 4. It follows code conventions and maintain consistent style. But the return statement sometimes confusing.
+5. There is no error as far as I reviewed.
 
 1. HelloWorld.java:1-16 Use proper capitalization.
 2. HelloWorldTest.java:21 This test will pass with "hello world", when it should fail.
