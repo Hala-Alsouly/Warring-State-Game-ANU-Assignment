@@ -173,33 +173,7 @@ public class WarringStatesGame {
                 }
             }
         }
-       /* if (cardRow == zyRow) {
-            for (int i = 0; i < cards.length; i++) {
-                int iCard = quickIndex(cards[i]);
-                int furCard = quickIndex(furPos);
-                int row1 = iCard / 10;
-                int row2 = furCard / 10;
-                if ((row1 - zyRow) * (row2 - zyRow) > 0) {
-                    if (Math.abs((row1 - zyRow)) > Math.abs((row2 - zyRow))) {
-                        furPos = cards[i];
-                    }
-                }
 
-            }
-        }
-        if (cardColumn == zyColumn) {
-            for (int i = 0; i < cards.length; i++) {
-                int iCard = quickIndex(cards[i]);
-                int furCard = quickIndex(furPos);
-                int column1 = iCard / 10;
-                int column2 = furCard / 10;
-                if ((column1 - zyRow) * (column2 - zyRow) > 0) {
-                    if (Math.abs((column1 - zyRow)) > Math.abs((column2 - zyRow))) {
-                        furPos = cards[i];
-                    }
-                }
-            }
-        }*/
 
         //another card in same kingdom whether is further
         for (int k = 0; k < cards.length; k++) {
@@ -628,8 +602,7 @@ public class WarringStatesGame {
     public static char generateMove(String placement) {
         // FIXME Task 10: generate a legal move
 
-        //合法的move挑出来， 随机选取
-
+        //pick up legal moves in an Arraylist , and randomly choose from it
         int[] numbers = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
                 81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
                 48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
@@ -647,7 +620,6 @@ public class WarringStatesGame {
         Collections.shuffle(legalMove);
         return legalMove.get(0);
 
-
         // justify if there is a card in the same row or column with Zhang Yi, if not, return \0, else return the locationChar
 //        if (zyRowColumnHasCard(placement))
 //            return '\0';
@@ -657,10 +629,6 @@ public class WarringStatesGame {
 //            int[] numbers = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
 //                    81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
 //                    48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
-//
-//
-//
-//
 //            for (int i = 0; i < numbers.length; i++) {
 //                Random random = new Random();
 //                int index = random.nextInt(numbers.length);
@@ -677,7 +645,6 @@ public class WarringStatesGame {
 //        }
 //        return '\0';
 //    }
-
 
     }
 }
