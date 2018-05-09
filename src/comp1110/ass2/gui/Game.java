@@ -49,9 +49,9 @@ public class Game extends Application {
             cardsButtons[i].setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                    //cardsButtons[trans_i].setRotate(180);
-                    //generateMove(placement.toString());
                     //isMoveLegal(placement, char locationChar)
+                    board.getChildren().removeAll(cardsButtons[trans_i]);
+
                 }
             });
             board.add(cardsButtons[i], col, row);
