@@ -83,6 +83,8 @@ public class WarringStatesGame {
         return true;
     }
 
+
+    //*****************task 5******************
     //if find Zhang Yi in the placement (cards), return his current position(char), else return'F'
     public static char zyCurrentPos(String placement) {
         for (int i = 0; i < placement.length(); i += 3) {
@@ -97,6 +99,7 @@ public class WarringStatesGame {
     }
 
     public static char[][] sixSix = new char[6][6];
+
     // find the index of row or column (Zhang Yi's position  or other cards' location)
     public static int quickIndex(char position) {
         // char[][] sixSix = new char[6][6];
@@ -172,33 +175,6 @@ public class WarringStatesGame {
                 }
             }
         }
-       /* if (cardRow == zyRow) {
-            for (int i = 0; i < cards.length; i++) {
-                int iCard = quickIndex(cards[i]);
-                int furCard = quickIndex(furPos);
-                int row1 = iCard / 10;
-                int row2 = furCard / 10;
-                if ((row1 - zyRow) * (row2 - zyRow) > 0) {
-                    if (Math.abs((row1 - zyRow)) > Math.abs((row2 - zyRow))) {
-                        furPos = cards[i];
-                    }
-                }
-
-            }
-        }
-        if (cardColumn == zyColumn) {
-            for (int i = 0; i < cards.length; i++) {
-                int iCard = quickIndex(cards[i]);
-                int furCard = quickIndex(furPos);
-                int column1 = iCard / 10;
-                int column2 = furCard / 10;
-                if ((column1 - zyRow) * (column2 - zyRow) > 0) {
-                    if (Math.abs((column1 - zyRow)) > Math.abs((column2 - zyRow))) {
-                        furPos = cards[i];
-                    }
-                }
-            }
-        }*/
 
         //another card in same kingdom whether is further
         for (int k = 0; k < cards.length; k++) {
@@ -225,12 +201,9 @@ public class WarringStatesGame {
                             return false; // find further card in same column, return false
                         }
                     }
-
                 }
-
             }
         }
-
         return true;//not find further card in the same row or column of Zhang Yi/the card
     }
 
@@ -311,8 +284,6 @@ public class WarringStatesGame {
      * @return True if the placement sequence is valid
      */
     static boolean isMoveSequenceValid(String setup, String moveSequence) {
-//        System.out.println(setup);
-//        System.out.println(moveSequence);
         // FIXME Task 6: determine whether a placement sequence is valid
         for (int i = 0; i < moveSequence.length(); i++) {
             char move = moveSequence.charAt(i);
@@ -394,15 +365,6 @@ public class WarringStatesGame {
         return placement;
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36", '8', new ArrayList<>()));
-//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
-//    }       //debug
-//    public static void main(String[] args) {
-//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
-//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
-//    }       //debug
-
     static int[] setupCR(char locationChar) {
         int pos;
         int[] cardCR = new int[2];
@@ -438,10 +400,6 @@ public class WarringStatesGame {
      * @return the list of supporters for the given player
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
-//        System.out.println(setup);
-//        System.out.println(moveSequence);
-//        System.out.println(numPlayers);
-//        System.out.println(playerId);
 
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
 
@@ -453,7 +411,6 @@ public class WarringStatesGame {
             } else {
                 setup = removeCards(setup, move, new ArrayList<>());
             }
-            //System.out.println(setup);
         }
         String supporters = "";
         for (String s : cardsCollected) {
@@ -487,92 +444,90 @@ public class WarringStatesGame {
             flags[i] = -1;
         String supporter;
         //store all players cards information by kingdom
-        HashMap<Integer,HashMap<Character,CollectedCardsInfo>> playersCards=new HashMap<>();
+        HashMap<Integer, HashMap<Character, CollectedCardsInfo>> playersCards = new HashMap<>();
 
-        for (int i=0; i<numPlayers;i++){
+        for (int i = 0; i < numPlayers; i++) {
             //how many moves for each player
-            int playerMove=moveSequence.length()/numPlayers;
-            int moveLeft=moveSequence.length() % numPlayers;
-            if (i<moveLeft)
+            int playerMove = moveSequence.length() / numPlayers;
+            int moveLeft = moveSequence.length() % numPlayers;
+            if (i < moveLeft)
                 playerMove++;
             supporter = getSupporters(setup, moveSequence, numPlayers, i);
             //player movement counter
-            int moveNum=1;
-            HashMap<Character,CollectedCardsInfo> kingdomHM=playersCards.get(i);
-            for (int j=0;j<supporter.length();j+=2){
+            int moveNum = 1;
+            HashMap<Character, CollectedCardsInfo> kingdomHM = playersCards.get(i);
+            for (int j = 0; j < supporter.length(); j += 2) {
                 //get card won
-                String cardName=supporter.charAt(j)+""+supporter.charAt(j+1);
+                String cardName = supporter.charAt(j) + "" + supporter.charAt(j + 1);
                 //how many cards of the same kingdom collected
-                int kingdomCardsCount=1;
-                while (j+2<supporter.length()){
-                    String nextCard=supporter.charAt(j+2)+""+supporter.charAt(j+3);
+                int kingdomCardsCount = 1;
+                while (j + 2 < supporter.length()) {
+                    String nextCard = supporter.charAt(j + 2) + "" + supporter.charAt(j + 3);
                     //get next card position
-                    char nextCardPos=setup.charAt(setup.indexOf(nextCard)+2);
-                    if (nextCard.charAt(0)!=cardName.charAt(0))
+                    char nextCardPos = setup.charAt(setup.indexOf(nextCard) + 2);
+                    if (nextCard.charAt(0) != cardName.charAt(0))
                         break;
                     //exit the loop if the position of the next card is a a player movement (Zhang Yi movement position)
-                    if (moveSequence.indexOf(nextCardPos)>=0)
+                    if (moveSequence.indexOf(nextCardPos) >= 0)
                         break;
                     //collect same kingdom card on the same movement
                     kingdomCardsCount++;
-                    j+=2;
+                    j += 2;
                 }
-                if (kingdomHM==null){
+                if (kingdomHM == null) {
                     //create a new kingdom cards information
-                    CollectedCardsInfo kingdomInfo= new CollectedCardsInfo(cardName.charAt(0));
-                    kingdomInfo.count=kingdomCardsCount;
-                    kingdomInfo.lastMove=moveNum;
-                    kingdomInfo.playernum=i;
-                    kingdomHM=new HashMap<>();
-                    kingdomHM.put(cardName.charAt(0),kingdomInfo);
-                    playersCards.put(i,kingdomHM);
-                }else {
-                    CollectedCardsInfo kingdomInfo= kingdomHM.get(cardName.charAt(0));
-                    if (kingdomInfo==null)
-                    {
-                        kingdomInfo= new CollectedCardsInfo(cardName.charAt(0));
-                        kingdomInfo.count=kingdomCardsCount;
-                        kingdomInfo.lastMove=moveNum;
-                        kingdomInfo.playernum=i;
-                        kingdomHM.put(cardName.charAt(0),kingdomInfo);
-                        playersCards.put(i,kingdomHM);
-                    }else
-                    {
-                        kingdomInfo.count+=kingdomCardsCount;
-                        kingdomInfo.lastMove=moveNum;
+                    CollectedCardsInfo kingdomInfo = new CollectedCardsInfo(cardName.charAt(0));
+                    kingdomInfo.count = kingdomCardsCount;
+                    kingdomInfo.lastMove = moveNum;
+                    kingdomInfo.playernum = i;
+                    kingdomHM = new HashMap<>();
+                    kingdomHM.put(cardName.charAt(0), kingdomInfo);
+                    playersCards.put(i, kingdomHM);
+                } else {
+                    CollectedCardsInfo kingdomInfo = kingdomHM.get(cardName.charAt(0));
+                    if (kingdomInfo == null) {
+                        kingdomInfo = new CollectedCardsInfo(cardName.charAt(0));
+                        kingdomInfo.count = kingdomCardsCount;
+                        kingdomInfo.lastMove = moveNum;
+                        kingdomInfo.playernum = i;
+                        kingdomHM.put(cardName.charAt(0), kingdomInfo);
+                        playersCards.put(i, kingdomHM);
+                    } else {
+                        kingdomInfo.count += kingdomCardsCount;
+                        kingdomInfo.lastMove = moveNum;
                     }
                 }
-               moveNum++;
+                moveNum++;
 
             }
 
         }
         //array of collected cards info for the players who have the flag
-        CollectedCardsInfo []collectedCardsArr=new CollectedCardsInfo[7];
-        String kingdoms="abcdefg";
-        for (int i=0;i<numPlayers;i++){
-            HashMap<Character,CollectedCardsInfo> kingdomHM=playersCards.get(i);
-            for(char c='a';c<='g';c++){
-                CollectedCardsInfo compareInfo=kingdomHM.get(c);
+        CollectedCardsInfo[] collectedCardsArr = new CollectedCardsInfo[7];
+        String kingdoms = "abcdefg";
+        for (int i = 0; i < numPlayers; i++) {
+            HashMap<Character, CollectedCardsInfo> kingdomHM = playersCards.get(i);
+            for (char c = 'a'; c <= 'g'; c++) {
+                CollectedCardsInfo compareInfo = kingdomHM.get(c);
                 //if the player doesn't have cards from this kingdom then skip
-                if (compareInfo==null)
+                if (compareInfo == null)
                     continue;
                 //if no one own the flag then set current kingdom info
-                if (collectedCardsArr[kingdoms.indexOf(c)]==null)
-                    collectedCardsArr[kingdoms.indexOf(c)]=compareInfo;
-                else{
-                    if (compareInfo.count>collectedCardsArr[kingdoms.indexOf(c)].count){
-                        collectedCardsArr[kingdoms.indexOf(c)]=compareInfo;
-                    }else if (compareInfo.count==collectedCardsArr[kingdoms.indexOf(c)].count){
-                        if (compareInfo.lastMove>=collectedCardsArr[kingdoms.indexOf(c)].lastMove)
-                            collectedCardsArr[kingdoms.indexOf(c)]=compareInfo;
+                if (collectedCardsArr[kingdoms.indexOf(c)] == null)
+                    collectedCardsArr[kingdoms.indexOf(c)] = compareInfo;
+                else {
+                    if (compareInfo.count > collectedCardsArr[kingdoms.indexOf(c)].count) {
+                        collectedCardsArr[kingdoms.indexOf(c)] = compareInfo;
+                    } else if (compareInfo.count == collectedCardsArr[kingdoms.indexOf(c)].count) {
+                        if (compareInfo.lastMove >= collectedCardsArr[kingdoms.indexOf(c)].lastMove)
+                            collectedCardsArr[kingdoms.indexOf(c)] = compareInfo;
                     }
                 }
             }
         }
-        for (int i=0;i<7;i++)
-            if (collectedCardsArr[i]!=null)
-                flags[i]=collectedCardsArr[i].playernum;
+        for (int i = 0; i < 7; i++)
+            if (collectedCardsArr[i] != null)
+                flags[i] = collectedCardsArr[i].playernum;
         return flags;
     }
 
