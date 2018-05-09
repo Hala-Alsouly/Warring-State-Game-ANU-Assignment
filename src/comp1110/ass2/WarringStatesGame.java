@@ -201,9 +201,12 @@ public class WarringStatesGame {
                             return false; // find further card in same column, return false
                         }
                     }
+
                 }
+
             }
         }
+
         return true;//not find further card in the same row or column of Zhang Yi/the card
     }
 
@@ -284,6 +287,8 @@ public class WarringStatesGame {
      * @return True if the placement sequence is valid
      */
     static boolean isMoveSequenceValid(String setup, String moveSequence) {
+//        System.out.println(setup);
+//        System.out.println(moveSequence);
         // FIXME Task 6: determine whether a placement sequence is valid
         for (int i = 0; i < moveSequence.length(); i++) {
             char move = moveSequence.charAt(i);
@@ -365,6 +370,15 @@ public class WarringStatesGame {
         return placement;
     }
 
+//    public static void main(String[] args) {
+//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36", '8', new ArrayList<>()));
+//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
+//    }       //debug
+//    public static void main(String[] args) {
+//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
+//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
+//    }       //debug
+
     static int[] setupCR(char locationChar) {
         int pos;
         int[] cardCR = new int[2];
@@ -400,6 +414,10 @@ public class WarringStatesGame {
      * @return the list of supporters for the given player
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
+//        System.out.println(setup);
+//        System.out.println(moveSequence);
+//        System.out.println(numPlayers);
+//        System.out.println(playerId);
 
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
 
@@ -411,6 +429,7 @@ public class WarringStatesGame {
             } else {
                 setup = removeCards(setup, move, new ArrayList<>());
             }
+            //System.out.println(setup);
         }
         String supporters = "";
         for (String s : cardsCollected) {
@@ -584,7 +603,7 @@ public class WarringStatesGame {
     public static char generateMove(String placement) {
         // FIXME Task 10: generate a legal move
 
-        //合法的move挑出来， 随机选取
+        //add legal moves in an Arraylist, and randomly pick up location chars
 
         int[] numbers = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
                 81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
@@ -602,38 +621,5 @@ public class WarringStatesGame {
         //System.out.println(legalMove); //debug
         Collections.shuffle(legalMove);
         return legalMove.get(0);
-
-
-        // justify if there is a card in the same row or column with Zhang Yi, if not, return \0, else return the locationChar
-//        if (zyRowColumnHasCard(placement))
-//            return '\0';
-//
-//            //generate a move, util it is legal
-//        else {
-//            int[] numbers = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
-//                    81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
-//                    48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
-//
-//
-//
-//
-//            for (int i = 0; i < numbers.length; i++) {
-//                Random random = new Random();
-//                int index = random.nextInt(numbers.length);
-//                char locationChar = (char) (numbers[index]);
-//
-//                //justify whether the move is legal
-//                if (isMoveLegal(placement, locationChar)) {
-////                    if (locationChar == '\u0000')
-////                        System.out.println("Ouch"); //debug
-//                    return locationChar;
-//                }
-//                //System.out.println(locationChar);   //debug
-//            }
-//        }
-//        return '\0';
-//    }
-
-
     }
 }
