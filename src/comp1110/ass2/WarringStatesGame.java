@@ -83,6 +83,8 @@ public class WarringStatesGame {
         return true;
     }
 
+
+    //*****************task 5******************
     //if find Zhang Yi in the placement (cards), return his current position(char), else return'F'
     public static char zyCurrentPos(String placement) {
         for (int i = 0; i < placement.length(); i += 3) {
@@ -173,7 +175,6 @@ public class WarringStatesGame {
                 }
             }
         }
-
 
         //another card in same kingdom whether is further
         for (int k = 0; k < cards.length; k++) {
@@ -602,7 +603,8 @@ public class WarringStatesGame {
     public static char generateMove(String placement) {
         // FIXME Task 10: generate a legal move
 
-        //pick up legal moves in an Arraylist , and randomly choose from it
+        //合法的move挑出来， 随机选取
+
         int[] numbers = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
                 81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
                 48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
