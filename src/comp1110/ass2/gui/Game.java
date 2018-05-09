@@ -2,22 +2,27 @@ package comp1110.ass2.gui;
 
 import comp1110.ass2.Placement;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class Game extends Application {
     private static final int BOARD_WIDTH = 933;
     private static final int BOARD_HEIGHT = 700;
     private GridPane board = new GridPane();
-    private Label[] cardsLabels = new Label[36];
-    private Placement placement = new Placement();
+    private Button[] cardsButtons = new Button[36];
+    private Placement setup=new Placement();
+    private Placement placement = setup;
     private final Group root = new Group();
 
     private void setupBoard() {
@@ -27,22 +32,29 @@ public class Game extends Application {
         board.setVgap(10);
         for (int i = 0; i < 36; i++) {
             //the stackpane used to group all card information in one place which make it easier to write texts on a specific position
-            StackPane s = new StackPane();
-            Text kingdom = new Text(placement.getKingdomName(i));
-            Text charectar = new Text(placement.getCharacter(i));
-            s.setPrefSize(90, 90);
+            cardsButtons[i] = new Button();
+            cardsButtons[i].setPrefSize(90, 90);
+            cardsButtons[i].setText(placement.getKingdomName(i)+"\n"+placement.getCharacter(i));
             //set card color
             BackgroundFill fill = new BackgroundFill(placement.getColor(i), CornerRadii.EMPTY, Insets.EMPTY);
-            s.setBackground(new Background(fill));
+            cardsButtons[i].setBackground(new Background(fill));
             //s.setStroke(Color.BLACK);
             //change the font size
-            kingdom.setFont(Font.font(25));
+            // kingdom.setFont(Font.font(25));
             //aligning the position of character to be on the bottom left
-            StackPane.setAlignment(charectar, Pos.BOTTOM_CENTER);
-            s.getChildren().addAll(kingdom, charectar);
+            cardsButtons[i].setTextAlignment(TextAlignment.CENTER);
             row = (i % 6);
             col = (i / 6);
-            board.add(s, col, row);
+            final int trans_i=i;
+            cardsButtons[i].setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    //cardsButtons[trans_i].setRotate(180);
+                    //generateMove(placement.toString());
+                    //isMoveLegal(placement, char locationChar)
+                }
+            });
+            board.add(cardsButtons[i], col, row);
 
         }
 
