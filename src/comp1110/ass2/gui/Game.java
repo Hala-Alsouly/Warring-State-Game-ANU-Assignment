@@ -90,6 +90,7 @@ public class Game extends Application {
         int row = 0;
         board.setHgap(10);
         board.setVgap(10);
+        border.setPrefSize(933,700);
         board.getColumnConstraints().add(new ColumnConstraints(90,90,90));
         board.getRowConstraints().add(new RowConstraints(90,90,90));
         for (int i = 0; i < 36; i++) {
