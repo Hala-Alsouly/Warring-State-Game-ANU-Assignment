@@ -309,7 +309,7 @@ public class WarringStatesGame {
         return true;
     }
 
-    static String removeCards(String placement, char move, ArrayList<String> collection) {
+    public static String removeCards(String placement, char move, ArrayList<String> collection) {
         char zyPos = zyCurrentPos(placement);
         int[] zyCR = setupCR(zyPos);
         int[] moveCR = setupCR(move);
