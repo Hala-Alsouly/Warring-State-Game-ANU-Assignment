@@ -17,3 +17,5 @@ Furthermore, the style of Hala's codes are consistent throughout. For instance, 
 However, the variable playerMove is assigned but never accessed.
 
 5.In Hala's codes, I do not find any bug that may make the  whole project function incorrectly.
+
+Actionable advice:  My advice is she can divide the task 8 into some methods and combine other members' methods. As a result, it can make the structure more clearly.
