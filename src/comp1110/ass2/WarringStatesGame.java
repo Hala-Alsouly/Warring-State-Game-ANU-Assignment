@@ -324,7 +324,6 @@ public class WarringStatesGame {
             for (int i = min + 1; i < max; i++) {
                 char p = CRtoChar(zyCR[0], i);
                 check.add(p);
-//                System.out.println(check.get(check.size() - 1));    //debug
             }
         } else if (zyCR[0] != moveCR[0] && zyCR[1] == moveCR[1]) {
             int min = Math.min(zyCR[0], moveCR[0]);
@@ -332,7 +331,6 @@ public class WarringStatesGame {
             for (int i = min + 1; i < max; i++) {
                 char p = CRtoChar(i, zyCR[1]);
                 check.add(p);
-//                System.out.println(check.get(check.size() - 1));    //debug
             }
         } else {
             return null;
@@ -367,15 +365,6 @@ public class WarringStatesGame {
 //        System.out.println(placement+" "+move);
         return placement;
     }
-
-//    public static void main(String[] args) {
-//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36", '8', new ArrayList<>()));
-//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
-//    }       //debug
-//    public static void main(String[] args) {
-//        System.out.println(removeCards("b07b6Ga18e29c5Xb1Lb4Vc0Cz9Eg0Ib5Ja64d4Ff23a5Ub2Ra7Ka2Wc20a4Hb36",'8',new ArrayList<>()));
-//        System.out.println(isMoveLegal("a0Bf1Cc5Ee2Ic2Kd0Ld4Oc3Qe0Rc1Td1Ub0Xb10z9Fb33g16c09", 'E'));
-//    }       //debug
 
     static int[] setupCR(char locationChar) {
         int pos;
