@@ -11,11 +11,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -31,17 +31,16 @@ public class Game extends Application {
     private GridPane board = new GridPane();
     //private GridPane playersCollection = new GridPane();
     private AnchorPane playersCollection = new AnchorPane();
-    //private FlowPane flowPane=new FlowPane();
     private BorderPane border = new BorderPane();
     private Button[] cardsButtons = new Button[36];
     private Text illegal = new Text();
-
     private final Group root = new Group();
     private String moveSequence="";
     private int playerId=0;
     int i;
     public  int numPlayers;
     public static String posChars="456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
+    private static final AudioClip error = new AudioClip(Game.class.getResource("assets\\error.wav").toString());
     private Color []flagColor={Color.LIGHTYELLOW,Color.LIGHTBLUE, Color.PINK, Color.LIGHTGREEN, Color.LIGHTSALMON, Color.LAVENDERBLUSH, Color.LIGHTCORAL};
 
     //the menu bar
@@ -52,12 +51,11 @@ public class Game extends Application {
         newGame.setOnAction(new EventHandler<ActionEvent>()
         {
             public void handle (ActionEvent e){
-                //new pupup window to select the number of players
+                //new popup window to select the number of players
                 getPopup();
-
-
             }
         });
+        //Exit the game
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction(new EventHandler<ActionEvent>()
 
@@ -70,6 +68,7 @@ public class Game extends Application {
         menuBar.getMenus().addAll(menuFile);
         return menuBar;
     }
+
     //white button to keep the grid pane as it is
     private Button getWhiteButton(){
         Button wb = new Button();
@@ -79,17 +78,17 @@ public class Game extends Application {
         return wb;
     }
 
-    //pupup window to choose players numbers
+    //popup window to choose the players numbers
     private void getPopup(){
         Stage s=new Stage();
-        Popup popup = new Popup();
+        s.setWidth(300);
+        s.setHeight(200);
         ComboBox comboBox =new ComboBox();
         Button button=new Button("Ok");
-        Text text= new Text("Choose The Players Numbers:\n");
+        Text text= new Text("Choose The Players Numbers:");
         Text notification= new Text("");
-        popup.setX(300);
-        popup.setY(200);
-        popup.getContent().addAll(text,comboBox,button,notification);
+        VBox popup = new VBox(text,comboBox,button,notification);
+        popup.setAlignment(Pos.CENTER);
         comboBox.getItems().addAll("Two Players","Three Players","Four Players");
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -104,27 +103,17 @@ public class Game extends Application {
                         case "Four Players":numPlayers=4;
                             break;
                     }
-                    popup.hide();
                     s.close();
                     setupBoard();
-
-
                 }
                 else {
                     notification.setText("You have not selected the number of players!");
                 }
             }
         });
-        border.setCenter(null);
-        border.setRight(null);
-        playersCollection.getChildren().clear();
-        board.getChildren().clear();
 
+        s.setScene(new Scene(popup));
         s.show();
-
-        popup.show(s);
-        System.out.println("show");
-        //s.setScene(new Scene());
     }
 
     public static int getPosInArray(char cardPos){
@@ -140,7 +129,7 @@ public class Game extends Application {
         c.setLayoutX(30+(playerId%2)*100);
         c.setLayoutY(500-(300*(playerId/2))-i);
 
-        playersCollection.setStyle("-fx-background-color:lightgray");
+       // playersCollection.setStyle("-fx-background-color:lightgray");
         playersCollection.getChildren().addAll(c);
     }
 
@@ -164,6 +153,7 @@ public class Game extends Application {
         }
         return true;
     }
+
     private void setUpGame(){
         border.setCenter(board);
         border.setRight(playersCollection);
@@ -172,19 +162,20 @@ public class Game extends Application {
 
 
     private void setupBoard() {
-
+        //reset the game
+        playersCollection.getChildren().clear();
+        board.getChildren().clear();
         Placement setup=new Placement();
         Placement placement = setup;
-        System.out.println("setup");
         int col = 0;
         int row = 0;
         board.setHgap(10);
         board.setVgap(10);
+        board.setPadding(new Insets(5, 5, 5, 5));
         border.setPrefSize(933,700);
         board.getColumnConstraints().add(new ColumnConstraints(90,90,90));
         board.getRowConstraints().add(new RowConstraints(90,90,90));
         for (int i = 0; i < 36; i++) {
-            //the stackpane used to group all card information in one place which make it easier to write texts on a specific position
             cardsButtons[i] = new Button();
             cardsButtons[i].setPrefSize(90, 90);
             cardsButtons[i].setStyle("-fx-border-color: black; -fx-border-width: 1px;");
@@ -223,13 +214,11 @@ public class Game extends Application {
 
                         }
                         placement.cards[trans_i]=placement.cards[index];
-                        //setPlayersCollection(cardsButtons[trans_i],playerId);
-                        //board.getChildren().remove(cardsButtons[trans_i]);
                         board.getChildren().remove(cardsButtons[index]);
                         cardsButtons[trans_i]=cardsButtons[index];
                         board.add(cardsButtons[index],(trans_i / 6),(trans_i % 6));
                         playerId=(playerId+1)%numPlayers;
-                        if (isEnd(placement,index))
+                        if (isEnd(placement,trans_i))
                             System.out.println("End");
 
 
@@ -238,6 +227,7 @@ public class Game extends Application {
                         illegal.setText("\n Illegal move!");
                         illegal.setFont(Font.font ("Arial", 20));
                         illegal.setFill(Color.RED);
+                        Game.error.play();
                         border.setBottom(illegal);
                     }
                 }
