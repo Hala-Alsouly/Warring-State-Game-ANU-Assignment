@@ -38,7 +38,7 @@ public class Card {
         this.cardPos = cardPos;
     }
 
-// this method used to get the index of the position, it is start from upper left to bottom
+    // this method used to get the index of the position, it is start from upper left to bottom
     public static int getPosInArray(char cardPos){
         int index=posChars.indexOf(cardPos);
         return index;

@@ -8,7 +8,7 @@ import java.util.List;
 //created by Hala
 // create 36 card placement
 public class Placement {
-    private Card[]cards= new Card[36];
+    public Card[]cards= new Card[36];
     private static String start="g0Aa0Bf1Ca1Dc5Ee1Fa4Ge3He2Ia2Jc2Kd0Lf0Mb4Nd4Oa6Pc3Qe0Ra5Sc1Td1Uc4Vb5Wb0Xa7Yf2Zb10a31z92b33b64d35g16b27d28c09";
     public Placement(){
         int j=0;
@@ -35,12 +35,13 @@ public class Placement {
 
     }
 
-// convert from array of objects to string
+    // convert from array of objects to string
     @Override
     public String toString() {
         String s="";
         for (Card c:cards)
-            s+=c;
+            if (c!=null)
+                s+=c;
         return s;
     }
 
@@ -55,5 +56,7 @@ public class Placement {
     public Color getColor(int i) {
         return cards[i].getCardColor();
     }
-
+    public char getCardPos(int i) {
+        return cards[i].getCardPos();
+    }
 }
