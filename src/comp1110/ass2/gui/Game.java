@@ -19,6 +19,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static comp1110.ass2.WarringStatesGame.*;
 
@@ -151,9 +152,11 @@ public class Game extends Application {
     }
 
     //set flags
-    private void setFlags (String setup, String moveSequence, int numPlayers){
-        getFlags(setup, moveSequence, numPlayers);
-        // new
+    private void setFlags (String setup, String moveSequence, int numPlayers, int playerId){
+        int []flags = getFlags(setup, moveSequence, numPlayers);
+       // for (int i=0;i<7;i++)
+           // if (flags[i]==playerId)
+                //creat new small sequare for flags
 
     }
     //method to check if the game end
