@@ -42,7 +42,6 @@ public class Game extends Application {
     int i1,i2,i3,i4=0;
     public  int numPlayers;
     public static String posChars="456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
-//    private static final String LOOP_URL=Game.class.getResource("assets/error.wav").toString();
     private static final AudioClip error = new AudioClip(Game.class.getResource("assets/error.wav").toString());
     private Color []flagColor={Color.LIGHTYELLOW,Color.LIGHTBLUE, Color.PINK, Color.LIGHTGREEN, Color.LIGHTSALMON, Color.LAVENDERBLUSH, Color.LIGHTCORAL};
 
@@ -93,13 +92,15 @@ public class Game extends Application {
         Text notification= new Text("");
         VBox popup = new VBox(text,comboBox,button,notification);
         popup.setAlignment(Pos.CENTER);
-        comboBox.getItems().addAll("Two Players","Three Players","Four Players");
+        comboBox.getItems().addAll("One Player","Two Players","Three Players","Four Players");
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 if (comboBox.getValue() != null){
                     notification.setText("");
                     switch (comboBox.getValue().toString()){
+                        case "One Player"://call task11
+                            break;
                         case "Two Players": numPlayers=2;
                             break;
                         case "Three Players": numPlayers=3;
