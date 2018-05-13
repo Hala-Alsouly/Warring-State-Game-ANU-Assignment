@@ -50,6 +50,7 @@ public class Game extends Application {
     private static final AudioClip error = new AudioClip(Game.class.getResource("assets/error.wav").toString());
     private Color[] flagColor = {Color.LIGHTYELLOW, Color.LIGHTBLUE, Color.PINK, Color.LIGHTGREEN, Color.LIGHTSALMON, Color.LAVENDERBLUSH, Color.LIGHTCORAL};
 
+
     //the menu bar
     private MenuBar menu() {
         MenuBar menuBar = new MenuBar();
@@ -227,17 +228,22 @@ public class Game extends Application {
 
     //method to check if the game end
     private boolean isEnd(Placement placement, int Zpos) {
-        for (int i = 0; i < 36; i++) {
-            if ((i / 6) == (Zpos / 6)) {
-                if (placement.cards[i] != null)
-                    return false;
-            }
-            if ((i % 6) == (Zpos % 6)) {
-                if (placement.cards[i] != null)
-                    return false;
-            }
+        if(WarringStatesGame.generateMove(placement.toString())=='\0'){
+            return true;
         }
-        return true;
+        else {
+            return false;
+        }
+//        for (int i = 0; i < 36; i++) {
+//            if ((i / 6) == (Zpos / 6)) {
+//                if (placement.cards[i] != null)
+//                    return false;
+//            }
+//            if ((i % 6) == (Zpos % 6)) {
+//                if (placement.cards[i] != null)
+//                    return false;
+//            }
+//        }
     }
 
     private void setUpGame() {
@@ -336,6 +342,7 @@ public class Game extends Application {
 
     // FIXME Task 11: Allow players of your Warring States game to play against your simple agent
     void makeRobotMove() {
+        
         char newmove = WarringStatesGame.generateMove(placement.toString());
         illegal.setText("");
         char zyPos = zyCurrentPos(placement.toString()); //zy's current position
