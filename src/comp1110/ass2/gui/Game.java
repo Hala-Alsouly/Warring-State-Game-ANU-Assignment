@@ -248,7 +248,7 @@ public class Game extends Application {
                         illegal.setText("\n Illegal move!");
                         illegal.setFont(Font.font ("Arial", 20));
                         illegal.setFill(Color.RED);
-                        Game.error.play();
+                        error.play();
                         border.setBottom(illegal);
                     }
                 }
