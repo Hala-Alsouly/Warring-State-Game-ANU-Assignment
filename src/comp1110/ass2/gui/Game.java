@@ -42,7 +42,7 @@ public class Game extends Application {
     int i1,i2,i3,i4=0;
     public  int numPlayers;
     public static String posChars="456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
-    //private static final AudioClip error = new AudioClip(Game.class.getResource("assets\\error.wav").toString());
+    private static final AudioClip error = new AudioClip(Game.class.getResource("assets\\error.wav").toString());
     private Color []flagColor={Color.LIGHTYELLOW,Color.LIGHTBLUE, Color.PINK, Color.LIGHTGREEN, Color.LIGHTSALMON, Color.LAVENDERBLUSH, Color.LIGHTCORAL};
 
     //the menu bar
@@ -248,7 +248,7 @@ public class Game extends Application {
                         illegal.setText("\n Illegal move!");
                         illegal.setFont(Font.font ("Arial", 20));
                         illegal.setFill(Color.RED);
-                        //Game.error.play();
+                        error.play();
                         border.setBottom(illegal);
                     }
                 }
