@@ -344,6 +344,9 @@ public class Game extends Application {
     void makeRobotMove() {
 
         char newmove = WarringStatesGame.generateMove(placement.toString());
+        if(newmove=='\0'){
+            return;
+        }
         illegal.setText("");
         char zyPos = zyCurrentPos(placement.toString()); //zy's current position
         ArrayList<String> collected = new ArrayList();
