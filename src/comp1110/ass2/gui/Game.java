@@ -157,9 +157,12 @@ public class Game extends Application {
     //set flags
     private void setFlags (String setup, String moveSequence, int numPlayers, int playerId){
         int []flags = getFlags(setup, moveSequence, numPlayers);
-       // for (int i=0;i<7;i++)
-           // if (flags[i]==playerId)
+        for (int i=0;i<7;i++)
+            if (flags[i]==playerId) {
                 //creat new small sequare for flags
+
+            }
+
 
     }
     //method to check if the game end
@@ -201,7 +204,10 @@ public class Game extends Application {
         for (int i = 0; i < 36; i++) {
             cardsButtons[i] = new Button();
             cardsButtons[i].setPrefSize(90, 90);
-            cardsButtons[i].setStyle("-fx-border-color: black; -fx-border-width: 1px;");
+            if (setup.cards[i].getKingdomName()=="")
+                cardsButtons[i].setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+            else
+                cardsButtons[i].setStyle("-fx-border-color: black; -fx-border-width: 1px;");
             cardsButtons[i].setText(setup.getKingdomName(i)+"\n"+setup.getCharacter(i));
             //set card color
             BackgroundFill fill = new BackgroundFill(setup.getColor(i), CornerRadii.EMPTY, Insets.EMPTY);
