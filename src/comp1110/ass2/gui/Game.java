@@ -19,6 +19,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static comp1110.ass2.WarringStatesGame.*;
 
@@ -29,15 +30,15 @@ public class Game extends Application {
     private static final int BOARD_WIDTH = 933;
     private static final int BOARD_HEIGHT = 700;
     private GridPane board = new GridPane();
-    //private GridPane playersCollection = new GridPane();
     private AnchorPane playersCollection = new AnchorPane();
+    //private StackPane []playersArray;
     private BorderPane border = new BorderPane();
     private Button[] cardsButtons = new Button[36];
     private Text illegal = new Text();
     private final Group root = new Group();
     private String moveSequence="";
     private int playerId=0;
-    int i;
+    int i1,i2,i3,i4=0;
     public  int numPlayers;
     public static String posChars="456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
     private static final AudioClip error = new AudioClip(Game.class.getResource("assets\\error.wav").toString());
@@ -46,6 +47,7 @@ public class Game extends Application {
     //the menu bar
     private MenuBar menu() {
         MenuBar menuBar = new MenuBar();
+        menuBar.setMinWidth(933);
         Menu menuFile = new Menu("File");
         MenuItem newGame = new MenuItem("New game");
         newGame.setOnAction(new EventHandler<ActionEvent>()
@@ -125,18 +127,36 @@ public class Game extends Application {
     //playerId is the player number, c is the collected card
     private void setPlayersCollection(Button c, int playerId){
         //playersCollection.add(c, playerId/2, playerId%2);
-        i+=5;
-        c.setLayoutX(30+(playerId%2)*100);
-        c.setLayoutY(500-(300*(playerId/2))-i);
+        switch (playerId){
+            case 0: i1+=5;
+                c.setLayoutX(30+(playerId%2)*100);
+                c.setLayoutY(500-(300*(playerId/2))-i1);
+                break;
+            case 1: i2+=5;
+                c.setLayoutX(30+(playerId%2)*100);
+                c.setLayoutY(500-(300*(playerId/2))-i2);
+                break;
+            case 2: i3+=5;
+                c.setLayoutX(30+(playerId%2)*100);
+                c.setLayoutY(500-(300*(playerId/2))-i3);
+                break;
+            case 3:i4+=5;
+                c.setLayoutX(30+(playerId%2)*100);
+                c.setLayoutY(500-(300*(playerId/2))-i4);
+                break;
+        }
+
 
        // playersCollection.setStyle("-fx-background-color:lightgray");
         playersCollection.getChildren().addAll(c);
     }
 
     //set flags
-    private void setFlags (String setup, String moveSequence, int numPlayers){
-        getFlags(setup, moveSequence, numPlayers);
-        // new
+    private void setFlags (String setup, String moveSequence, int numPlayers, int playerId){
+        int []flags = getFlags(setup, moveSequence, numPlayers);
+       // for (int i=0;i<7;i++)
+           // if (flags[i]==playerId)
+                //creat new small sequare for flags
 
     }
     //method to check if the game end
