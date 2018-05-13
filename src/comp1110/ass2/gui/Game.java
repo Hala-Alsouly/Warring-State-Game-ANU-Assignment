@@ -342,7 +342,7 @@ public class Game extends Application {
 
     // FIXME Task 11: Allow players of your Warring States game to play against your simple agent
     void makeRobotMove() {
-        
+
         char newmove = WarringStatesGame.generateMove(placement.toString());
         illegal.setText("");
         char zyPos = zyCurrentPos(placement.toString()); //zy's current position
