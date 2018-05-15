@@ -21,6 +21,7 @@ public class WarringStatesGame {
      */
     static boolean isCardPlacementWellFormed(String cardPlacement) {
         // FIXME Task 2: determine whether a card placement is well-formed
+
         if (cardPlacement.length() != 3) {
             return false;
         }
@@ -41,6 +42,17 @@ public class WarringStatesGame {
         return false;
     }
 
+//    // debug
+//    public static class testWellFormed {
+//        public static void main(String[] args) {
+//            String cardPlacement = "z7J";
+//            boolean x = isCardPlacementWellFormed(cardPlacement);
+//            System.out.println(x);
+//            boolean y = isPlacementWellFormed(cardPlacement);
+//            System.out.println(y);
+//        }
+//    }
+
     /**
      * Determine whether a placement string is well-formed:
      * - it consists of exactly N three-character card placements (where N = 1 .. 36);
@@ -53,6 +65,7 @@ public class WarringStatesGame {
      */
     public static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
+
         ArrayList<String> arrayListID = new ArrayList<>();
         ArrayList<Character> arrayListPos = new ArrayList<>();
         if (placement == null || placement.isEmpty()) {
@@ -77,6 +90,11 @@ public class WarringStatesGame {
                     return false;
                 }
                 arrayListPos.add(pos);
+
+                if(card.charAt(1)<48||card.charAt(1)>57||card.charAt(1)==56) return false;
+
+                if(card.charAt(0)=='z'&& card.charAt(1)!='9') return false;
+
             }
 
         }
