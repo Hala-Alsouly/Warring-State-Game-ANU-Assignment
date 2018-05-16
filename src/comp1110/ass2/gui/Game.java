@@ -133,50 +133,10 @@ public class Game extends Application {
                 } else {
                     notification.setText("You have not selected the number of players!");
                 }
-//                if (comboBox1.getValue() != null) {
-//                    notification.setText("");
-//                    switch (comboBox1.getValue().toString()) {
-//                        case "1":
-//                            numPlayers = 1;
-//                            break;
-//                        case "2":
-//                            numPlayers = 2;
-//                            break;
-//                        case "3":
-//                            numPlayers = 3;
-//                            break;
-//                        case "4":
-//                            numPlayers = 4;
-//                            break;
-//                    }
-//                    if (comboBox2.getValue() != null) {
-//                        notification.setText("");
-//                        switch (comboBox2.getValue().toString()) {
-//                            case "0":
-//                                numAgents = 0;
-//                                break;
-//                            case "1":
-//                                numAgents = 1;
-//                                break;
-//                            case "2":
-//                                numAgents = 2;
-//                                break;
-//                            case "3":
-//                                numAgents = 3;
-//                                break;
-//                        }
-//                    }
-//                    s.close();
-//                    setupBoard();
-//                } else {
-//                    notification.setText("You have not selected the number of players!");
-//                }
             }
         });
 
         s.setScene(new Scene(popup1));
-//        s.setScene(new Scene(popup2));
-
         s.show();
     }
 
@@ -234,16 +194,6 @@ public class Game extends Application {
         else {
             return false;
         }
-//        for (int i = 0; i < 36; i++) {
-//            if ((i / 6) == (Zpos / 6)) {
-//                if (placement.cards[i] != null)
-//                    return false;
-//            }
-//            if ((i % 6) == (Zpos % 6)) {
-//                if (placement.cards[i] != null)
-//                    return false;
-//            }
-//        }
     }
 
     private void setUpGame() {
@@ -376,7 +326,6 @@ public class Game extends Application {
                     Duration.millis(500),
                     ae -> {
                         makeRobotMove();
-                        System.out.println("324");
                     }));
             timeline.play();
         }
