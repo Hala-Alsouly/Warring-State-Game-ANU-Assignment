@@ -266,8 +266,8 @@ public class Game extends Application {
         numOfFlags=new int[numPlayers];
         resultGrid.setHgap(10);
         resultGrid.setVgap(10);
-        resultGrid.getRowConstraints().add(new RowConstraints(250));
-        resultGrid.getRowConstraints().add(new RowConstraints(250));
+        //resultGrid.getRowConstraints().add(new RowConstraints(270));
+        //resultGrid.getRowConstraints().add(new RowConstraints(270));
         //resultGrid.getRowConstraints().add(new RowConstraints(150));
         for (int i = 0; i < this.numPlayers; i++) {
             flagPane[i] = new FlowPane();
