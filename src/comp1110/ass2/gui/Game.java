@@ -51,6 +51,7 @@ public class Game extends Application {
     public int numAgents;
     public static String posChars = "456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
     private static final AudioClip error = new AudioClip(Game.class.getResource("assets/error.wav").toString());
+    private static final AudioClip cardSound = new AudioClip(Game.class.getResource("assets/card.wav").toString());
     private Color[] flagColor = {Color.LIGHTYELLOW, Color.LIGHTBLUE, Color.PINK, Color.LIGHTGREEN, Color.LIGHTSALMON, Color.LAVENDERBLUSH, Color.LIGHTCORAL};
     private Placement setup;
     private CollectedCardsInfo []flagsInfo;
@@ -318,6 +319,7 @@ public class Game extends Application {
                 public void handle(ActionEvent e) {
                     if (isMoveLegal(placement.toString(), setup.getCardPos(trans_i))) {
                         illegal.setText("");
+                        cardSound.play();
                         char zyPos = zyCurrentPos(placement.toString()); //zy's current position
                         ArrayList<String> collected = new ArrayList();
                         String newPlacement = WarringStatesGame.removeCards(placement.toString(), placement.cards[trans_i].getCardPos(), collected);
@@ -382,6 +384,7 @@ public class Game extends Application {
             return;
         }
         illegal.setText("");
+        cardSound.play();
         char zyPos = zyCurrentPos(placement.toString()); //zy's current position
         ArrayList<String> collected = new ArrayList();
         String newPlacement = WarringStatesGame.removeCards(placement.toString(), newmove, collected);
