@@ -224,7 +224,7 @@ public class Game extends Application {
         }
         alert.setTitle("End of the game");
         alert.setHeaderText(null);
-        alert.setContentText("The player " +winner+ " win!");
+        alert.setContentText("The player " +(winner+1)+ " win!");
         alert.show();
     }
 
