@@ -6,5 +6,5 @@ We declare that the work we have submitted for Stage H of this assignment and al
 
 * ....
 
-Signed: Mary Jones (u2345678), Bob Smith (u3456789), and Sue Black (u0123456)
+Signed: Qianru Zhu (u6416655),  Hala Abdulaziz M Alsouly (u5995105), Xiao Tian (u6277077)
 

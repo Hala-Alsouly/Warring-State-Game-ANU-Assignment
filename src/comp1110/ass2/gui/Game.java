@@ -1,7 +1,7 @@
 package comp1110.ass2.gui;
 
+import comp1110.ass2.CollectedCardsInfo;
 import comp1110.ass2.Placement;
-import comp1110.ass2.Player;
 import comp1110.ass2.WarringStatesGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -32,24 +33,29 @@ import static comp1110.ass2.WarringStatesGame.*;
 // FIXME Task 9: Implement a basic playable Warring States game in JavaFX
 
 public class Game extends Application {
+
     private static final int BOARD_WIDTH = 933;
     private static final int BOARD_HEIGHT = 700;
     private GridPane board = new GridPane();
-    private AnchorPane playersCollection = new AnchorPane();
-    //private StackPane []playersArray;
+    private GridPane resultGrid = new GridPane();
+    private StackPane[] playerCollectionStack;
+    private BorderPane[] playerBorder;
+    private Label[] flags = new Label[7];
+    private FlowPane[] flagPane;
     private BorderPane border = new BorderPane();
     private Button[] cardsButtons = new Button[36];
     private Text illegal = new Text();
     private final Group root = new Group();
-    private String moveSequence = "";
-    private int playerId = 0;
-    int i1, i2, i3, i4 = 0;
+    private int playerId ;
     public int numPlayers;
     public int numAgents;
     public static String posChars = "456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
     private static final AudioClip error = new AudioClip(Game.class.getResource("assets/error.wav").toString());
+    private static final AudioClip cardSound = new AudioClip(Game.class.getResource("assets/card.wav").toString());
     private Color[] flagColor = {Color.LIGHTYELLOW, Color.LIGHTBLUE, Color.PINK, Color.LIGHTGREEN, Color.LIGHTSALMON, Color.LAVENDERBLUSH, Color.LIGHTCORAL};
-
+    private Placement setup;
+    private CollectedCardsInfo []flagsInfo;
+    private int []numOfFlags;
 
     //the menu bar
     private MenuBar menu() {
@@ -74,7 +80,6 @@ public class Game extends Application {
         menuBar.getMenus().addAll(menuFile);
         return menuBar;
     }
-
     //white button to keep the grid pane as it is
     private Button getWhiteButton() {
         Button wb = new Button();
@@ -102,7 +107,9 @@ public class Game extends Application {
         comboBox1.valueProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                if (newValue == null) return;
+                if (newValue == null) {
+                    return;
+                }
                 comboBox2.getItems().clear();
                 String numPlayer = newValue.toString().trim();
                 int nPlayer = Integer.valueOf(numPlayer);
@@ -127,11 +134,11 @@ public class Game extends Application {
                     }
                     numP = Integer.valueOf(comboBox1.getValue().toString());
                     numPlayers = numP + numR;
-                    numAgents = numR;
-                    //initialize the objects of Playler, and save
-                    for (int i = 0; i < 4; i++) {
-                        players.add(new Player(i));
+                    if(numPlayers<=1){
+                        notification.setText("Please select agents!");
+                        return;
                     }
+                    numAgents = numR;
                     s.close();
                     setupBoard();
                 } else {
@@ -142,59 +149,68 @@ public class Game extends Application {
         });
 
         s.setScene(new Scene(popup1));
-//        s.setScene(new Scene(popup2));
 
         s.show();
     }
-
-    //create list to save player
-    List<Player> players = new ArrayList<>();
 
     public static int getPosInArray(char cardPos) {
         int index = posChars.indexOf(cardPos);
         return index;
     }
 
+//Show the power of each kingdom so, player know what is the best one for winning
+    private FlowPane setKingdomPower(){
+        FlowPane flowPane= new FlowPane();
+        for (int i=0;i<7;i++){
+            Label l = new Label(""+(7-i));
+            l.setPrefSize(20, 20);
+            l.setTextAlignment(TextAlignment.CENTER);
+            l.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
+            BackgroundFill fill = new BackgroundFill(flagColor[i], CornerRadii.EMPTY, Insets.EMPTY);
+            l.setBackground(new Background(fill));
+            flowPane.getChildren().add(l);
+        }
+        flowPane.setAlignment(Pos.TOP_CENTER);
+        flowPane.setPrefWrapLength(150);
+        return flowPane;
+    }
+
     //set every players collection
     //playerId is the player number, c is the collected card
     private void setPlayersCollection(Button c, int playerId) {
-        //playersCollection.add(c, playerId/2, playerId%2);
-        switch (playerId) {
-            case 0:
-                i1 += 5;
-                c.setLayoutX(30 + (playerId % 2) * 100);
-                c.setLayoutY(500 - (300 * (playerId / 2)) - i1);
-                break;
-            case 1:
-                i2 += 5;
-                c.setLayoutX(30 + (playerId % 2) * 100);
-                c.setLayoutY(500 - (300 * (playerId / 2)) - i2);
-                break;
-            case 2:
-                i3 += 5;
-                c.setLayoutX(30 + (playerId % 2) * 100);
-                c.setLayoutY(500 - (300 * (playerId / 2)) - i3);
-                break;
-            case 3:
-                i4 += 5;
-                c.setLayoutX(30 + (playerId % 2) * 100);
-                c.setLayoutY(500 - (300 * (playerId / 2)) - i4);
-                break;
+        int n = playerCollectionStack[playerId].getChildren().size();
+        int m = n * 10;
+        for (Node node : playerCollectionStack[playerId].getChildren()) {
+            Button b = (Button) node;
+            b.setPrefSize(90, 90 + m);
+            m -= 10;
         }
-
-
-        // playersCollection.setStyle("-fx-background-color:lightgray");
-        playersCollection.getChildren().addAll(c);
+        playerCollectionStack[playerId].getChildren().add(c);
     }
 
-    //set flags
-    private void setFlags(String setup, String moveSequence, int numPlayers, int playerId) {
-        int[] flags = getFlags(setup, moveSequence, numPlayers);
-        // for (int i=0;i<7;i++)
-        // if (flags[i]==playerId)
-        //creat new small sequare for flags
 
-    }
+   private void setFlags(ArrayList<String> collectedCard, int playerId ){
+       String kingdoms = "abcdefg";
+       int i=0;
+       //int prevPlayer;
+       for (String s : collectedCard) {
+           i=kingdoms.indexOf(s.charAt(0));
+           if(flagsInfo[i]==null)
+               flagsInfo[i]=new CollectedCardsInfo();
+           flagsInfo[i].playerscollection[playerId]++;
+       }
+       if (flagsInfo[i].playerscollection[playerId]>=flagsInfo[i].count){
+
+           flagsInfo[i].count=flagsInfo[i].playerscollection[playerId];
+           try {flagPane[playerId].getChildren().add(flags[i]);
+               numOfFlags[playerId]++;
+               if (flagsInfo[i].playernum !=-1)
+                   numOfFlags[flagsInfo[i].playernum]--;
+               flagsInfo[i].playernum=playerId;
+           } catch (Exception ex){
+           }
+       }
+   }
 
     //method to check if the game end
     private boolean isEnd(Placement placement, int Zpos) {
@@ -205,73 +221,33 @@ public class Game extends Application {
         }
     }
 
-    static int ID = 0;
-
-    //which player win
-    public void whoWin() {
-        int max = 0;
-        for (int country = 97; country < 104; country++) {
-            for (int i = 0; i < players.size(); i++) {
-                //get this country's card number
-                int cardNum = this.players.get(i).getCardNumbers().get(String.valueOf(country));
-                //add this country's flag to this player
-                if (max < cardNum) {
-                    max = cardNum;
-                    this.players.get(i).addFlags((String.valueOf(country)));
-                }
-            }
-
-
-            for (int i = 0; i < players.size(); i++) {
-                boolean[] flags = this.players.get(i).getFlags();
-                for (int j = 0; j < 6; j++) {
-                    if (flags[j] == true) this.players.get(i).addFlagsNum(1);
-                }
-            }
-
-            int maxFlag = 0;
-
-            for (int i = 0; i < players.size(); i++) {
-                int flagNum = this.players.get(i).getFlagNumbers();
-                if (maxFlag < flagNum) {
-                    maxFlag = flagNum;
-                    ID = i;
-                }
-                if (ID != 0) {
-                    if (maxFlag == flagNum) {
-                        boolean[] maxOfFlags = this.players.get(ID).getFlags();
-                        boolean[] thisOfFlags = this.players.get(i).getFlags();
-                        for (int j = 0; j < 7; j++) {
-                            if (maxOfFlags[j] == false && thisOfFlags[j] == false) continue;
-                            if (maxOfFlags[j] == true && thisOfFlags[j] == false) break;
-                            if (maxOfFlags[j] == false && thisOfFlags[j] == true) {
-                                ID = i;
-                                break;
-                            }
-                        }
+    //popup window shows the winner
+    private void setAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        int winner=-1, max=0;
+        for (int i=0;i<numPlayers;i++){
+            if (max<numOfFlags[i]||(winner==-1)){
+                winner=i;
+                max=numOfFlags[i];
+                }else if (max==numOfFlags[i]) {
+                for (int j = 0; j < 7; j++)
+                    if (flagsInfo[j].playernum == winner)
+                        break;
+                    else if (flagsInfo[j].playernum== i) {
+                        winner = i;
+                        break;
                     }
-                }
             }
         }
-    }
-
-
-
-    private void setAlert() {
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("End of the game");
         alert.setHeaderText(null);
-
-        //which player win
-
-        alert.setContentText("The player " + ID + " win!");
+        alert.setContentText("Player " +(winner+1)+ " wins!");
         alert.show();
     }
 
     private void setUpGame() {
         border.setCenter(board);
-        border.setRight(playersCollection);
+        border.setRight(resultGrid);
         border.setTop(menu());
     }
 
@@ -279,10 +255,43 @@ public class Game extends Application {
 
     private void setupBoard() {
         //reset the game
-        playersCollection.getChildren().clear();
+        resultGrid.getChildren().clear();
+        GridPane kingdomAndError =new GridPane();
         board.getChildren().clear();
-        Placement setup = new Placement();
-        this.placement = setup;
+        kingdomAndError.getColumnConstraints().add(new ColumnConstraints(200));
+        kingdomAndError.getRowConstraints().add(new RowConstraints(50));
+        kingdomAndError.add(new Label("The power of kingdom:"),1,0);
+        kingdomAndError.add(setKingdomPower(),1,1);
+        for (int i = 0; i < 7; i++) {
+            flags[i] = new Label();
+            flags[i].setPrefSize(10, 10);
+            BackgroundFill fill = new BackgroundFill(flagColor[i], CornerRadii.EMPTY, Insets.EMPTY);
+            flags[i].setBackground(new Background(fill));
+        }
+        flagsInfo= new CollectedCardsInfo[7];
+        playerId=0;
+        playerBorder = new BorderPane[numPlayers];
+        flagPane = new FlowPane[numPlayers];
+        playerCollectionStack = new StackPane[numPlayers];
+        numOfFlags=new int[numPlayers];
+        resultGrid.setHgap(10);
+        resultGrid.setVgap(10);
+        for (int i = 0; i < this.numPlayers; i++) {
+            flagPane[i] = new FlowPane();
+            playerBorder[i] = new BorderPane();
+            playerCollectionStack[i] = new StackPane();
+            playerCollectionStack[i].setAlignment(Pos.BOTTOM_CENTER);
+            playerBorder[i].setCenter(playerCollectionStack[i]);
+            Label l = new Label("Player " + (i+1));
+            playerBorder[i].setTop(l);
+            flagPane[i].setHgap(4);
+            flagPane[i].setPrefWrapLength(90);
+            playerBorder[i].setBottom(flagPane[i]);
+            resultGrid.add(playerBorder[i], i / 2, i % 2);
+        }
+
+        setup = new Placement();
+        this.placement = new Placement(setup.toString());
         int col = 0;
         int row = 0;
         board.setHgap(10);
@@ -295,8 +304,9 @@ public class Game extends Application {
             cardsButtons[i] = new Button();
             cardsButtons[i].setPrefSize(90, 90);
             cardsButtons[i].setStyle("-fx-border-color: black; -fx-border-width: 1px;");
-            if (setup.cards[i].getKingdomName() == "")
+            if (setup.cards[i].getKingdomName() == "") {
                 cardsButtons[i].setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+            }
             cardsButtons[i].setText(setup.getKingdomName(i) + "\n" + setup.getCharacter(i));
             //set card color
             BackgroundFill fill = new BackgroundFill(setup.getColor(i), CornerRadii.EMPTY, Insets.EMPTY);
@@ -310,16 +320,15 @@ public class Game extends Application {
                 public void handle(ActionEvent e) {
                     if (isMoveLegal(placement.toString(), setup.getCardPos(trans_i))) {
                         illegal.setText("");
+                        cardSound.play();
                         char zyPos = zyCurrentPos(placement.toString()); //zy's current position
                         ArrayList<String> collected = new ArrayList();
                         String newPlacement = WarringStatesGame.removeCards(placement.toString(), placement.cards[trans_i].getCardPos(), collected);
 
-
                         int index = getPosInArray(zyPos);
                         //move zy card to the new place, and change it is position
                         placement.cards[index].setCardPos(placement.cards[trans_i].getCardPos());
-                        //moveSequence+=placement.cards[trans_i].getCardPos();
-                        //moveSequence+=placement.cards[trans_i].getCardPos();//save players movement
+                        setFlags(collected,playerId);
                         // placement.cards[index]=null;
                         for (String s : collected) {
                             int indexOfCard = placement.toString().indexOf(s);
@@ -334,12 +343,6 @@ public class Game extends Application {
                         board.getChildren().remove(cardsButtons[index]);
                         cardsButtons[trans_i] = cardsButtons[index];
                         board.add(cardsButtons[index], (trans_i / 6), (trans_i % 6));
-                        int cardNum = collected.size();
-                        //add the number of card for current player
-                        players.get(playerId).addCardsNum(collected.get(0).charAt(0) + "", cardNum);
-
-                        gotFlag(playerId, collected.get(0).charAt(0));
-
                         playerId = (playerId + 1) % numPlayers;
                         if (playerId >= numPlayers - numAgents) {
                             Timeline timeline = new Timeline(new KeyFrame(
@@ -349,23 +352,29 @@ public class Game extends Application {
                                     }));
                             timeline.play();
                         }
-                        if (isEnd(placement, trans_i))
+                        if (isEnd(placement, trans_i)) {
                             setAlert();
+                        }
 
                     } else {
                         //highlight the zy and card when the move is illegal then write text message on the bottom of the window
                         illegal.setText("\n Illegal move!");
                         illegal.setFont(Font.font("Arial", 20));
                         illegal.setFill(Color.RED);
+                        illegal.setTextAlignment(TextAlignment.CENTER);
                         error.play();
-                        border.setBottom(illegal);
+                        try {
+                            kingdomAndError.add(illegal,0,0);
+                        }catch (Exception ex){}
                     }
                 }
             });
             board.add(cardsButtons[i], col, row);
         }
         border.setCenter(board);
-        border.setRight(playersCollection);
+        border.setRight(resultGrid);
+        border.setBottom(kingdomAndError);
+
     }
 
     // FIXME Task 11: Allow players of your Warring States game to play against your simple agent
@@ -376,13 +385,14 @@ public class Game extends Application {
             return;
         }
         illegal.setText("");
+        cardSound.play();
         char zyPos = zyCurrentPos(placement.toString()); //zy's current position
         ArrayList<String> collected = new ArrayList();
         String newPlacement = WarringStatesGame.removeCards(placement.toString(), newmove, collected);
 
-
         int index = getPosInArray(zyPos);
         placement.cards[index].setCardPos(newmove);
+        setFlags(collected,playerId);
         for (String s : collected) {
             int indexOfCard = placement.toString().indexOf(s);
             char cardPos = placement.toString().charAt(indexOfCard + 2);
@@ -392,16 +402,10 @@ public class Game extends Application {
             board.getChildren().remove(cardsButtons[indexOfCard]);
             board.add(getWhiteButton(), (indexOfCard / 6), (indexOfCard % 6));
         }
-        int cardNum = collected.size();
-        //add the number of card for current player
-        players.get(playerId).addCardsNum(collected.get(0).charAt(0) + "", cardNum);
-        gotFlag(playerId, collected.get(0).charAt(0));
-
         placement.cards[getPosInArray(newmove)] = placement.cards[index];
         board.getChildren().remove(cardsButtons[index]);
         cardsButtons[getPosInArray(newmove)] = cardsButtons[index];
         board.add(cardsButtons[index], (getPosInArray(newmove) / 6), (getPosInArray(newmove) % 6));
-        System.out.println(playerId + " robot");
 
         playerId = (playerId + 1) % numPlayers;
         if (playerId >= numPlayers - numAgents) {
@@ -410,35 +414,19 @@ public class Game extends Application {
                     Duration.millis(500),
                     ae -> {
                         makeRobotMove();
-                        System.out.println("324");
                     }));
             timeline.play();
         }
-        if (isEnd(placement, getPosInArray(newmove)))
+        if (isEnd(placement, getPosInArray(newmove))) {
             setAlert();
-    }
-
-    boolean gotFlag(int PlayerID, char country) {
-        int num = players.get(playerId).getCardNumbers().get(country + "");
-        for (int i = 0; i < this.numPlayers; i++) {
-            if (i == playerId) continue;
-            if (num < players.get(i).getCardNumbers().get(country + "")) {
-                return false;
-            }
         }
-        for (int i = 0; i < this.numPlayers; i++) {
-            players.get(i).deleteFlags(country + "");
-        }
-        players.get(playerId).addFlags(country + "");
-        return true;
     }
     // FIXME Task 12: Integrate a more advanced opponent into your game
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        primaryStage.setTitle("Warring States Viewer");
+        primaryStage.setTitle("Warring States");
         Scene scene = new Scene(root, BOARD_WIDTH, BOARD_HEIGHT);
         root.getChildren().add(border);
         setUpGame();
