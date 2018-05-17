@@ -47,14 +47,15 @@ public class Game extends Application {
     private Text illegal = new Text();
     private final Group root = new Group();
     private String moveSequence = "";
-    private int playerId = 0;
+    private int playerId ;
     public int numPlayers;
     public int numAgents;
     public static String posChars = "456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
     private static final AudioClip error = new AudioClip(Game.class.getResource("assets/error.wav").toString());
     private Color[] flagColor = {Color.LIGHTYELLOW, Color.LIGHTBLUE, Color.PINK, Color.LIGHTGREEN, Color.LIGHTSALMON, Color.LAVENDERBLUSH, Color.LIGHTCORAL};
     private Placement setup;
-    CollectedCardsInfo []flagsInfo= new CollectedCardsInfo[7];
+    private CollectedCardsInfo []flagsInfo;
+    private int []numOfFlags;
 
     //the menu bar
     private MenuBar menu() {
@@ -145,7 +146,6 @@ public class Game extends Application {
         });
 
         s.setScene(new Scene(popup1));
-//        s.setScene(new Scene(popup2));
 
         s.show();
     }
@@ -168,21 +168,7 @@ public class Game extends Application {
         playerCollectionStack[playerId].getChildren().add(c);
     }
 
-    //set flags
-   /* private void setFlags(String setup, String moveSequence, int numPlayers) {
-        int[] flags = getFlags(setup, moveSequence, numPlayers);
 
-        for (int j = 0; j < flags.length; j++) {
-            int p = flags[j];
-            System.out.print(p+", ");
-            if (p != -1) {
-                flagPane[p].getChildren().clear();
-
-                flagPane[p].getChildren().addAll(this.flags[j]);
-            }
-
-        }
-    }*/
    private void setFlags(ArrayList<String> collectedCard, int playerId ){
        String kingdoms = "abcdefg";
        int i=0;
@@ -194,13 +180,16 @@ public class Game extends Application {
            flagsInfo[i].playerscollection[playerId]++;
        }
        if (flagsInfo[i].playerscollection[playerId]>=flagsInfo[i].count){
-         /*  if (flagsInfo[i].playernum !=-1){
-               prevPlayer=flagsInfo[i].playernum;
 
-           }*/
            flagsInfo[i].count=flagsInfo[i].playerscollection[playerId];
-           flagsInfo[i].playernum=playerId;
            try {flagPane[playerId].getChildren().add(flags[i]);
+               numOfFlags[playerId]++;
+               if (flagsInfo[i].playernum !=-1)
+                   numOfFlags[flagsInfo[i].playernum]--;
+               flagsInfo[i].playernum=playerId;
+               for (int j=0;j<numPlayers;j++)
+                   System.out.print(numOfFlags[j]+", ");
+               System.out.println();
            } catch (Exception ex){
                System.out.println("Same player!");
            }
@@ -218,9 +207,24 @@ public class Game extends Application {
 
     private void setAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        int winner=-1, max=0;
+        for (int i=0;i<numPlayers;i++){
+            if (max<numOfFlags[i]||(winner==-1)){
+                winner=i;
+                max=numOfFlags[i];
+                }else if (max==numOfFlags[i]) {
+                for (int j = 0; j < 7; j++)
+                    if (flagsInfo[j].count == winner)
+                        break;
+                    else if (flagsInfo[i].count == i) {
+                        winner = i;
+                        break;
+                    }
+            }
+        }
         alert.setTitle("End of the game");
         alert.setHeaderText(null);
-        alert.setContentText("The player" + "win!");
+        alert.setContentText("The player number " +winner+ "win!");
         alert.show();
     }
 
@@ -243,9 +247,12 @@ public class Game extends Application {
             BackgroundFill fill = new BackgroundFill(flagColor[i], CornerRadii.EMPTY, Insets.EMPTY);
             flags[i].setBackground(new Background(fill));
         }
+        flagsInfo= new CollectedCardsInfo[7];
+        playerId=0;
         playerBorder = new BorderPane[numPlayers];
         flagPane = new FlowPane[numPlayers];
         playerCollectionStack = new StackPane[numPlayers];
+        numOfFlags=new int[numPlayers];
         resultGrid.setHgap(10);
         resultGrid.setVgap(10);
         for (int i = 0; i < this.numPlayers; i++) {
