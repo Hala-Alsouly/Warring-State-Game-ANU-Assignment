@@ -1,5 +1,5 @@
 package comp1110.ass2.gui;
-
+//Author ://created by Hala Abdulaziz M Alsouly (u5995105)
 import comp1110.ass2.WarringStatesGame;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -47,12 +47,6 @@ public class Viewer extends Application {
         board.getChildren().clear();
         int cardXpos;
         int cardYpos;
-         /* //Draw all shuffled cards
-        Placement p = new Placement();
-        String sc = "";
-        p.setPlacement();
-        sc = p.ShuffleCards();
-        placement= sc;*/
 
         //check if the written placement is right
         if (WarringStatesGame.isPlacementWellFormed(placement)) {
@@ -241,7 +235,6 @@ public class Viewer extends Application {
                         drowCard(placement.charAt(i), placement.charAt(i + 1), cardXpos, cardYpos);
                         break;
                 }
-
             }
         }
     }
@@ -370,7 +363,6 @@ public class Viewer extends Application {
             case 'a':
                 k="秦";
                 drawRectangle(cardXpos, cardYpos, Color.LIGHTYELLOW,k,getCharectarName(king,c));
-
                 break;
             case 'b':
                 k="齊";
@@ -400,7 +392,6 @@ public class Viewer extends Application {
                 k="";
                 drawRectangle(cardXpos, cardYpos, Color.LIGHTGRAY,k,getCharectarName(king,c));
                 break;
-
         }
     }
     /**

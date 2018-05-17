@@ -9,7 +9,6 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,8 +24,13 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.util.*;
+
+/*
+ * Author: Qianru Zhu (u6416655), Hala Abdulaziz M Alsouly (u5995105), Xiao Tian (u6277077)
+ *
+ * This class implements a playable Warring States game in JavaFX and creates robert player
+ */
 
 import static comp1110.ass2.WarringStatesGame.*;
 
@@ -50,6 +54,8 @@ public class Game extends Application {
     public int numPlayers;
     public int numAgents;
     public static String posChars = "456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
+    //the 2 sound files from:
+    //http://soundbible.com/tags-error.html
     private static final AudioClip error = new AudioClip(Game.class.getResource("assets/error.wav").toString());
     private static final AudioClip cardSound = new AudioClip(Game.class.getResource("assets/card.wav").toString());
     private Color[] flagColor = {Color.LIGHTYELLOW, Color.LIGHTBLUE, Color.PINK, Color.LIGHTGREEN, Color.LIGHTSALMON, Color.LAVENDERBLUSH, Color.LIGHTCORAL};
@@ -147,9 +153,7 @@ public class Game extends Application {
 
             }
         });
-
         s.setScene(new Scene(popup1));
-
         s.show();
     }
 
@@ -158,7 +162,7 @@ public class Game extends Application {
         return index;
     }
 
-//Show the power of each kingdom so, player know what is the best one for winning
+//Show the power of each kingdom so, players know what is the best one to win
     private FlowPane setKingdomPower(){
         FlowPane flowPane= new FlowPane();
         for (int i=0;i<7;i++){
@@ -170,8 +174,8 @@ public class Game extends Application {
             l.setBackground(new Background(fill));
             flowPane.getChildren().add(l);
         }
-        flowPane.setAlignment(Pos.TOP_CENTER);
         flowPane.setPrefWrapLength(150);
+        flowPane.setPadding(new Insets(0, 0, 5, 0));
         return flowPane;
     }
 
@@ -188,11 +192,10 @@ public class Game extends Application {
         playerCollectionStack[playerId].getChildren().add(c);
     }
 
-
+//Update the shown flags every movement
    private void setFlags(ArrayList<String> collectedCard, int playerId ){
        String kingdoms = "abcdefg";
        int i=0;
-       //int prevPlayer;
        for (String s : collectedCard) {
            i=kingdoms.indexOf(s.charAt(0));
            if(flagsInfo[i]==null)
@@ -256,10 +259,10 @@ public class Game extends Application {
     private void setupBoard() {
         //reset the game
         resultGrid.getChildren().clear();
-        GridPane kingdomAndError =new GridPane();
         board.getChildren().clear();
+        GridPane kingdomAndError =new GridPane();
         kingdomAndError.getColumnConstraints().add(new ColumnConstraints(200));
-        kingdomAndError.getRowConstraints().add(new RowConstraints(50));
+        kingdomAndError.getRowConstraints().add(new RowConstraints(30));
         kingdomAndError.add(new Label("The power of kingdom:"),1,0);
         kingdomAndError.add(setKingdomPower(),1,1);
         for (int i = 0; i < 7; i++) {
@@ -276,7 +279,7 @@ public class Game extends Application {
         numOfFlags=new int[numPlayers];
         resultGrid.setHgap(10);
         resultGrid.setVgap(10);
-        for (int i = 0; i < this.numPlayers; i++) {
+        for (int i = 0; i < numPlayers; i++) {
             flagPane[i] = new FlowPane();
             playerBorder[i] = new BorderPane();
             playerCollectionStack[i] = new StackPane();
@@ -289,9 +292,8 @@ public class Game extends Application {
             playerBorder[i].setBottom(flagPane[i]);
             resultGrid.add(playerBorder[i], i / 2, i % 2);
         }
-
         setup = new Placement();
-        this.placement = new Placement(setup.toString());
+        placement = new Placement(setup.toString());
         int col = 0;
         int row = 0;
         board.setHgap(10);
@@ -329,7 +331,6 @@ public class Game extends Application {
                         //move zy card to the new place, and change it is position
                         placement.cards[index].setCardPos(placement.cards[trans_i].getCardPos());
                         setFlags(collected,playerId);
-                        // placement.cards[index]=null;
                         for (String s : collected) {
                             int indexOfCard = placement.toString().indexOf(s);
                             char cardPos = placement.toString().charAt(indexOfCard + 2);

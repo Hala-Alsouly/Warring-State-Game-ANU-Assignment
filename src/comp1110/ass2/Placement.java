@@ -1,11 +1,10 @@
 package comp1110.ass2;
-
+//created by Hala Abdulaziz M Alsouly (u5995105)
 import javafx.scene.paint.Color;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-//created by Hala
+
 // create 36 card placement
 public class Placement {
     public Card[]cards= new Card[36];
@@ -31,10 +30,7 @@ public class Placement {
             c.setCardPos(Card.posChars.charAt(i));
             cards[i++]=c;
         }
-
-
     }
-
     // convert from array of objects to string
     @Override
     public String toString() {
@@ -56,6 +52,7 @@ public class Placement {
     public Color getColor(int i) {
         return cards[i].getCardColor();
     }
+
     public char getCardPos(int i) {
         return cards[i].getCardPos();
     }

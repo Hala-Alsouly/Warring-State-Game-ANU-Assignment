@@ -1,5 +1,5 @@
 package comp1110.ass2;
-//created by Hala
+//created by Hala Abdulaziz M Alsouly (u5995105)
 //store a collected kingdom cards information for one player
 public class CollectedCardsInfo {
     public char c;
@@ -11,6 +11,7 @@ public class CollectedCardsInfo {
     public CollectedCardsInfo( char c){
         this.c=c;
     }
+
     public CollectedCardsInfo(){
     }
 
