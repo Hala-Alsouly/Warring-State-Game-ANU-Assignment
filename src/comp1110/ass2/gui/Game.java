@@ -1,5 +1,6 @@
 package comp1110.ass2.gui;
 
+import comp1110.ass2.CollectedCardsInfo;
 import comp1110.ass2.Placement;
 import comp1110.ass2.WarringStatesGame;
 import javafx.animation.KeyFrame;
@@ -47,13 +48,13 @@ public class Game extends Application {
     private final Group root = new Group();
     private String moveSequence = "";
     private int playerId = 0;
-    int i1, i2, i3, i4 = 0;
     public int numPlayers;
     public int numAgents;
     public static String posChars = "456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
     private static final AudioClip error = new AudioClip(Game.class.getResource("assets/error.wav").toString());
     private Color[] flagColor = {Color.LIGHTYELLOW, Color.LIGHTBLUE, Color.PINK, Color.LIGHTGREEN, Color.LIGHTSALMON, Color.LAVENDERBLUSH, Color.LIGHTCORAL};
     private Placement setup;
+    CollectedCardsInfo []flagsInfo= new CollectedCardsInfo[7];
 
     //the menu bar
     private MenuBar menu() {
@@ -168,45 +169,43 @@ public class Game extends Application {
     }
 
     //set flags
-    private void setFlags(String setup, String moveSequence, int numPlayers) {
+   /* private void setFlags(String setup, String moveSequence, int numPlayers) {
         int[] flags = getFlags(setup, moveSequence, numPlayers);
-        // FlowPane[] flowPane = new FlowPane[numPlayers];
 
-        // flowPane[i] = new FlowPane();
-        /*     switch (i) {
-                case 0:
-                    flowPane[i].setLayoutX(30);
-                    flowPane[i].setLayoutY(500);
-                    break;
-                case 1:
-                    flowPane[i].setLayoutX(130);
-                    flowPane[i].setLayoutY(500);
-                    break;
-                case 2:
-                    flowPane[i].setLayoutX(30);
-                    flowPane[i].setLayoutY(200);
-                    break;
-                case 3:
-                    flowPane[i].setLayoutX(130);
-                    flowPane[i].setLayoutY(200);
-                    break;
-            }*/
-        //Rectangle[] playerFlag = new Rectangle[7];
         for (int j = 0; j < flags.length; j++) {
             int p = flags[j];
             System.out.print(p+", ");
             if (p != -1) {
                 flagPane[p].getChildren().clear();
-                //  playerFlag[j] = new Rectangle(10, 10);
-                // playerFlag[j].setFill(flagColor[j]);
 
                 flagPane[p].getChildren().addAll(this.flags[j]);
             }
 
         }
-        System.out.println();
-        // resultGrid.getChildren().addAll(flowPane);
-    }
+    }*/
+   private void setFlags(ArrayList<String> collectedCard, int playerId ){
+       String kingdoms = "abcdefg";
+       int i=0;
+       //int prevPlayer;
+       for (String s : collectedCard) {
+           i=kingdoms.indexOf(s.charAt(0));
+           if(flagsInfo[i]==null)
+               flagsInfo[i]=new CollectedCardsInfo();
+           flagsInfo[i].playerscollection[playerId]++;
+       }
+       if (flagsInfo[i].playerscollection[playerId]>=flagsInfo[i].count){
+         /*  if (flagsInfo[i].playernum !=-1){
+               prevPlayer=flagsInfo[i].playernum;
+
+           }*/
+           flagsInfo[i].count=flagsInfo[i].playerscollection[playerId];
+           flagsInfo[i].playernum=playerId;
+           try {flagPane[playerId].getChildren().add(flags[i]);
+           } catch (Exception ex){
+               System.out.println("Same player!");
+           }
+       }
+   }
 
     //method to check if the game end
     private boolean isEnd(Placement placement, int Zpos) {
@@ -301,8 +300,8 @@ public class Game extends Application {
                         //move zy card to the new place, and change it is position
                         placement.cards[index].setCardPos(placement.cards[trans_i].getCardPos());
                         //moveSequence+=placement.cards[trans_i].getCardPos();
-                        moveSequence += placement.cards[trans_i].getCardPos();//save players movement
-                        //setFlags(setup.toString(), moveSequence, numPlayers);
+                        //moveSequence += placement.cards[trans_i].getCardPos();//save players movement
+                        setFlags(collected,playerId);
                         // placement.cards[index]=null;
                         for (String s : collected) {
                             int indexOfCard = placement.toString().indexOf(s);
@@ -363,6 +362,7 @@ public class Game extends Application {
         int index = getPosInArray(zyPos);
         placement.cards[index].setCardPos(newmove);
         //setFlags(setup.toString(), moveSequence, numPlayers);
+        setFlags(collected,playerId);
         for (String s : collected) {
             int indexOfCard = placement.toString().indexOf(s);
             char cardPos = placement.toString().charAt(indexOfCard + 2);
