@@ -422,6 +422,7 @@ public class Game extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+        getPopup();
     }
 }
 
