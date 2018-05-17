@@ -79,7 +79,6 @@ public class Game extends Application {
         menuBar.getMenus().addAll(menuFile);
         return menuBar;
     }
-
     //white button to keep the grid pane as it is
     private Button getWhiteButton() {
         Button wb = new Button();
@@ -134,6 +133,10 @@ public class Game extends Application {
                     }
                     numP = Integer.valueOf(comboBox1.getValue().toString());
                     numPlayers = numP + numR;
+                    if(numPlayers<=1){
+                        notification.setText("Please select agents!");
+                        return;
+                    }
                     numAgents = numR;
                     s.close();
                     setupBoard();
@@ -165,8 +168,8 @@ public class Game extends Application {
             l.setBackground(new Background(fill));
             flowPane.getChildren().add(l);
         }
-        flowPane.setAlignment(Pos.CENTER);
-        flowPane.setPrefWrapLength(120);
+        flowPane.setAlignment(Pos.TOP_CENTER);
+        flowPane.setPrefWrapLength(150);
         return flowPane;
     }
 
@@ -235,7 +238,7 @@ public class Game extends Application {
         }
         alert.setTitle("End of the game");
         alert.setHeaderText(null);
-        alert.setContentText("The player " +(winner+1)+ " win!");
+        alert.setContentText("Player " +(winner+1)+ " wins!");
         alert.show();
     }
 
@@ -251,7 +254,12 @@ public class Game extends Application {
         //reset the game
 
         resultGrid.getChildren().clear();
+        GridPane kingdomAndError =new GridPane();
         board.getChildren().clear();
+        kingdomAndError.getColumnConstraints().add(new ColumnConstraints(200));
+        kingdomAndError.getRowConstraints().add(new RowConstraints(50));
+        kingdomAndError.add(new Label("The power of kingdom:"),1,0);
+        kingdomAndError.add(setKingdomPower(),1,1);
         for (int i = 0; i < 7; i++) {
             flags[i] = new Label();
             flags[i].setPrefSize(10, 10);
@@ -266,26 +274,20 @@ public class Game extends Application {
         numOfFlags=new int[numPlayers];
         resultGrid.setHgap(10);
         resultGrid.setVgap(10);
-        resultGrid.getRowConstraints().add(new RowConstraints(250));
-        resultGrid.getRowConstraints().add(new RowConstraints(250));
-        //resultGrid.getRowConstraints().add(new RowConstraints(150));
         for (int i = 0; i < this.numPlayers; i++) {
             flagPane[i] = new FlowPane();
             playerBorder[i] = new BorderPane();
             playerCollectionStack[i] = new StackPane();
             playerCollectionStack[i].setAlignment(Pos.BOTTOM_CENTER);
             playerBorder[i].setCenter(playerCollectionStack[i]);
-            Label l = new Label("Player: " + (i+1));
+            Label l = new Label("Player " + (i+1));
             playerBorder[i].setTop(l);
             flagPane[i].setHgap(4);
             flagPane[i].setPrefWrapLength(90);
             playerBorder[i].setBottom(flagPane[i]);
             resultGrid.add(playerBorder[i], i / 2, i % 2);
         }
-        Label kingdomPower=new Label("Kingdoms Power:");
-        kingdomPower.setTextAlignment(TextAlignment.CENTER);
-        resultGrid.add(kingdomPower, 0,2,2,1);
-        resultGrid.add(setKingdomPower(),0,3,2,1);
+
         setup = new Placement();
         this.placement = new Placement(setup.toString());
         int col = 0;
@@ -356,8 +358,11 @@ public class Game extends Application {
                         illegal.setText("\n Illegal move!");
                         illegal.setFont(Font.font("Arial", 20));
                         illegal.setFill(Color.RED);
+                        illegal.setTextAlignment(TextAlignment.CENTER);
                         error.play();
-                        border.setBottom(illegal);
+                        try {
+                            kingdomAndError.add(illegal,0,0);
+                        }catch (Exception ex){}
                     }
                 }
             });
@@ -365,6 +370,8 @@ public class Game extends Application {
         }
         border.setCenter(board);
         border.setRight(resultGrid);
+        border.setBottom(kingdomAndError);
+
     }
 
     // FIXME Task 11: Allow players of your Warring States game to play against your simple agent
@@ -415,13 +422,14 @@ public class Game extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        primaryStage.setTitle("Warring States Viewer");
+        primaryStage.setTitle("Warring States");
         Scene scene = new Scene(root, BOARD_WIDTH, BOARD_HEIGHT);
         root.getChildren().add(border);
         setUpGame();
 
         primaryStage.setScene(scene);
         primaryStage.show();
+        getPopup();
     }
 }
 
