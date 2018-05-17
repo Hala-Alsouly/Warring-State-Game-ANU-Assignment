@@ -25,7 +25,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.*;
-
+ 
 /*
  * Author: Qianru Zhu (u6416655), Hala Abdulaziz M Alsouly (u5995105), Xiao Tian (u6277077)
  *
@@ -68,6 +68,7 @@ public class Game extends Application {
         MenuBar menuBar = new MenuBar();
         menuBar.setMinWidth(933);
         Menu menuFile = new Menu("File");
+        Menu menuHelp = new Menu("Help");
         MenuItem newGame = new MenuItem("New game");
         newGame.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
@@ -82,8 +83,16 @@ public class Game extends Application {
                 System.exit(0);
             }
         });
+        MenuItem instruction =new MenuItem("How to Play");
+        instruction.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                //new popup window
+                getHelp();
+            }
+        });
+        menuHelp.getItems().add(instruction);
         menuFile.getItems().addAll(newGame, exit);
-        menuBar.getMenus().addAll(menuFile);
+        menuBar.getMenus().addAll(menuFile, menuHelp);
         return menuBar;
     }
     //white button to keep the grid pane as it is
@@ -94,6 +103,34 @@ public class Game extends Application {
         wb.setBackground(new Background(fill));
         return wb;
     }
+    //Instruction window
+    private void getHelp() {
+        Stage s = new Stage();
+        s.setWidth(400);
+        s.setHeight(300);
+        Text t=new Text("How to play:\n" +
+                "1. The player moves the diplomat Zhang Yi to a card in the same row or column to collect the maximum number of cards.\n" +
+                "2. If there is more than one card from the same kingdom, the player should move to the furthest one and collect all card in her way.\n" +
+                "3. The player takes the rule and wins a flag if she has the highest number of card from that kingdom, or she is the last one who collects cards if there is a draw.\n" +
+                "4. The winner is the player who has the highest number of flags.\n" +
+                "5. If 2 or more players draw, the winner is the player who has the most powerful kingdom.\n" +
+                "6. The kingdom's power is shown at the bottom of the board.\n");
+        Button ok=new Button("OK");
+        ok.setAlignment(Pos.CENTER);
+        t.setWrappingWidth(390);
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                s.close();
+            }
+        });
+        VBox popup = new VBox(t,ok);
+        popup.setPadding(new Insets(5, 5, 5, 5));
+        s.setScene(new Scene(popup));
+        s.show();
+
+    }
+
+
 
     //popup window to choose the players numbers
     private void getPopup() {
