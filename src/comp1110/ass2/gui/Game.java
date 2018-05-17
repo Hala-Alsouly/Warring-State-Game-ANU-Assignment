@@ -46,7 +46,6 @@ public class Game extends Application {
     private Button[] cardsButtons = new Button[36];
     private Text illegal = new Text();
     private final Group root = new Group();
-    private String moveSequence = "";
     private int playerId ;
     public int numPlayers;
     public int numAgents;
@@ -187,11 +186,7 @@ public class Game extends Application {
                if (flagsInfo[i].playernum !=-1)
                    numOfFlags[flagsInfo[i].playernum]--;
                flagsInfo[i].playernum=playerId;
-               for (int j=0;j<numPlayers;j++)
-                   System.out.print(numOfFlags[j]+", ");
-               System.out.println();
            } catch (Exception ex){
-               System.out.println("Same player!");
            }
        }
    }
@@ -212,12 +207,14 @@ public class Game extends Application {
             if (max<numOfFlags[i]||(winner==-1)){
                 winner=i;
                 max=numOfFlags[i];
+                System.out.println("1w "+winner+" , max "+max);
                 }else if (max==numOfFlags[i]) {
                 for (int j = 0; j < 7; j++)
-                    if (flagsInfo[j].count == winner)
+                    if (flagsInfo[j].playernum == winner)
                         break;
-                    else if (flagsInfo[i].count == i) {
+                    else if (flagsInfo[j].playernum== i) {
                         winner = i;
+                        System.out.println("2w "+winner+" , max "+max+" j: "+j);
                         break;
                     }
             }
@@ -306,8 +303,6 @@ public class Game extends Application {
                         int index = getPosInArray(zyPos);
                         //move zy card to the new place, and change it is position
                         placement.cards[index].setCardPos(placement.cards[trans_i].getCardPos());
-                        //moveSequence+=placement.cards[trans_i].getCardPos();
-                        //moveSequence += placement.cards[trans_i].getCardPos();//save players movement
                         setFlags(collected,playerId);
                         // placement.cards[index]=null;
                         for (String s : collected) {
@@ -368,7 +363,6 @@ public class Game extends Application {
 
         int index = getPosInArray(zyPos);
         placement.cards[index].setCardPos(newmove);
-        //setFlags(setup.toString(), moveSequence, numPlayers);
         setFlags(collected,playerId);
         for (String s : collected) {
             int indexOfCard = placement.toString().indexOf(s);
@@ -383,7 +377,6 @@ public class Game extends Application {
         board.getChildren().remove(cardsButtons[index]);
         cardsButtons[getPosInArray(newmove)] = cardsButtons[index];
         board.add(cardsButtons[index], (getPosInArray(newmove) / 6), (getPosInArray(newmove) % 6));
-        System.out.println(playerId + " robot");
 
         playerId = (playerId + 1) % numPlayers;
         if (playerId >= numPlayers - numAgents) {
@@ -392,7 +385,6 @@ public class Game extends Application {
                     Duration.millis(500),
                     ae -> {
                         makeRobotMove();
-                        System.out.println("324");
                     }));
             timeline.play();
         }
