@@ -134,6 +134,10 @@ public class Game extends Application {
                     }
                     numP = Integer.valueOf(comboBox1.getValue().toString());
                     numPlayers = numP + numR;
+                    if(numPlayers<=1){
+                        notification.setText("Please select agents!");
+                        return;
+                    }
                     numAgents = numR;
                     s.close();
                     setupBoard();
@@ -235,7 +239,7 @@ public class Game extends Application {
         }
         alert.setTitle("End of the game");
         alert.setHeaderText(null);
-        alert.setContentText("The player " +(winner+1)+ " win!");
+        alert.setContentText("The player " +(winner+1)+ " wins!");
         alert.show();
     }
 
@@ -277,7 +281,7 @@ public class Game extends Application {
             playerCollectionStack[i] = new StackPane();
             playerCollectionStack[i].setAlignment(Pos.BOTTOM_CENTER);
             playerBorder[i].setCenter(playerCollectionStack[i]);
-            Label l = new Label("Player: " + (i+1));
+            Label l = new Label("Player " + (i+1));
             playerBorder[i].setTop(l);
             flagPane[i].setHgap(4);
             flagPane[i].setPrefWrapLength(90);
@@ -419,13 +423,14 @@ public class Game extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        primaryStage.setTitle("Warring States Viewer");
+        primaryStage.setTitle("Warring States");
         Scene scene = new Scene(root, BOARD_WIDTH, BOARD_HEIGHT);
         root.getChildren().add(border);
         setUpGame();
 
         primaryStage.setScene(scene);
         primaryStage.show();
+        getPopup();
     }
 }
 
