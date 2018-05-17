@@ -66,7 +66,7 @@ public class Game extends Application {
         newGame.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 //new popup window to select the number of players
-                getPopup();
+                getPopup(); 
             }
         });
         //Exit the game
