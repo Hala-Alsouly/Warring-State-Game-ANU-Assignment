@@ -261,7 +261,7 @@ public class Game extends Application {
             playerCollectionStack[i] = new StackPane();
             playerCollectionStack[i].setAlignment(Pos.TOP_CENTER);
             playerBorder[i].setCenter(playerCollectionStack[i]);
-            Label l = new Label("Player ID: " + i);
+            Label l = new Label("Player ID: " + (i+1));
             playerBorder[i].setTop(l);
             flagPane[i].setHgap(4);
             flagPane[i].setPrefWrapLength(90);
