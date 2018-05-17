@@ -11,6 +11,7 @@ public class CollectedCardsInfo {
     public CollectedCardsInfo( char c){
         this.c=c;
     }
+
     public CollectedCardsInfo(){
     }
 
