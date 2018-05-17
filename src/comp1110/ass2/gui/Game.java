@@ -79,7 +79,6 @@ public class Game extends Application {
         menuBar.getMenus().addAll(menuFile);
         return menuBar;
     }
-
     //white button to keep the grid pane as it is
     private Button getWhiteButton() {
         Button wb = new Button();
