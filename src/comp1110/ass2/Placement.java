@@ -1,11 +1,10 @@
 package comp1110.ass2;
-
+//created by Hala Abdulaziz M Alsouly (u5995105)
 import javafx.scene.paint.Color;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-//created by Hala
+
 // create 36 card placement
 public class Placement {
     public Card[]cards= new Card[36];

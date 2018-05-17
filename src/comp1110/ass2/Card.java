@@ -1,5 +1,5 @@
 package comp1110.ass2;
-
+//created by Hala Abdulaziz M Alsouly (u5995105)
 import javafx.scene.paint.Color;
 
 public class Card {

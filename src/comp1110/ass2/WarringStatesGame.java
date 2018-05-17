@@ -106,7 +106,6 @@ public class WarringStatesGame {
 
     // find the index of row or column (Zhang Yi's position  or other cards' location)
     public static int quickIndex(char position) {
-        // char[][] sixSix = new char[6][6];
         char location = 'A';
         //put board's locations into a 6*6 coordinate system
         // A-X
