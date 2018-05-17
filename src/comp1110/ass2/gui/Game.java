@@ -147,9 +147,7 @@ public class Game extends Application {
 
             }
         });
-
         s.setScene(new Scene(popup1));
-
         s.show();
     }
 
@@ -329,7 +327,6 @@ public class Game extends Application {
                         //move zy card to the new place, and change it is position
                         placement.cards[index].setCardPos(placement.cards[trans_i].getCardPos());
                         setFlags(collected,playerId);
-                        // placement.cards[index]=null;
                         for (String s : collected) {
                             int indexOfCard = placement.toString().indexOf(s);
                             char cardPos = placement.toString().charAt(indexOfCard + 2);
