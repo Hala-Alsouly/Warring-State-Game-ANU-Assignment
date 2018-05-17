@@ -42,17 +42,6 @@ public class WarringStatesGame {
         return false;
     }
 
-//    // debug
-//    public static class testWellFormed {
-//        public static void main(String[] args) {
-//            String cardPlacement = "z7J";
-//            boolean x = isCardPlacementWellFormed(cardPlacement);
-//            System.out.println(x);
-//            boolean y = isPlacementWellFormed(cardPlacement);
-//            System.out.println(y);
-//        }
-//    }
-
     /**
      * Determine whether a placement string is well-formed:
      * - it consists of exactly N three-character card placements (where N = 1 .. 36);
@@ -303,8 +292,7 @@ public class WarringStatesGame {
      * @return True if the placement sequence is valid
      */
     static boolean isMoveSequenceValid(String setup, String moveSequence) {
-//        System.out.println(setup);
-//        System.out.println(moveSequence);
+
         // FIXME Task 6: determine whether a placement sequence is valid
         for (int i = 0; i < moveSequence.length(); i++) {
             char move = moveSequence.charAt(i);
@@ -380,7 +368,6 @@ public class WarringStatesGame {
                 placement = placement.replace(placement.substring(i, i + 3), "z9" + move);
             }
         }
-//        System.out.println(placement+" "+move);
         return placement;
     }
 
@@ -419,10 +406,6 @@ public class WarringStatesGame {
      * @return the list of supporters for the given player
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
-//        System.out.println(setup);
-//        System.out.println(moveSequence);
-//        System.out.println(numPlayers);
-//        System.out.println(playerId);
 
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
 
@@ -434,7 +417,7 @@ public class WarringStatesGame {
             } else {
                 setup = removeCards(setup, move, new ArrayList<>());
             }
-            //System.out.println(setup);
+
         }
         String supporters = "";
         for (String s : cardsCollected) {
@@ -623,7 +606,6 @@ public class WarringStatesGame {
         if (legalMove.size()==0){
             return  '\0';
         }
-        //System.out.println(legalMove); //debug
         Collections.shuffle(legalMove);
         return legalMove.get(0);
     }

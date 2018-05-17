@@ -157,6 +157,7 @@ public class Game extends Application {
         return index;
     }
 
+//Show the power of each kingdom so, player know what is the best one for winning
     private FlowPane setKingdomPower(){
         FlowPane flowPane= new FlowPane();
         for (int i=0;i<7;i++){
@@ -219,6 +220,7 @@ public class Game extends Application {
         }
     }
 
+    //popup window shows the winner
     private void setAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         int winner=-1, max=0;
@@ -252,7 +254,6 @@ public class Game extends Application {
 
     private void setupBoard() {
         //reset the game
-
         resultGrid.getChildren().clear();
         GridPane kingdomAndError =new GridPane();
         board.getChildren().clear();
