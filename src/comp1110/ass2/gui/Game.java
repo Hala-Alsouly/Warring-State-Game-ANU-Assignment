@@ -154,6 +154,22 @@ public class Game extends Application {
         return index;
     }
 
+    private FlowPane setKingdomPower(){
+        FlowPane flowPane= new FlowPane();
+        for (int i=0;i<7;i++){
+            Label l = new Label(""+(7-i));
+            l.setPrefSize(20, 20);
+            l.setTextAlignment(TextAlignment.CENTER);
+            l.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
+            BackgroundFill fill = new BackgroundFill(flagColor[i], CornerRadii.EMPTY, Insets.EMPTY);
+            l.setBackground(new Background(fill));
+            flowPane.getChildren().add(l);
+        }
+        flowPane.setAlignment(Pos.CENTER);
+        flowPane.setPrefWrapLength(120);
+        return flowPane;
+    }
+
     //set every players collection
     //playerId is the player number, c is the collected card
     private void setPlayersCollection(Button c, int playerId) {
@@ -207,14 +223,12 @@ public class Game extends Application {
             if (max<numOfFlags[i]||(winner==-1)){
                 winner=i;
                 max=numOfFlags[i];
-                System.out.println("1w "+winner+" , max "+max);
                 }else if (max==numOfFlags[i]) {
                 for (int j = 0; j < 7; j++)
                     if (flagsInfo[j].playernum == winner)
                         break;
                     else if (flagsInfo[j].playernum== i) {
                         winner = i;
-                        System.out.println("2w "+winner+" , max "+max+" j: "+j);
                         break;
                     }
             }
@@ -252,11 +266,14 @@ public class Game extends Application {
         numOfFlags=new int[numPlayers];
         resultGrid.setHgap(10);
         resultGrid.setVgap(10);
+        resultGrid.getRowConstraints().add(new RowConstraints(250));
+        resultGrid.getRowConstraints().add(new RowConstraints(250));
+        //resultGrid.getRowConstraints().add(new RowConstraints(150));
         for (int i = 0; i < this.numPlayers; i++) {
             flagPane[i] = new FlowPane();
             playerBorder[i] = new BorderPane();
             playerCollectionStack[i] = new StackPane();
-            playerCollectionStack[i].setAlignment(Pos.TOP_CENTER);
+            playerCollectionStack[i].setAlignment(Pos.BOTTOM_CENTER);
             playerBorder[i].setCenter(playerCollectionStack[i]);
             Label l = new Label("Player: " + (i+1));
             playerBorder[i].setTop(l);
@@ -265,7 +282,10 @@ public class Game extends Application {
             playerBorder[i].setBottom(flagPane[i]);
             resultGrid.add(playerBorder[i], i / 2, i % 2);
         }
-
+        Label kingdomPower=new Label("Kingdoms Power:");
+        kingdomPower.setTextAlignment(TextAlignment.CENTER);
+        resultGrid.add(kingdomPower, 0,2,2,1);
+        resultGrid.add(setKingdomPower(),0,3,2,1);
         setup = new Placement();
         this.placement = new Placement(setup.toString());
         int col = 0;
@@ -318,8 +338,6 @@ public class Game extends Application {
                         board.getChildren().remove(cardsButtons[index]);
                         cardsButtons[trans_i] = cardsButtons[index];
                         board.add(cardsButtons[index], (trans_i / 6), (trans_i % 6));
-                        System.out.println(playerId);
-
                         playerId = (playerId + 1) % numPlayers;
                         if (playerId >= numPlayers - numAgents) {
                             Timeline timeline = new Timeline(new KeyFrame(
