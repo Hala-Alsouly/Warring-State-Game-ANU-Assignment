@@ -61,6 +61,7 @@ public class PlacementWellFormedTest {
         }
     }
 
+    
     @Test
     public void testBad() {
         Random r = new Random();
