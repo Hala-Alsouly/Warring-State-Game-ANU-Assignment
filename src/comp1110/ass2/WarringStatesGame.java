@@ -89,6 +89,8 @@ public class WarringStatesGame {
         }
         return true;
     }
+
+    //*************************************task5***************************************************
     //if find Zhang Yi in the placement (cards), return his current position(char), else return'!'
     public static char zyCurrentPos(String placement) {
         for (int i = 0; i < placement.length(); i += 3) {
