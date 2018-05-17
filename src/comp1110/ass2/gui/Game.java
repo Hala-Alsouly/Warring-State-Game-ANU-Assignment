@@ -210,9 +210,9 @@ public class Game extends Application {
                 System.out.println("1w "+winner+" , max "+max);
                 }else if (max==numOfFlags[i]) {
                 for (int j = 0; j < 7; j++)
-                    if (flagsInfo[j].count == winner)
+                    if (flagsInfo[j].playernum == winner)
                         break;
-                    else if (flagsInfo[j].count == i) {
+                    else if (flagsInfo[j].playernum== i) {
                         winner = i;
                         System.out.println("2w "+winner+" , max "+max+" j: "+j);
                         break;
