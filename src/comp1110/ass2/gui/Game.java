@@ -28,7 +28,7 @@ import java.util.*;
 
 /*
  * Author: Qianru Zhu (u6416655), Hala Abdulaziz M Alsouly (u5995105), Xiao Tian (u6277077)
- *  
+ *
  * This class implements a playable Warring States game in JavaFX and creates robert player
  */
 
@@ -36,7 +36,7 @@ import static comp1110.ass2.WarringStatesGame.*;
 
 // FIXME Task 9: Implement a basic playable Warring States game in JavaFX
 
-public class Game extends Application {
+public class Game extends Application {  
 
     private static final int BOARD_WIDTH = 933;
     private static final int BOARD_HEIGHT = 700;
