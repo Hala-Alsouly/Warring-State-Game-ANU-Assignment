@@ -28,7 +28,6 @@ import java.util.*;
 
 import static comp1110.ass2.WarringStatesGame.*;
 
-
 // FIXME Task 9: Implement a basic playable Warring States game in JavaFX
 
 public class Game extends Application {
@@ -133,10 +132,13 @@ public class Game extends Application {
                 } else {
                     notification.setText("You have not selected the number of players!");
                 }
+
             }
         });
 
         s.setScene(new Scene(popup1));
+//        s.setScene(new Scene(popup2));
+
         s.show();
     }
 
@@ -196,6 +198,13 @@ public class Game extends Application {
         }
     }
 
+    private void setAlert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("End of the game");
+        alert.setHeaderText(null);
+        alert.setContentText("The player"+"win!");
+        alert.show();
+    }
     private void setUpGame() {
         border.setCenter(board);
         border.setRight(playersCollection);
@@ -222,6 +231,8 @@ public class Game extends Application {
             cardsButtons[i] = new Button();
             cardsButtons[i].setPrefSize(90, 90);
             cardsButtons[i].setStyle("-fx-border-color: black; -fx-border-width: 1px;");
+            if (setup.cards[i].getKingdomName()=="")
+                cardsButtons[i].setStyle("-fx-border-color: red; -fx-border-width: 1px;");
             cardsButtons[i].setText(setup.getKingdomName(i) + "\n" + setup.getCharacter(i));
             //set card color
             BackgroundFill fill = new BackgroundFill(setup.getColor(i), CornerRadii.EMPTY, Insets.EMPTY);
@@ -271,7 +282,7 @@ public class Game extends Application {
                             timeline.play();
                         }
                         if (isEnd(placement, trans_i))
-                            System.out.println("End");
+                            setAlert();
 
                     } else {
                         //highlight the zy and card when the move is illegal then write text message on the bottom of the window
@@ -322,15 +333,17 @@ public class Game extends Application {
 
         playerId = (playerId + 1) % numPlayers;
         if (playerId >= numPlayers - numAgents) {
+
             Timeline timeline = new Timeline(new KeyFrame(
                     Duration.millis(500),
                     ae -> {
                         makeRobotMove();
+                        System.out.println("324");
                     }));
             timeline.play();
         }
         if (isEnd(placement, getPosInArray(newmove)))
-            System.out.println("End");
+            setAlert();
     }
     // FIXME Task 12: Integrate a more advanced opponent into your game
 
