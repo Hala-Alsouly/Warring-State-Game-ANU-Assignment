@@ -25,7 +25,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.*;
-
+ 
 /*
  * Author: Qianru Zhu (u6416655), Hala Abdulaziz M Alsouly (u5995105), Xiao Tian (u6277077)
  *  
