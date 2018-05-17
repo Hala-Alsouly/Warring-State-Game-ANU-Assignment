@@ -9,7 +9,7 @@ of our project implements the following features:
  - Compute scoring (Task 9)
  - Generate a valid move (Task 10)
  - Basic computer opponent (Task 11)
- - Advanced computer opponent (Task 12)
+
 
 additional features...
 
