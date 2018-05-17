@@ -239,7 +239,7 @@ public class Game extends Application {
         }
         alert.setTitle("End of the game");
         alert.setHeaderText(null);
-        alert.setContentText("The player " +(winner+1)+ " wins!");
+        alert.setContentText("Player " +(winner+1)+ " wins!");
         alert.show();
     }
 
