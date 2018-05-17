@@ -24,8 +24,13 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.util.*;
+
+/*
+ * Author: Qianru Zhu (u6416655), Hala Abdulaziz M Alsouly (u5995105), Xiao Tian (u6277077)
+ *
+ * This class implements a playable Warring States game in JavaFX and creates robert player
+ */
 
 import static comp1110.ass2.WarringStatesGame.*;
 
@@ -146,9 +151,7 @@ public class Game extends Application {
 
             }
         });
-
         s.setScene(new Scene(popup1));
-
         s.show();
     }
 
@@ -328,7 +331,6 @@ public class Game extends Application {
                         //move zy card to the new place, and change it is position
                         placement.cards[index].setCardPos(placement.cards[trans_i].getCardPos());
                         setFlags(collected,playerId);
-                        // placement.cards[index]=null;
                         for (String s : collected) {
                             int indexOfCard = placement.toString().indexOf(s);
                             char cardPos = placement.toString().charAt(indexOfCard + 2);

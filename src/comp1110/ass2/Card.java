@@ -1,5 +1,5 @@
 package comp1110.ass2;
-
+//created by Hala Abdulaziz M Alsouly (u5995105)
 import javafx.scene.paint.Color;
 
 public class Card {
@@ -7,15 +7,12 @@ public class Card {
     private Color cardColor;
     private char kingdom, ch, cardPos;
     public static String posChars="456789YZ0123STUVWXMNOPQRGHIJKLABCDEF";
-
-
     public Card(){}
     public Card(char k, char c, char pos){
         kingdom=k;
         ch=c;
         initCard(k,c);
         cardPos=pos;
-
     }
 
     public String getKingdomName() {
@@ -81,7 +78,6 @@ public class Card {
                         character= "King Zheng";
                         break;
                 }
-
                 break;
             case 'b':
                 kingdomName="齊";
@@ -205,8 +201,6 @@ public class Card {
                 cardColor=Color.LIGHTGRAY;
                 character= "Zhang Yi";
                 break;
-
         }
     }
-
 }
