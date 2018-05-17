@@ -28,7 +28,7 @@ import java.util.*;
 
 /*
  * Author: Qianru Zhu (u6416655), Hala Abdulaziz M Alsouly (u5995105), Xiao Tian (u6277077)
- *
+ *  
  * This class implements a playable Warring States game in JavaFX and creates robert player
  */
 
