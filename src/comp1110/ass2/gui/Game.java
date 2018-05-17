@@ -258,7 +258,7 @@ public class Game extends Application {
         GridPane kingdomAndError =new GridPane();
         board.getChildren().clear();
         kingdomAndError.getColumnConstraints().add(new ColumnConstraints(200));
-        kingdomAndError.getRowConstraints().add(new RowConstraints(100));
+        kingdomAndError.getRowConstraints().add(new RowConstraints(50));
         kingdomAndError.add(new Label("The power of kingdom:"),1,0);
         kingdomAndError.add(setKingdomPower(),1,1);
         for (int i = 0; i < 7; i++) {
