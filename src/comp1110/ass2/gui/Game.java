@@ -114,9 +114,16 @@ public class Game extends Application {
                 "3. The player takes the rule and wins a flag if she has the highest number of card from that kingdom, or she is the last one who collects cards if there is a draw.\n" +
                 "4. The winner is the player who has the highest number of flags.\n" +
                 "5. If 2 or more players draw, the winner is the player who has the most powerful kingdom.\n" +
-                "6. The kingdom's power is shown at the bottom of the board.");
+                "6. The kingdom's power is shown at the bottom of the board.\n");
+        Button ok=new Button("OK");
+        ok.setAlignment(Pos.CENTER);
         t.setWrappingWidth(390);
-        VBox popup = new VBox(t);
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                s.close();
+            }
+        });
+        VBox popup = new VBox(t,ok);
         popup.setPadding(new Insets(5, 5, 5, 5));
         s.setScene(new Scene(popup));
         s.show();
